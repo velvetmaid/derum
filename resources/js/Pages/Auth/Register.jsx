@@ -43,7 +43,6 @@ export default function Register() {
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
-
                     <TextInput
                         id="name"
                         name="name"
@@ -54,13 +53,11 @@ export default function Register() {
                         onChange={handleOnChange}
                         required
                     />
-
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="email" value="Email" />
-
                     <TextInput
                         id="email"
                         type="email"
@@ -71,27 +68,25 @@ export default function Register() {
                         onChange={handleOnChange}
                         required
                     />
-
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="role" value="Role" />
-
+                    <InputLabel htmlFor="role" value="Role" />
                     <select
                         name="role"
                         id="role"
-                        className="block w-full mt-1 rounded-md"
+                        className="mt-1 block w-full rounded-md"
                         onChange={handleOnChange}
                     >
                         <option value="fan">Fan</option>
                         <option value="artist">Artist</option>
                     </select>
+                    <InputError message={errors.role} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
-
                     <TextInput
                         id="password"
                         type="password"
@@ -102,7 +97,6 @@ export default function Register() {
                         onChange={handleOnChange}
                         required
                     />
-
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
@@ -111,7 +105,6 @@ export default function Register() {
                         htmlFor="password_confirmation"
                         value="Confirm Password"
                     />
-
                     <TextInput
                         id="password_confirmation"
                         type="password"
@@ -122,7 +115,6 @@ export default function Register() {
                         onChange={handleOnChange}
                         required
                     />
-
                     <InputError
                         message={errors.password_confirmation}
                         className="mt-2"
@@ -138,7 +130,7 @@ export default function Register() {
                     </Link>
 
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
+                        Sign Up
                     </PrimaryButton>
                 </div>
             </form>
