@@ -12,17 +12,7 @@ export default function Dashboard(props) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
-
-            {/* <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in as Artist
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+            <Head title={props.auth.user.name + " Dashboard"} />
 
             <div className="px-6 py-8">
                 <div className="max-w-4xl mx-auto">
@@ -129,7 +119,7 @@ export default function Dashboard(props) {
                                             </div>
                                         </div>
                                         <a
-                                            href="javascript:void(0)"
+                                            href=""
                                             className="font-bold hover:text-yellow-800 hover:underline"
                                         >
                                             Blog and social posts
@@ -158,7 +148,7 @@ export default function Dashboard(props) {
                                             </div>
                                         </div>
                                         <a
-                                            href="javascript:void(0)"
+                                            href=""
                                             className="font-bold hover:text-yellow-800 hover:underline"
                                         >
                                             New campaign review
@@ -187,7 +177,7 @@ export default function Dashboard(props) {
                                             </div>
                                         </div>
                                         <a
-                                            href="javascript:void(0)"
+                                            href=""
                                             className="font-bold hover:text-yellow-800 hover:underline"
                                         >
                                             Cross-platform and browser QA
