@@ -17,10 +17,10 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role)
     {
         if ($role == 'fan' && auth()->user()->role != 'fan') {
-            abort(403);
+            return redirect('/');
         }
         if ($role == 'artist' && auth()->user()->role != 'artist') {
-            abort(403);
+            return redirect('/');
         }
         return $next($request);
     }
