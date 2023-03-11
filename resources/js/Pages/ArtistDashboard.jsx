@@ -27,13 +27,13 @@ export default function Dashboard(props) {
             <div className="px-6 py-8">
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-white rounded-3xl p-8 mb-5">
-                        <h1 className="text-3xl font-bold mb-10">
-                            Welcome {props.auth.user.name}! This is your
+                        <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
+                            Welcome <span className="bg-[#04ddb4] text-[#0d2758] italic px-2">{props.auth.user.name}</span>! This is your
                             dashboard.
                         </h1>
                         <div className="flex items-center justify-between">
                             <div className="flex items-stretch"></div>
-                            <div className="flex items-center gap-x-2">
+                            <div className="flex items-center gap-x-2 mb-8 md:mb-0">
                                 <button
                                     type="button"
                                     className="inline-flex items-center justify-center h-9 px-3 rounded-xl border hover:border-gray-400 text-gray-800 hover:text-gray-900 transition"
