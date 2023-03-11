@@ -14,7 +14,18 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'turquoise': {
+                    // light: '',
+                    DEFAULT: '#04ddb4',
+                    // dark: '',
+                },
+                'blueNavy': {
+                    DEFAULT: '#0d2758',
+                }
+            },
         },
+
     },
 
     plugins: [require('@tailwindcss/forms')],
