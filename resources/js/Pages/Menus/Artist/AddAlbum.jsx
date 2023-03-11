@@ -1,7 +1,31 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Dashboard(props) {
+    const [text, setText] = useState(null);
+    const onChangeText = (event) => {
+        event.preventDefault();
+        setText(event.target.value);
+    };
+    const [date, setDate] = useState(null);
+    const onChangeDate = (event) => {
+        event.preventDefault();
+        setDate(event.target.value);
+    };
+    const [picture, setPicture] = useState(null);
+    const [imgPreview, setimgPreview] = useState(null);
+    const onChangePicture = (e) => {
+        if (e.target.files[0]) {
+            console.log("picture: ", e.target.files);
+            setPicture(e.target.files[0]);
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                setimgPreview(reader.result);
+            });
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    };
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -16,8 +40,23 @@ export default function Dashboard(props) {
 
             <div className="px-6 py-8">
                 <div className="max-w-4xl mx-auto">
-                    <div className="bg-white rounded-3xl p-8 mb-5">
-                        <div className="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10 mx-auto">
+                    <div className="bg-white rounded-3xl p-8 mb-5 flex flex-col md:flex-row">
+                        <div className="sm:max-w-lg w-auto p-10 bg-white rounded-xl z-10 mx-auto">
+                            <div className="flex w-auto h-[4rem] overflow-hidden border">
+                                <div className="w-[4rem] h-full">
+                                    <img className="object-cover w-full h-full" src={imgPreview} />
+                                </div>
+                                <div className="relative w-56 border-2 over">
+                                    <p className="pl-1 pt-1 text-xl">
+                                        {text}
+                                    </p>
+                                    <span className="pl-1 text-xs text-gray-500 absolute md:block bottom-1">
+                                        Relase date: <a>{date}</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sm:max-w-lg w-full bg-white rounded-xl z-10 mx-auto">
                             <div className="text-center">
                                 <h2 className="mt-5 text-3xl font-bold text-gray-900">
                                     Upload Album
@@ -39,6 +78,29 @@ export default function Dashboard(props) {
                                         className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                                         type=""
                                         placeholder="Your Album Title"
+                                        onChange={onChangeText}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-1 space-y-2">
+                                    <label className="text-sm font-bold text-gray-500 tracking-wide">
+                                        Release Date
+                                    </label>
+                                    <input
+                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                        type="date"
+                                        placeholder="Your Album Title"
+                                        onChange={onChangeDate}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-1 space-y-2">
+                                    <label className="text-sm font-bold text-gray-500 tracking-wide">
+                                        Album Art
+                                    </label>
+                                    <input
+                                        className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-gray-200 bg-clip-padding py-[0.32rem] px-3 text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-turquoise file:px-3 file:py-[0.32rem] file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] file:[border-inline-end-width:1px] hover:file:bg-green-300 focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] focus:shadow-primary focus:outline-none"
+                                        id=""
+                                        type="file"
+                                        onChange={onChangePicture}
                                     />
                                 </div>
                                 <div className="grid grid-cols-1 space-y-2">
@@ -90,7 +152,7 @@ export default function Dashboard(props) {
                                 <div>
                                     <button
                                         type="submit"
-                                        className="my-5 w-full flex justify-center bg-[#04ddb4] text-[#0d2758] p-4  rounded-full tracking-wide
+                                        className="my-5 w-full flex justify-center bg-turquoise text-blueNavy p-4  rounded-full tracking-wide
                                     font-semibold  focus:outline-none focus:shadow-outline hover:bg-[#00b896] shadow-lg cursor-pointer transition ease-in duration-200"
                                     >
                                         Upload
