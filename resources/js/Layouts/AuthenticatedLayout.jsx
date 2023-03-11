@@ -31,14 +31,21 @@ export default function Authenticated({ auth, header, children }) {
                                 {(() => {
                                     if (auth.user.role == "artist") {
                                         return (
-                                            <NavLink
+                                            <><NavLink
                                                 href={route("artistDashboard")}
                                                 active={route().current(
                                                     "artistDashboard"
                                                 )}
                                             >
                                                 Dashboard
-                                            </NavLink>
+                                            </NavLink><NavLink
+                                                href={route("artistAddAlbum")}
+                                                active={route().current(
+                                                    "artistAddAlbum"
+                                                )}
+                                            >
+                                                    Add Album
+                                                </NavLink></>
                                         );
                                     } else {
                                         return (
