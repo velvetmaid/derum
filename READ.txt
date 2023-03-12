@@ -13,3 +13,4 @@ Suggestions that im looking for as a reference:
 1. Use the same users table to store buyer/seller information
 2. https://www.youtube.com/watch?v=_5mRpvjve-E upload music file laravel
 3. just create 2 different login form 
+4. https://www.itsolutionstuff.com/post/react-native-if-condition-in-render-exampleexample.html - react conditional
