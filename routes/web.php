@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistAlbumController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::inertia('/fanDashboard', 'FanDashboard')->name('fanDashboard');
     });
     Route::group(['middleware' => 'checkRole:artist'], function () {
+        Route::resource('/artistAddAlbum', ArtistAlbumController::class);
         Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
         Route::inertia('/artistAddAlbum', 'Menus/Artist/AddAlbum')->name('artistAddAlbum');
     });
