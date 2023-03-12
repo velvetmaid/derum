@@ -1,42 +1,36 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
-import "../../../../css/main.css";
+import "@/../css/main.css";
 
 export default function Dashboard(props) {
-    const [albumText, setAlbumText] = useState(null);
-    const onChangeAlbumText = (event) => {
-        event.preventDefault();
-        setAlbumText(event.target.value);
-    };
-    const [date, setDate] = useState(null);
-    const onChangeDate = (event) => {
-        event.preventDefault();
-        setDate(event.target.value);
-    };
-    const [artistText, setArtistText] = useState(null);
-    const onChangeArtistText = (event) => {
-        event.preventDefault();
-        setArtistText(event.target.value);
-    };
-    const [picture, setPicture] = useState(null);
-    const [imgPreview, setimgPreview] = useState(null);
-    const onChangePicture = (e) => {
-        if (e.target.files[0]) {
-            console.log("picture: ", e.target.files);
-            setPicture(e.target.files[0]);
-            const reader = new FileReader();
-            reader.addEventListener("load", () => {
-                setimgPreview(reader.result);
-            });
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    };
-    const [priceText, setPriceText] = useState(null);
-    const onChangePriceText = (event) => {
-        event.preventDefault();
-        setPriceText(event.target.value);
+    const [data, setData] = useState({
+        album_title: "",
+        album_release_date: "",
+        album_art: "",
+        album_artist_name: "",
+        album_price: "",
+    });
+
+    const [coverArtPreview, setCoverArtPreview] = useState();
+    function handleChange(e) {
+        const key = e.target.id;
+        const value = e.target.value;
+        setData((data) => ({
+            ...data,
+            [key]: value,
+        }));
+            // console.log(e.target.files);
+            
+            /* Uncaught TypeError: Cannot read properties of null (reading '0') */
+            setCoverArtPreview(URL.createObjectURL(e.target.files[0]));
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        router.post("/users", values);
+    }
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -62,22 +56,24 @@ export default function Dashboard(props) {
                                     />
                                     <img
                                         className="object-cover w-[4rem] h-full z-50 rounded-md"
-                                        src={imgPreview}
-                                        alt={albumText}
+                                        src={coverArtPreview}
+                                        alt={coverArtPreview}
                                     />
                                 </div>
                                 <div className="relative md:w-56 w-full over overflow-hidden">
-                                    <p className="pl-1 text-xl">{albumText}</p>
+                                    <p className="pl-1 text-xl">
+                                        {data.album_title}
+                                    </p>
                                     <span className="pl-1 absolute bottom-5 text-xs">
-                                        by: {artistText}
+                                        by: {data.album_artist_name}
                                     </span>
                                     <span className="pl-1 text-xs text-gray-500 absolute md:block bottom-1">
-                                        Relase date: {date}
+                                        Relase date: {data.album_release_date}
                                     </span>
                                 </div>
                             </div>
-                                <p className="text-center text-gray-500">
-                                    Price: Rp.{priceText}
+                            <p className="text-center text-gray-500">
+                                Price: Rp.{data.album_price}
                             </p>
                         </div>
                         <div className="sm:max-w-lg w-full bg-white rounded-xl z-10 mx-auto">
@@ -91,18 +87,20 @@ export default function Dashboard(props) {
                             </div>
                             <form
                                 className="mt-8 space-y-3"
-                                action="#"
-                                method="POST"
+                                onSubmit={handleSubmit}
                             >
                                 <div className="grid grid-cols-1 space-y-2">
                                     <label className="text-sm font-bold text-gray-500 tracking-wide">
                                         Album Title
                                     </label>
                                     <input
+                                        id="album_title"
                                         className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                        type=""
+                                        type="text"
+                                        name="album_title"
+                                        value={data.album_title}
                                         placeholder="Your Album Title"
-                                        onChange={onChangeAlbumText}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="flex flex-col md:flex-row space-x-1 space-y-2">
@@ -111,10 +109,13 @@ export default function Dashboard(props) {
                                             Release Date
                                         </label>
                                         <input
+                                            id="album_release_date"
                                             className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                                             type="date"
+                                            name="album_release_date"
+                                            value={data.album_release_date}
                                             placeholder="Your Album Title"
-                                            onChange={onChangeDate}
+                                            onChange={handleChange}
                                         />
                                     </div>
                                     <div className="grid grid-cols-1 space-y-2 md:w-2/3">
@@ -122,9 +123,12 @@ export default function Dashboard(props) {
                                             Album Art
                                         </label>
                                         <input
+                                            id="album_art"
                                             className="relative text-base block flex-auto cursor-pointer rounded-lg border border-solid border-gray-200 bg-clip-padding px-3 font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:cursor-pointer file:overflow-hidden file:rounded-md file:border-0 file:border-solid file:border-inherit file:bg-turquoise file:px-3 file:py-2 file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] hover:file:bg-green-300 focus:shadow-primary focus:outline-none"
                                             type="file"
-                                            onChange={onChangePicture}
+                                            name="album_art"
+                                            value={data.album_art}
+                                            onChange={handleChange}
                                         />
                                     </div>
                                 </div>
@@ -133,10 +137,13 @@ export default function Dashboard(props) {
                                         Artist Name
                                     </label>
                                     <input
+                                        id="album_artist_name"
                                         className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                                         type=""
+                                        name="album_artist_name"
+                                        value={data.album_artist_name}
                                         placeholder="Your Artits Name"
-                                        onChange={onChangeArtistText}
+                                        onChange={handleChange}
                                     />
                                 </div>
 
@@ -149,10 +156,13 @@ export default function Dashboard(props) {
                                             Rp.
                                         </p>
                                         <input
+                                            id="album_price"
                                             className="text-base w-full p-2 border-0 border-gray-300 rounded-lg focus:outline-none focus:shadow-none"
                                             type="number"
+                                            name="album_price"
+                                            value={data.album_price}
                                             placeholder="enter zero or more (e.g., 0, 10000"
-                                            onChange={onChangePriceText}
+                                            onChange={handleChange}
                                         />
                                     </div>
                                 </div>
