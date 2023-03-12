@@ -18,7 +18,7 @@ export default function Dashboard(props) {
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-white rounded-3xl p-8 mb-5">
                         <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
-                            Welcome <span className="bg-turquoise text-blueNavy italic px-2">{props.auth.user.name}</span>! This is your
+                            Welcome <span className="bg-[#04ddb4] text-[#0d2758] italic px-2">{props.auth.user.name}</span>! This is your
                             dashboard.
                         </h1>
                         <div className="flex items-center justify-between">
@@ -58,12 +58,12 @@ export default function Dashboard(props) {
                                     <div className="col-span-2">
                                         <div className="p-4 bg-green-100 rounded-xl flex justify-around">
                                             <div>
-                                                <a href={route("artistAddAlbum")}
+                                                <button
                                                     type="button"
                                                     className="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition"
                                                 >
                                                     Add an album
-                                                </a>
+                                                </button>
                                             </div>
                                             <div>
                                                 <button

@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'checkRole:artist'], function () {
         Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
         Route::inertia('/artistAddAlbum', 'Menus/Artist/AddAlbum')->name('artistAddAlbum');
-        Route::inertia('/artistAddSong', 'Menus/Artist/AddSong')->name('artistAddSong');
     });
 });
 require __DIR__ . '/auth.php';
