@@ -25,17 +25,21 @@ class ArtistAlbumController extends Controller
             'album_price' => 'required',
         ])->validate();
 
-        $input = $request->all();
-
+        $albumArt = '';
         if ($image = $request->file('album_art')) {
             $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
+            $albumArtName = date('YmdHis') . "." . $image->getClientOriginalName();
+            $image->move($destinationPath, $albumArtName);
+            $albumArt = "$albumArtName";
         }
 
-        ArtistAlbum::create($input);
-
+        ArtistAlbum::create([
+            'album_title' => $request->album_title,
+            'album_release_date' => $request->album_release_date,
+            'album_art' => $albumArt,
+            'album_artist_name' => $request->album_artist_name,
+            'album_price' => $request->album_price,
+        ]);
         return redirect()->route('artistDashboard');
     }
 }
