@@ -62,20 +62,20 @@ export default function Dashboard(props) {
                                 </div>
                                 <div className="relative md:w-56 w-full over overflow-hidden">
                                     <p className="pl-1 text-xl">
-                                        {/* value={handleChange} */}
+                                        {data.album_title}
                                     </p>
                                     <span className="pl-1 absolute bottom-5 text-xs">
-                                        by: 
+                                        by:
                                         {/* value={handleChange} */}
                                     </span>
                                     <span className="pl-1 text-xs text-gray-500 absolute md:block bottom-1">
-                                        Relase date: 
-                                        {/* value={handleChange} */}
+                                        Relase date:
+                                        {data.album_art}
                                     </span>
                                 </div>
                             </div>
                             <p className="text-center text-gray-500">
-                                Price: Rp. 
+                                Price: Rp.
                                 {/* value={handleChange} */}
                             </p>
                         </div>
@@ -116,7 +116,7 @@ export default function Dashboard(props) {
                                         <input
                                             id="album_release_date"
                                             className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                            type="text"
+                                            type="date"
                                             name="album_release_date"
                                             value={data.album_release_date}
                                             placeholder="Your Album Title"
@@ -130,7 +130,7 @@ export default function Dashboard(props) {
                                         <input
                                             id="album_art"
                                             className="relative text-base block flex-auto cursor-pointer rounded-lg border border-solid border-gray-200 bg-clip-padding px-3 font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:cursor-pointer file:overflow-hidden file:rounded-md file:border-0 file:border-solid file:border-inherit file:bg-turquoise file:px-3 file:py-2 file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] hover:file:bg-green-300 focus:shadow-primary focus:outline-none"
-                                            type="text"
+                                            type="file"
                                             name="album_art"
                                             value={data.album_art}
                                             onChange={handleChange}
