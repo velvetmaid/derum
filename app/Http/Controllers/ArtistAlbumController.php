@@ -17,23 +17,20 @@ class ArtistAlbumController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'album_title' => ['required'],
-            'album_release_date' => ['required'],
-            'album_art' => ['required'],
-            'album_artist_name' => ['required'],
-            'album_price' => ['required'],
+            'album_title' => 'required',
+            'album_release_date' => 'required',
+            'album_art' => 'required',
+            'album_artist_name' => 'required',
+            'album_price' => 'required',
         ])->validate();
-
-        $image_name = time() . '.' . $request->album_art->extension();
-        $request->file->move(public_path('uploads'), $image_name);
 
         ArtistAlbum::create([
             'album_title' => $request->album_title,
             'album_release_date' => $request->album_release_date,
-            'album_art' => $image_name,
+            'album_art' => $request->album_art,
             'album_artist_name' => $request->album_artist_name,
             'album_price' => $request->album_price,
         ]);
-        return redirect()->route('/artistDashboard');
+        return redirect()->route('artistDashboard');
     }
 }

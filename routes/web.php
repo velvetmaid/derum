@@ -46,9 +46,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::inertia('/fanDashboard', 'FanDashboard')->name('fanDashboard');
     });
     Route::group(['middleware' => 'checkRole:artist'], function () {
-        Route::resource('/artistAddAlbum', ArtistAlbumController::class);
+        Route::controller(ArtistAlbumController::class)->group(function () {
+            Route::get('/artistAddAlbum/create', 'create')->name('artistAddAlbum.create');
+            Route::post('/artistAddAlbum/store', 'store')->name('artistAddAlbum.store');
+            // Route::get('/artistAddAlbum.{...}.edit', 'edit')->name('artistAddAlbum.edit');
+            // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
+        });
+
+        // Route::resource('/artistAddAlbum', ArtistAlbumController::class);
         Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
-        Route::inertia('/artistAddAlbum', 'Menus/Artist/AddAlbum')->name('artistAddAlbum');
+        // Route::inertia('/artistAddAlbum', 'Menus/Artist/AddAlbum')->name('artistAddAlbum');
     });
 });
 require __DIR__ . '/auth.php';

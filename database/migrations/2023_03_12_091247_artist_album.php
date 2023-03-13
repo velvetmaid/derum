@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('artist_album', function (Blueprint $table) {
             $table->id();
             $table->string('album_title');
-            $table->timestamp('album_release_date')->nullable();
-            $table->binary('album_art');
+            $table->string('album_release_date')->nullable();
+            $table->string('album_art');
             $table->string('album_artist_name');
             $table->bigInteger('album_price');
         });
