@@ -1,42 +1,9 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
-import "../../../../css/main.css";
+import FormAddAlbum from "./FormAddAlbum";
+import "@/../css/main.css";
 
 export default function Dashboard(props) {
-    const [albumText, setAlbumText] = useState(null);
-    const onChangeAlbumText = (event) => {
-        event.preventDefault();
-        setAlbumText(event.target.value);
-    };
-    const [date, setDate] = useState(null);
-    const onChangeDate = (event) => {
-        event.preventDefault();
-        setDate(event.target.value);
-    };
-    const [artistText, setArtistText] = useState(null);
-    const onChangeArtistText = (event) => {
-        event.preventDefault();
-        setArtistText(event.target.value);
-    };
-    const [picture, setPicture] = useState(null);
-    const [imgPreview, setimgPreview] = useState(null);
-    const onChangePicture = (e) => {
-        if (e.target.files[0]) {
-            console.log("picture: ", e.target.files);
-            setPicture(e.target.files[0]);
-            const reader = new FileReader();
-            reader.addEventListener("load", () => {
-                setimgPreview(reader.result);
-            });
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    };
-    const [priceText, setPriceText] = useState(null);
-    const onChangePriceText = (event) => {
-        event.preventDefault();
-        setPriceText(event.target.value);
-    }
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -62,22 +29,27 @@ export default function Dashboard(props) {
                                     />
                                     <img
                                         className="object-cover w-[4rem] h-full z-50 rounded-md"
-                                        src={imgPreview}
-                                        alt={albumText}
+                                        // {coverArtPreview}
+                                        // {coverArtPreview}
                                     />
                                 </div>
                                 <div className="relative md:w-56 w-full over overflow-hidden">
-                                    <p className="pl-1 text-xl">{albumText}</p>
+                                    <p className="pl-1 text-xl">
+                                        {/* {data.album_title} */}
+                                    </p>
                                     <span className="pl-1 absolute bottom-5 text-xs">
-                                        by: {artistText}
+                                        by:
+                                        {/* value={handleChange} */}
                                     </span>
                                     <span className="pl-1 text-xs text-gray-500 absolute md:block bottom-1">
-                                        Relase date: {date}
+                                        Relase date:
+                                        {/* {data.album_art} */}
                                     </span>
                                 </div>
                             </div>
-                                <p className="text-center text-gray-500">
-                                    Price: Rp.{priceText}
+                            <p className="text-center text-gray-500">
+                                Price: Rp.
+                                {/* value={handleChange} */}
                             </p>
                         </div>
                         <div className="sm:max-w-lg w-full bg-white rounded-xl z-10 mx-auto">
@@ -89,84 +61,10 @@ export default function Dashboard(props) {
                                     Lorem ipsum is placeholder text.
                                 </p>
                             </div>
-                            <form
-                                className="mt-8 space-y-3"
-                                action="#"
-                                method="POST"
-                            >
-                                <div className="grid grid-cols-1 space-y-2">
-                                    <label className="text-sm font-bold text-gray-500 tracking-wide">
-                                        Album Title
-                                    </label>
-                                    <input
-                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                        type=""
-                                        placeholder="Your Album Title"
-                                        onChange={onChangeAlbumText}
-                                    />
-                                </div>
-                                <div className="flex flex-col md:flex-row space-x-1 space-y-2">
-                                    <div className="grid grid-cols-1 space-y-2 md:w-1/2">
-                                        <label className="text-sm font-bold text-gray-500 tracking-wide">
-                                            Release Date
-                                        </label>
-                                        <input
-                                            className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                            type="date"
-                                            placeholder="Your Album Title"
-                                            onChange={onChangeDate}
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-1 space-y-2 md:w-2/3">
-                                        <label className="text-sm font-bold text-gray-500 tracking-wide">
-                                            Album Art
-                                        </label>
-                                        <input
-                                            className="relative text-base block flex-auto cursor-pointer rounded-lg border border-solid border-gray-200 bg-clip-padding px-3 font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:cursor-pointer file:overflow-hidden file:rounded-md file:border-0 file:border-solid file:border-inherit file:bg-turquoise file:px-3 file:py-2 file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] hover:file:bg-green-300 focus:shadow-primary focus:outline-none"
-                                            type="file"
-                                            onChange={onChangePicture}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-1 space-y-2">
-                                    <label className="text-sm font-bold text-gray-500 tracking-wide">
-                                        Artist Name
-                                    </label>
-                                    <input
-                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                        type=""
-                                        placeholder="Your Artits Name"
-                                        onChange={onChangeArtistText}
-                                    />
-                                </div>
 
-                                <div className="grid grid-cols-1 space-y-2">
-                                    <label className="text-sm font-bold text-gray-500 tracking-wide">
-                                        Price
-                                    </label>
-                                    <div className="flex border rounded-lg">
-                                        <p className="self-center pl-2 text-gray-500">
-                                            Rp.
-                                        </p>
-                                        <input
-                                            className="text-base w-full p-2 border-0 border-gray-300 rounded-lg focus:outline-none focus:shadow-none"
-                                            type="number"
-                                            placeholder="enter zero or more (e.g., 0, 10000"
-                                            onChange={onChangePriceText}
-                                        />
-                                    </div>
-                                </div>
+                            <FormAddAlbum />
 
-                                <div>
-                                    <button
-                                        type="submit"
-                                        className="my-5 w-full flex justify-center bg-turquoise text-blueNavy p-4  rounded-full tracking-wide
-                                    font-semibold  focus:outline-none focus:shadow-outline hover:bg-[#00b896] shadow-lg cursor-pointer transition ease-in duration-200"
-                                    >
-                                        Next
-                                    </button>
-                                </div>
-                            </form>
+                            {/* FORM */}
                         </div>
                     </div>
                 </div>

@@ -13,3 +13,8 @@ Suggestions that im looking for as a reference:
 1. Use the same users table to store buyer/seller information
 2. https://www.youtube.com/watch?v=_5mRpvjve-E upload music file laravel
 3. just create 2 different login form 
+4. dynamical page - https://laracasts.com/discuss/channels/eloquent/dynamically-load-views-partials-laravel
+5. inertia post - https://laracasts.com/discuss/channels/inertia/inertiapost-not-working-where-axiospost-does, 
+https://laracasts.com/discuss/channels/inertia/routes-not-working-inertia-with-react
+6. https://stackoverflow.com/questions/44647180/call-to-a-member-function-move-on-string - Call to a member function move() on string [closed]
+7. 
