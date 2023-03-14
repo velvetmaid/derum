@@ -3,7 +3,7 @@ import { Head, useForm } from "@inertiajs/react";
 import "@/../css/main.css";
 
 export default function Dashboard(props) {
-    const { data, setData, post } = useForm({
+    const { data, setData, post, progress, errors } = useForm({
         album_title: null,
         album_release_date: null,
         album_art: null,
@@ -194,6 +194,46 @@ export default function Dashboard(props) {
                                 </div>
 
                                 <div>
+                                    {progress && (
+                                        <progress
+                                            value={progress.percentage}
+                                            max="100"
+                                        >
+                                            {progress.percentage}%
+                                        </progress>
+                                    )}
+                                    {(errors.album_title && (
+                                        <span className="text-rose-500 text-xs">
+                                            Looks like you missed entering album
+                                            title
+                                        </span>
+                                    )) ||
+                                        (errors.album_release_date && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                release date
+                                            </span>
+                                        )) ||
+                                        (errors.album_art && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                album art or enter an image not
+                                                up to 1 Mb
+                                            </span>
+                                        )) ||
+                                        (errors.album_artist_name && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                artist name
+                                            </span>
+                                        )) ||
+                                        (errors.album_price && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                price, make sure to input with
+                                                number
+                                            </span>
+                                        ))}
                                     <button
                                         type="submit"
                                         className="my-5 w-full flex justify-center bg-turquoise text-blueNavy p-4  rounded-full tracking-wide font-semibold  focus:outline-none focus:shadow-outline hover:bg-[#00b896] shadow-lg cursor-pointer transition ease-in duration-200"
