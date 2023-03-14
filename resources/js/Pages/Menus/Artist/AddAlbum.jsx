@@ -3,7 +3,7 @@ import { Head, useForm } from "@inertiajs/react";
 import "@/../css/main.css";
 
 export default function Dashboard(props) {
-    const { data, setData, post } = useForm({
+    const { data, setData, post, progress, errors } = useForm({
         album_title: null,
         album_release_date: null,
         album_art: null,
@@ -41,7 +41,19 @@ export default function Dashboard(props) {
                                     /> */}
                                     <img
                                         className="object-cover w-[4rem] h-full z-50 rounded-md"
-                                        src={data.album_art? URL.createObjectURL(data.album_art) : null} alt={data.album_art? 'Cover Art ' + data.album_title : null}
+                                        src={
+                                            data.album_art
+                                                ? URL.createObjectURL(
+                                                      data.album_art
+                                                  )
+                                                : null
+                                        }
+                                        alt={
+                                            data.album_art
+                                                ? "Cover Art " +
+                                                  data.album_title
+                                                : null
+                                        }
                                     />
                                 </div>
                                 <div className="relative md:w-56 w-full over overflow-hidden">
@@ -84,7 +96,7 @@ export default function Dashboard(props) {
                                     </label>
                                     <input
                                         id="album_title"
-                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-turquoise"
                                         type="text"
                                         name="album_title"
                                         value={data.album_title}
@@ -104,7 +116,7 @@ export default function Dashboard(props) {
                                         </label>
                                         <input
                                             id="album_release_date"
-                                            className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                            className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-turquoise"
                                             type="date"
                                             name="album_release_date"
                                             value={data.album_release_date}
@@ -142,7 +154,7 @@ export default function Dashboard(props) {
                                     </label>
                                     <input
                                         id="album_artist_name"
-                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-turquoise"
                                         type=""
                                         name="album_artist_name"
                                         value={data.album_artist_name}
@@ -182,6 +194,46 @@ export default function Dashboard(props) {
                                 </div>
 
                                 <div>
+                                    {progress && (
+                                        <progress
+                                            value={progress.percentage}
+                                            max="100"
+                                        >
+                                            {progress.percentage}%
+                                        </progress>
+                                    )}
+                                    {(errors.album_title && (
+                                        <span className="text-rose-500 text-xs">
+                                            Looks like you missed entering album
+                                            title
+                                        </span>
+                                    )) ||
+                                        (errors.album_release_date && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                release date
+                                            </span>
+                                        )) ||
+                                        (errors.album_art && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                album art or enter an image not
+                                                up to 1 Mb
+                                            </span>
+                                        )) ||
+                                        (errors.album_artist_name && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                artist name
+                                            </span>
+                                        )) ||
+                                        (errors.album_price && (
+                                            <span className="text-rose-500 text-xs">
+                                                Looks like you missed entering
+                                                price, make sure to input with
+                                                number
+                                            </span>
+                                        ))}
                                     <button
                                         type="submit"
                                         className="my-5 w-full flex justify-center bg-turquoise text-blueNavy p-4  rounded-full tracking-wide font-semibold  focus:outline-none focus:shadow-outline hover:bg-[#00b896] shadow-lg cursor-pointer transition ease-in duration-200"
