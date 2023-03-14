@@ -41,7 +41,19 @@ export default function Dashboard(props) {
                                     /> */}
                                     <img
                                         className="object-cover w-[4rem] h-full z-50 rounded-md"
-                                        src={data.album_art? URL.createObjectURL(data.album_art) : null} alt={data.album_art? 'Cover Art ' + data.album_title : null}
+                                        src={
+                                            data.album_art
+                                                ? URL.createObjectURL(
+                                                      data.album_art
+                                                  )
+                                                : null
+                                        }
+                                        alt={
+                                            data.album_art
+                                                ? "Cover Art " +
+                                                  data.album_title
+                                                : null
+                                        }
                                     />
                                 </div>
                                 <div className="relative md:w-56 w-full over overflow-hidden">
@@ -84,7 +96,7 @@ export default function Dashboard(props) {
                                     </label>
                                     <input
                                         id="album_title"
-                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-turquoise"
                                         type="text"
                                         name="album_title"
                                         value={data.album_title}
@@ -104,7 +116,7 @@ export default function Dashboard(props) {
                                         </label>
                                         <input
                                             id="album_release_date"
-                                            className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                            className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-turquoise"
                                             type="date"
                                             name="album_release_date"
                                             value={data.album_release_date}
@@ -142,7 +154,7 @@ export default function Dashboard(props) {
                                     </label>
                                     <input
                                         id="album_artist_name"
-                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-turquoise"
                                         type=""
                                         name="album_artist_name"
                                         value={data.album_artist_name}
