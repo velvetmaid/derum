@@ -29,7 +29,7 @@ export default function Navbar() {
                                         <div className="hidden w-full sm:flex sm:flex-row sm:items-center sm:justify-between ">
                                             <div className="flex flex-row items-center space-x-8">
                                                 <Link
-                                                    href={route("dashboard")}
+                                                    href="/"
                                                     className="font-medium text-gray-500 hover:text-gray-900"
                                                 >
                                                     Home
@@ -38,7 +38,7 @@ export default function Navbar() {
                                                     href={route("dashboard")}
                                                     className="font-medium text-gray-500 hover:text-gray-900"
                                                 >
-                                                    Main
+                                                    Dashboard
                                                 </Link>
                                             </div>
                                             <div className="flex flex-row items-center space-x-8">
@@ -76,7 +76,7 @@ export default function Navbar() {
                                         <div className="hidden w-full sm:flex sm:flex-row sm:items-center sm:justify-between ">
                                             <div className="flex flex-row items-center space-x-8">
                                                 <Link
-                                                    href={route("dashboard")}
+                                                    href="/"
                                                     className="font-medium text-gray-500 hover:text-gray-900"
                                                 >
                                                     Home
@@ -85,7 +85,7 @@ export default function Navbar() {
                                                     href={route("dashboard")}
                                                     className="font-medium text-gray-500 hover:text-gray-900"
                                                 >
-                                                    Main
+                                                    Dashboard
                                                 </Link>
                                             </div>
                                             <div className="flex flex-row items-center space-x-8">
@@ -138,9 +138,7 @@ export default function Navbar() {
                                             <>
                                                 <div className="flex flex-col px-2 pt-2 pb-2 space-y-5">
                                                     <Link
-                                                        href={route(
-                                                            "dashboard"
-                                                        )}
+                                                        href="/"
                                                         className="font-medium text-gray-500 hover:text-gray-900"
                                                     >
                                                         Home
@@ -151,7 +149,7 @@ export default function Navbar() {
                                                         )}
                                                         className="font-medium text-gray-500 hover:text-gray-900"
                                                     >
-                                                        Main
+                                                        Dahboard
                                                     </Link>
                                                 </div>
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
@@ -176,9 +174,7 @@ export default function Navbar() {
                                             <>
                                                 <div className="flex flex-col px-2 pt-2 pb-2 space-y-5">
                                                     <Link
-                                                        href={route(
-                                                            "dashboard"
-                                                        )}
+                                                        href="/"
                                                         className="font-medium text-gray-500 hover:text-gray-900"
                                                     >
                                                         Home
@@ -189,7 +185,7 @@ export default function Navbar() {
                                                         )}
                                                         className="font-medium text-gray-500 hover:text-gray-900"
                                                     >
-                                                        Main
+                                                        Dahboard
                                                     </Link>
                                                 </div>
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
