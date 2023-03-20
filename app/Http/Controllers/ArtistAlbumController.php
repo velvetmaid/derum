@@ -10,6 +10,13 @@ use Inertia\Inertia;
 
 class ArtistAlbumController extends Controller
 {
+    public function index()
+    {
+        $posts = ArtistAlbum::all();
+        // dd($posts);
+        return Inertia::render('Welcome', ['posts' => $posts]);
+    }
+
     public function create()
     {
         return Inertia::render('Menus/Artist/AddAlbum');
