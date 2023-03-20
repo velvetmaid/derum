@@ -27,7 +27,7 @@ class ArtistAlbumController extends Controller
 
         $albumArt = '';
         if ($image = $request->file('album_art')) {
-            $destinationPath = 'images/';
+            $destinationPath = 'images/content/albums';
             $albumArtName = date('YmdHis') . "." . $image->getClientOriginalName();
             $image->move($destinationPath, $albumArtName);
             $albumArt = "$albumArtName";
