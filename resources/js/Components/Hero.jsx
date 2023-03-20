@@ -9,21 +9,21 @@ export default function Hero() {
                 </p>
                 <div className="items-center justify-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex md:justify-start">
                     <a
-                        className="block px-6 py-2 text-center bg-blueNavy hover:scale-110 transition-all text-gray-100 dark:bg-yellow-500 dark:text-blueNavy rounded-md cursor-pointer"
+                        className="block px-6 py-2 text-center bg-blueNavy hover:scale-105 transition-all duration-300 text-gray-100 dark:bg-yellow-500 dark:text-blueNavy rounded-md cursor-pointer"
                     >
                         Start
                     </a>
                     <a
-                        className="block px-4 py-2 text-center rounded-md cursor-pointer relative before:content-[''] before:absolute before:block before:w-full before:h-[2px] 
-                        before:bottom-2 before:left-0 before:bg-blueNavy dark:before:bg-gray-100
-                        before:hover:scale-x-100 before:scale-x-0 before:origin-top-left
-                        before:transition before:ease-in-out before:duration-300"
+                        className="block px-4 py-2 text-center rounded-md cursor-pointer md:relative md:before:content-[''] md:before:absolute md:before:block md:before:w-full md:before:h-[2px] 
+                        md:before:bottom-2 md:before:left-0 md:before:bg-blueNavy dark:md:before:bg-gray-100
+                        md:before:hover:scale-x-100 md:before:scale-x-0 md:before:origin-top-left
+                        md:before:transition md:before:ease-in-out md:before:duration-300"
                     >
                         See More
                     </a>
                 </div>
             </div>
-            <div bg-hero className="flex-1 sm:text-center md:text-left">
+            <div className="flex-1 sm:text-center md:text-left">
             <img className="w-full mx-auto sm:w-10/12 md:w-full block dark:hidden" src="./images/main/hero-light.svg" />
             <img className="w-full mx-auto sm:w-10/12 md:w-full hidden dark:block" src="./images/main/hero-dark.svg" />
             </div>
