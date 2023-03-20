@@ -20,6 +20,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@heroicons/react": "^1.0.6"
+        "@heroicons/react": "^1.0.6",
+        "@splidejs/react-splide": "^0.7.12"
     }
 }
