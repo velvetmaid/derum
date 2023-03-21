@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtistAlbumController;
+use App\Http\Controllers\ArtistSongController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -46,7 +47,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'checkRole:fan'], function () {
         Route::inertia('/fanDashboard', 'FanDashboard')->name('fanDashboard');
     });
+
     Route::group(['middleware' => 'checkRole:artist'], function () {
+        Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
+
         Route::controller(ArtistAlbumController::class)->group(function () {
             Route::get('/artistAddAlbum/create', 'create')->name('artistAddAlbum.create');
             Route::post('/artistAddAlbum/store', 'store')->name('artistAddAlbum.store');
@@ -54,9 +58,9 @@ Route::group(['middleware' => 'auth'], function () {
             // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
         });
 
-        // Route::resource('/artistAddAlbum', ArtistAlbumController::class);
-        Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
-        // Route::inertia('/artistAddAlbum', 'Menus/Artist/AddAlbum')->name('artistAddAlbum');
+        Route::controller(ArtistSongController::class)->group(function () {
+            Route::get('/artistAddSong/create', 'create')->name('artistAddSong.create');
+        });
     });
 });
 require __DIR__ . '/auth.php';
