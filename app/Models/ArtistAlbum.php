@@ -21,6 +21,7 @@ class ArtistAlbum extends Model
         'album_art',
         'album_artist_name',
         'album_price',
+        'album_user_id'
     ];
 
     public function artist_songs(): HasMany

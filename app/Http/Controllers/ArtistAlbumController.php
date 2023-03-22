@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ArtistAlbum;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -17,6 +19,12 @@ class ArtistAlbumController extends Controller
         return Inertia::render('Welcome', ['posts' => $posts]);
     }
 
+    public function artistIndex()
+    {
+        $posts = ArtistAlbum::where('album_user_id', Auth::id())->get();
+
+        return Inertia::render('Menus/Artist/ArtistDashboard', ['posts' => $posts]);
+    }
     public function create()
     {
         return Inertia::render('Menus/Artist/AddAlbum');
@@ -30,6 +38,7 @@ class ArtistAlbumController extends Controller
             'album_art' => 'required|mimes:jpeg,jpg,png',
             'album_artist_name' => 'required',
             'album_price' => 'required',
+            'album_user_id' => 'required',
         ])->validate();
 
         $albumArt = '';
@@ -46,7 +55,9 @@ class ArtistAlbumController extends Controller
             'album_art' => $albumArt,
             'album_artist_name' => $request->album_artist_name,
             'album_price' => $request->album_price,
+            'album_user_id' => $request->user()->id,
         ]);
+
         return redirect()->route('artistDashboard');
     }
 }
