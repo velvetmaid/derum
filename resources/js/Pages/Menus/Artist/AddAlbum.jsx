@@ -9,6 +9,7 @@ export default function Dashboard(props) {
         album_art: null,
         album_artist_name: null,
         album_price: null,
+        album_user_id: props.auth.user.id,
     });
 
     function submit(e) {
@@ -34,11 +35,6 @@ export default function Dashboard(props) {
                         <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white rounded-xl z-10 mx-auto">
                             <div className="flex w-full md:w-max h-[4rem] border-2 rounded-md mx-auto">
                                 <div className="relative w-[4rem] h-full  p-1">
-                                    {/* <img
-                                        className="absolute -z-50 w-8 top-[25%] left-[19%] md:left-[25%] opacity-20"
-                                        src="https://cdn-icons-png.flaticon.com/512/739/739249.png"
-                                        alt="Before Preview"
-                                    /> */}
                                     <img
                                         className="object-cover w-[4rem] h-full z-50 rounded-md"
                                         src={
