@@ -1,8 +1,7 @@
+import { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import "@/../css/main.css";
-import { useEffect } from "react";
-import { useState } from "react";
 
 export default function PopularSlide({ posts }) {
     const [width, setWidth] = useState(window.innerWidth);
@@ -37,27 +36,30 @@ export default function PopularSlide({ posts }) {
                             return (
                                 <>
                                     <SplideSlide key={post.id}>
-                                    <div className="flex flex-col w-full h-full">
-                                        <a href="" className="w-full h-full">
-                                            <img
-                                                className="px-2 md:px-4 object-cover w-full h-full relative"
-                                                src={
-                                                    "images/content/albums/" +
-                                                    post.album_art
-                                                }
-                                                alt={post.album_title}
-                                            />
-                                        </a>
-                                        <div className="px-4 flex flex-col -space-y-1">
-                                            <span className="font-robotocondensed">
-                                                {post.album_title}
-                                            </span>
-                                            <span className="font-sofiacondensed text-xs">
-                                                by: {post.album_artist_name}
-                                            </span>
+                                        <div className="flex flex-col w-full h-full">
+                                            <a
+                                                href=""
+                                                className="w-full h-full"
+                                            >
+                                                <img
+                                                    className="px-2 md:px-4 object-cover w-full h-full relative"
+                                                    src={
+                                                        "images/content/albums/" +
+                                                        post.album_art
+                                                    }
+                                                    alt={post.album_title}
+                                                />
+                                            </a>
+                                            <div className="px-4 flex flex-col -space-y-1">
+                                                <span className="font-robotocondensed">
+                                                    {post.album_title}
+                                                </span>
+                                                <span className="font-sofiacondensed text-xs">
+                                                    by: {post.album_artist_name}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </SplideSlide>
+                                    </SplideSlide>
                                 </>
                             );
                         })}
