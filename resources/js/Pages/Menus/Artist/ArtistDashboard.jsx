@@ -1,7 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import Album from "./Album";
 
 export default function Dashboard(props) {
+    const posts = props.posts;
+    console.log("id user adalah:", props.auth.user.id);
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -18,8 +22,11 @@ export default function Dashboard(props) {
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-white rounded-3xl p-8 mb-5">
                         <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
-                            Welcome <span className="bg-[#04ddb4] text-[#0d2758] italic px-2">{props.auth.user.name}</span>! This is your
-                            dashboard.
+                            Welcome{" "}
+                            <span className="bg-[#04ddb4] text-[#0d2758] italic px-2">
+                                {props.auth.user.name}
+                            </span>
+                            ! This is your dashboard.
                         </h1>
                         <div className="flex items-center justify-between">
                             <div className="flex items-stretch"></div>
@@ -48,7 +55,7 @@ export default function Dashboard(props) {
                             </div>
                         </div>
 
-                        <div className="grid grid-rows-2 md:grid-cols-2 gap-x-20">
+                        <div className="grid md:grid-cols-2 gap-x-20">
                             <div>
                                 <h2 className="text-2xl font-bold mb-4">
                                     Add an album or track
@@ -79,17 +86,13 @@ export default function Dashboard(props) {
                                         <div className="font-bold text-2xl leading-none">
                                             20
                                         </div>
-                                        <div className="mt-2">
-                                            Your album
-                                        </div>
+                                        <div className="mt-2">Your album</div>
                                     </div>
                                     <div className="p-4 bg-yellow-100 rounded-xl text-gray-800">
                                         <div className="font-bold text-2xl leading-none">
                                             100
                                         </div>
-                                        <div className="mt-2">
-                                            Your song
-                                        </div>
+                                        <div className="mt-2">Your song</div>
                                     </div>
                                     <div className="col-span-2">
                                         <div className="p-4 bg-purple-100 rounded-xl text-gray-800">
@@ -186,6 +189,17 @@ export default function Dashboard(props) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* ---------------- ---------------- ---------------- ------------------------------- */}
+
+                    {/* ---------------- ---------------- ---------------- ------------------------------- */}
+
+                    <div className="bg-white rounded-3xl p-8 mb-5">
+                        <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
+                            Your Album
+                        </h1>
+                        <Album posts={posts} />
                     </div>
                 </div>
             </div>
