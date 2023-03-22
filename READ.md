@@ -1,10 +1,6 @@
-*fan		*artist
-play_song		upload_song
-
-c		c
-view products from artist	upload products
-		
 =========================================================================
+=========================================================================
+
 - Fan and artist actually users they act not like admin who have access or permission to manage whole things
 - Fan and artist are the same. Different thing is fan cannot upload a songs but artist can
 - I need 2 different accounts. However, both account types have different login credentials, besides that fans and artists can be multi users such as multi-buyers/multi-sellers
@@ -18,3 +14,30 @@ Suggestions that im looking for as a reference:
 https://laracasts.com/discuss/channels/inertia/routes-not-working-inertia-with-react
 6. https://stackoverflow.com/questions/44647180/call-to-a-member-function-move-on-string - Call to a member function move() on string [closed]
 7. 
+
+=========================================================================
+=========================================================================
+
+### Table Structure
+> BelongToMany
+- users
+    - id PK
+    - name
+
+- product
+    - id PK 
+    - product_name
+
+- intermed_product
+    - id PK
+    - user_id FK
+    - product_id FK
+
+OR ????
+
+- users
+    - id PK
+    - name
+- product
+    - id PK
+    - user_id FK 
