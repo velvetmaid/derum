@@ -34,12 +34,25 @@ export default function Navbar() {
                                                 >
                                                     Home
                                                 </Link>
-                                                <Link
-                                                    href={route("dashboard")}
-                                                    className="font-medium text-gray-500 hover:text-gray-900"
-                                                >
-                                                    Dashboard
-                                                </Link>
+                                                {user.role == "artist" ? (
+                                                    <Link
+                                                        href={route(
+                                                            "artistDashboard"
+                                                        )}
+                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                    >
+                                                        Dashboard
+                                                    </Link>
+                                                ) : (
+                                                    <Link
+                                                        href={route(
+                                                            "fanDashboard"
+                                                        )}
+                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                    >
+                                                        Dashboard
+                                                    </Link>
+                                                )}
                                             </div>
                                             <div className="flex flex-row items-center space-x-8">
                                                 <DarkModeToggle />
@@ -81,12 +94,12 @@ export default function Navbar() {
                                                 >
                                                     Home
                                                 </Link>
-                                                <Link
+                                                {/* <Link
                                                     href={route("dashboard")}
                                                     className="font-medium text-gray-500 hover:text-gray-900"
                                                 >
                                                     Dashboard
-                                                </Link>
+                                                </Link> */}
                                             </div>
                                             <div className="flex flex-row items-center space-x-8">
                                                 <DarkModeToggle />{" "}
@@ -143,14 +156,25 @@ export default function Navbar() {
                                                     >
                                                         Home
                                                     </Link>
-                                                    <Link
-                                                        href={route(
-                                                            "dashboard"
-                                                        )}
-                                                        className="font-medium text-gray-500 hover:text-gray-900"
-                                                    >
-                                                        Dahboard
-                                                    </Link>
+                                                    {user.role == "artist" ? (
+                                                        <Link
+                                                            href={route(
+                                                                "artistDashboard"
+                                                            )}
+                                                            className="font-medium text-gray-500 hover:text-gray-900"
+                                                        >
+                                                            Dahboard
+                                                        </Link>
+                                                    ) : (
+                                                        <Link
+                                                            href={route(
+                                                                "fanDashboard"
+                                                            )}
+                                                            className="font-medium text-gray-500 hover:text-gray-900"
+                                                        >
+                                                            Dahboard
+                                                        </Link>
+                                                    )}
                                                 </div>
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link
@@ -179,14 +203,14 @@ export default function Navbar() {
                                                     >
                                                         Home
                                                     </Link>
-                                                    <Link
+                                                    {/* <Link
                                                         href={route(
                                                             "dashboard"
                                                         )}
                                                         className="font-medium text-gray-500 hover:text-gray-900"
                                                     >
                                                         Dahboard
-                                                    </Link>
+                                                    </Link> */}
                                                 </div>
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link
