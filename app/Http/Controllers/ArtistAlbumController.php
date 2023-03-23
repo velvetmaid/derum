@@ -23,7 +23,7 @@ class ArtistAlbumController extends Controller
     {
         $posts = ArtistAlbum::where('album_user_id', Auth::id())->get();
 
-        return Inertia::render('Menus/Artist/ArtistDashboard', ['posts' => $posts]);
+        return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts]);
     }
     public function create()
     {
@@ -38,7 +38,6 @@ class ArtistAlbumController extends Controller
             'album_art' => 'required|mimes:jpeg,jpg,png',
             'album_artist_name' => 'required',
             'album_price' => 'required',
-            'album_user_id' => 'required',
         ])->validate();
 
         $albumArt = '';
