@@ -30,7 +30,7 @@ export default function Navbar() {
                                             <div className="flex flex-row items-center space-x-8">
                                                 <Link
                                                     href="/"
-                                                    className="font-medium text-gray-500 hover:text-gray-900"
+                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Home
                                                 </Link>
@@ -39,7 +39,7 @@ export default function Navbar() {
                                                         href={route(
                                                             "artistDashboard"
                                                         )}
-                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Dashboard
                                                     </Link>
@@ -48,7 +48,7 @@ export default function Navbar() {
                                                         href={route(
                                                             "fanDashboard"
                                                         )}
-                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Dashboard
                                                     </Link>
@@ -58,7 +58,7 @@ export default function Navbar() {
                                                 <DarkModeToggle />
                                                 <Link
                                                     href=""
-                                                    className="mr-4 font-medium text-gray-500 hover:text-gray-900"
+                                                    className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Help
                                                 </Link>
@@ -66,7 +66,7 @@ export default function Navbar() {
                                                     href={route("logout")}
                                                     method="post"
                                                     as="button"
-                                                    className="rounded-xl border-2 border-[#696969] px-4 py-3 font-medium text-gray-500 hover:border-[#141414] hover:text-[#141414]"
+                                                    className="rounded-xl border-2 border-[#696969] px-4 py-3 font-medium text-gray-500 hover:border-gray-900 dark:hover:border-gray-100 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Log Out
                                                 </Link>
@@ -90,13 +90,13 @@ export default function Navbar() {
                                             <div className="flex flex-row items-center space-x-8">
                                                 <Link
                                                     href="/"
-                                                    className="font-medium text-gray-500 hover:text-gray-900"
+                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Home
                                                 </Link>
                                                 {/* <Link
                                                     href={route("dashboard")}
-                                                    className="font-medium text-gray-500 hover:text-gray-900"
+                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Dashboard
                                                 </Link> */}
@@ -105,13 +105,13 @@ export default function Navbar() {
                                                 <DarkModeToggle />{" "}
                                                 <Link
                                                     href={route("login")}
-                                                    className="mr-4 font-medium text-gray-500 hover:text-gray-900"
+                                                    className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Login
                                                 </Link>
                                                 <Link
                                                     href={route("register")}
-                                                    className="rounded-xl border-2 border-[#696969] px-4 py-3 font-medium text-gray-500 hover:border-[#141414] hover:text-[#141414]"
+                                                    className="rounded-xl border-2 border-[#696969] px-4 py-3 font-medium text-gray-500 hover:border-gray-900 dark:hover:border-gray-100 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Sign Up
                                                 </Link>
@@ -152,7 +152,7 @@ export default function Navbar() {
                                                 <div className="flex flex-col px-2 pt-2 pb-2 space-y-5">
                                                     <Link
                                                         href="/"
-                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Home
                                                     </Link>
@@ -161,7 +161,7 @@ export default function Navbar() {
                                                             href={route(
                                                                 "artistDashboard"
                                                             )}
-                                                            className="font-medium text-gray-500 hover:text-gray-900"
+                                                            className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                         >
                                                             Dahboard
                                                         </Link>
@@ -170,7 +170,7 @@ export default function Navbar() {
                                                             href={route(
                                                                 "fanDashboard"
                                                             )}
-                                                            className="font-medium text-gray-500 hover:text-gray-900"
+                                                            className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                         >
                                                             Dahboard
                                                         </Link>
@@ -179,7 +179,7 @@ export default function Navbar() {
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link
                                                         href=""
-                                                        className="mr-4 font-medium text-gray-500 hover:text-gray-900"
+                                                        className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Help
                                                     </Link>
@@ -187,7 +187,7 @@ export default function Navbar() {
                                                         href={route("logout")}
                                                         method="post"
                                                         as="button"
-                                                        className="rounded-xl border-2 border-[#696969] px-4 py-3 w-full text-center font-medium text-gray-500 hover:border-[#141414] hover:text-[#141414]"
+                                                        className="rounded-xl border-2 border-[#696969] px-4 py-3 w-full text-center font-medium text-gray-500 hover:border-gray-900 dark:hover:border-gray-100 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Log Out
                                                     </Link>
@@ -199,7 +199,7 @@ export default function Navbar() {
                                                 <div className="flex flex-col px-2 pt-2 pb-2 space-y-5">
                                                     <Link
                                                         href="/"
-                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Home
                                                     </Link>
@@ -207,7 +207,7 @@ export default function Navbar() {
                                                         href={route(
                                                             "dashboard"
                                                         )}
-                                                        className="font-medium text-gray-500 hover:text-gray-900"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Dahboard
                                                     </Link> */}
@@ -215,13 +215,13 @@ export default function Navbar() {
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link
                                                         href={route("login")}
-                                                        className="mr-4 font-medium text-gray-500 hover:text-gray-900"
+                                                        className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Login
                                                     </Link>
                                                     <Link
                                                         href={route("register")}
-                                                        className="rounded-xl border-2 border-[#696969] px-4 py-3 w-full text-center font-medium text-gray-500 hover:border-[#141414] hover:text-[#141414]"
+                                                        className="rounded-xl border-2 border-[#696969] px-4 py-3 w-full text-center font-medium text-gray-500 hover:border-gray-900 dark:hover:border-gray-100 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Sign Up
                                                     </Link>
