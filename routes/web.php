@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['middleware' => 'checkRole:artist'], function () {
-        Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
+        Route::inertia('/artistDashboard', 'Menus/Artist/Dashboard')->name('artistDashboard');
         Route::get('/artistDashboard', [ArtistAlbumController::class, 'artistIndex'])->name('artistDashboard');
 
         Route::controller(ArtistAlbumController::class)->group(function () {
