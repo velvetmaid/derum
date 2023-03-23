@@ -10,7 +10,7 @@
     - [x] Store Album
     - [ ] Store Song
     - [ ] Store Merch
-    - [ ] Index Album
+    - [x] Index Album
     - [ ] Index Song
     - [ ] Index merch
     - [ ] Edit Album
@@ -27,3 +27,11 @@
     - [ ] Nested Feature
 - [ ] Radio
 - [ ] ...
+
+#
+<p align="center">
+    <img  src="https://raw.githubusercontent.com/camieuxgoofy/derum/main/public/favicon.ico"/>
+</p>
+<h1 align="center">
+    Derum
+</h1>
