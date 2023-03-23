@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 export default function Desk(props) {
     return (
         <div className="rounded-3xl p-8 mb-5">
@@ -45,12 +47,13 @@ export default function Desk(props) {
                         <div className="col-span-2">
                             <div className="p-4 bg-green-100 dark:bg-[#16113f] rounded-xl flex justify-around">
                                 <div>
-                                    <button
+                                    <Link
+                                        href={route("artistAddAlbum.create")}
                                         type="button"
                                         className="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white dark:bg-[#110128] hover:text-green-500 dark:hover:text-blue-200 text-sm font-semibold transition"
                                     >
                                         Add an album
-                                    </button>
+                                    </Link>
                                 </div>
                                 <div>
                                     <button

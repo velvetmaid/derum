@@ -6,7 +6,7 @@ import DarkModeToggle from "@/Components/DarkModeToggle";
 export default function Navbar() {
     const user = usePage().props.auth.user;
     return (
-        <div className="relative max-w-7xl mx-auto p-6">
+        <div className="relative max-w-7xl mx-auto p-6 z-50">
             <Menu>
                 {({ open }) => (
                     <>
