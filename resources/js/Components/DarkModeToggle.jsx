@@ -40,7 +40,7 @@ export default function DarkModeToggle() {
     }, []);
 
     return isMounted ? (
-        <div className={`flex items-center justify-center`}>
+        <div className="flex items-center justify-center pr-[22.5px]">
             {themes.map((t) => {
                 const checked = t === theme;
                 return (
