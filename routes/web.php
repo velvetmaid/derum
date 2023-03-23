@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get("/redirectAuthenticatedUsers", [RedirectAuthenticatedUsersController::class, "home"]);
 
     Route::group(['middleware' => 'checkRole:fan'], function () {
-        Route::inertia('/fanDashboard', 'FanDashboard')->name('fanDashboard');
+        Route::inertia('/fanDashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
     });
 
     Route::group(['middleware' => 'checkRole:artist'], function () {

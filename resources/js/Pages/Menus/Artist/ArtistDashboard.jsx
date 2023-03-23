@@ -1,4 +1,4 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import Navbar from "@/Components/Navbar";
 import { Head } from "@inertiajs/react";
 import Album from "./Album";
 
@@ -7,17 +7,9 @@ export default function Dashboard(props) {
     console.log("id user adalah:", props.auth.user.id);
 
     return (
-        <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Artist Dashboard
-                </h2>
-            }
-        >
+        <>
             <Head title={props.auth.user.name + " Dashboard"} />
-
+            <Navbar />
             <div className="px-6 py-8">
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-white rounded-3xl p-8 mb-5">
@@ -203,6 +195,6 @@ export default function Dashboard(props) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </>
     );
 }
