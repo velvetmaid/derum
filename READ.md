@@ -1,5 +1,4 @@
-=========================================================================
-=========================================================================
+#
 
 - Fan and artist actually users they act not like admin who have access or permission to manage whole things
 - Fan and artist are the same. Different thing is fan cannot upload a songs but artist can
@@ -15,11 +14,11 @@ https://laracasts.com/discuss/channels/inertia/routes-not-working-inertia-with-r
 6. https://stackoverflow.com/questions/44647180/call-to-a-member-function-move-on-string - Call to a member function move() on string [closed]
 7. 
 
-=========================================================================
-=========================================================================
+#
+#
 
 ### Table Structure
-> BelongToMany
+> User and Album
 - users
     - id PK
     - name
@@ -41,3 +40,15 @@ OR ????
 - product
     - id PK
     - user_id FK 
+
+
+> Album and Song
+
+#
+#
+
+#### Error Messages
+1. No default value for role select in sign up page, should press twice or set default value `Sign Up Page`. :heavy_check_mark:
+2. Each child in a list should have a unique "key" prop. Check the render method of `Album Components`.
+3. Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components `AddAlbum Page`.
+4. Auto complete on input style has broken when theme is dark
