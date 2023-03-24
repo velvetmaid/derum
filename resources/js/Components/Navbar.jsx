@@ -94,12 +94,6 @@ export default function Navbar() {
                                                 >
                                                     Home
                                                 </Link>
-                                                {/* <Link
-                                                    href={route("dashboard")}
-                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-                                                >
-                                                    Dashboard
-                                                </Link> */}
                                             </div>
                                             <div className="flex flex-row items-center space-x-8">
                                                 <DarkModeToggle />{" "}
@@ -133,7 +127,7 @@ export default function Navbar() {
                         >
                             <Menu.Items className="absolute -top-14 -right-1 w-[60%] md:hidden">
                                 <div className="overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900 shadow-2xl ring-1 ring-black ring-opacity-5">
-                                    <div className="flex items-center  justify-between px-5 pt-4">
+                                    <div className="flex items-center justify-between px-5 pt-4">
                                         <div className="-mr-2">
                                             <Menu.Button className="inline-flex items-center justify-center rounded-md p-2 focus:outline-none !hover:bg-none dark:fill-gray-300">
                                                 <span className="sr-only">
@@ -203,14 +197,6 @@ export default function Navbar() {
                                                     >
                                                         Home
                                                     </Link>
-                                                    {/* <Link
-                                                        href={route(
-                                                            "dashboard"
-                                                        )}
-                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-                                                    >
-                                                        Dahboard
-                                                    </Link> */}
                                                 </div>
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link

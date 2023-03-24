@@ -43,7 +43,7 @@ export default function Desk(props) {
                         Add an album or track
                     </h2>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 pb-12 md:p-0">
                         <div className="col-span-2">
                             <div className="p-4 bg-green-100 dark:bg-[#16113f] rounded-xl flex justify-around">
                                 <div>
@@ -91,7 +91,7 @@ export default function Desk(props) {
                     <h2 className="text-2xl font-bold mb-4">IDK IDK</h2>
 
                     <div className="space-y-4">
-                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl  space-y-2">
+                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl space-y-2">
                             <div className="flex justify-between">
                                 <div className="text-gray-400 text-xs">
                                     Number 10
@@ -118,7 +118,7 @@ export default function Desk(props) {
                                 Deadline is today
                             </div>
                         </div>
-                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl  space-y-2">
+                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl space-y-2">
                             <div className="flex justify-between">
                                 <div className="text-gray-400 text-xs">
                                     Grace Aroma
@@ -145,7 +145,7 @@ export default function Desk(props) {
                                 New feedback
                             </div>
                         </div>
-                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl  space-y-2">
+                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl space-y-2">
                             <div className="flex justify-between">
                                 <div className="text-gray-400 text-xs">
                                     Petz App

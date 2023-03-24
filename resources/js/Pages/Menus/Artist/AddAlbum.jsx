@@ -26,7 +26,7 @@ export default function Dashboard(props) {
                         <div className="bg-white dark:bg-[#182237] rounded-3xl p-8 mb-5 flex flex-col md:flex-row overflow-hidden">
                             <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-[#182237] rounded-xl z-10 mx-auto">
                                 <div className="flex w-full md:w-max h-[4rem] border-2 rounded-md mx-auto">
-                                    <div className="relative w-[4rem] h-full  p-1">
+                                    <div className="relative w-[4rem] h-full p-1">
                                         <img
                                             className="object-cover w-[4rem] h-full z-50 rounded-md"
                                             src={
@@ -224,9 +224,9 @@ export default function Dashboard(props) {
                                             ))}
                                         <button
                                             type="submit"
-                                            className="my-5 w-full flex justify-center bg-turquoise dark:bg-white text-blueNavy p-4  rounded-full tracking-wide font-semibold  focus:outline-none focus:shadow-outline hover:bg-[#00b896] shadow-lg cursor-pointer transition ease-in duration-200"
+                                            className="my-5 w-full flex justify-center bg-turquoise hover:bg-green-300 dark:bg-white dark:hover:bg-gray-300 text-blueNavy p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline shadow-lg cursor-pointer transition duration-200"
                                         >
-                                            Next
+                                            Next To Add Songs
                                         </button>
                                     </div>
                                 </form>

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ArtistAlbum;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -25,6 +23,7 @@ class ArtistAlbumController extends Controller
 
         return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts]);
     }
+
     public function create()
     {
         return Inertia::render('Menus/Artist/AddAlbum');
