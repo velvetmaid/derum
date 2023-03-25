@@ -28,6 +28,7 @@ module.exports = {
                 },
                 'blueNavy': {
                     DEFAULT: '#0d2758',
+                    dark: '#182237'
                 }
             },
         },

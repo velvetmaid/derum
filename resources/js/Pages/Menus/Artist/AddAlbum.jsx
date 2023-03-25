@@ -34,8 +34,8 @@ export default function AddAlbum(props) {
                 <Head title={props.auth.user.name + " Dashboard"} />
                 <div className="px-6 py-8">
                     <div className="max-w-4xl mx-auto">
-                        <div className="bg-white dark:bg-[#182237] rounded-3xl p-8 mb-5 flex flex-col md:flex-row overflow-hidden">
-                            <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-[#182237] rounded-xl z-10 mx-auto">
+                        <div className="bg-white dark:bg-blueNavy-dark rounded-3xl p-8 mb-5 flex flex-col md:flex-row overflow-hidden">
+                            <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
                                 <div className="flex w-full md:w-max h-[4rem] border-2 rounded-md mx-auto">
                                     <div className="relative w-[4rem] h-full p-1">
                                         <img
@@ -74,7 +74,7 @@ export default function AddAlbum(props) {
                                     {data.album_price}
                                 </p>
                             </div>
-                            <div className="sm:max-w-lg w-full bg-white dark:bg-[#182237] rounded-xl z-10 mx-auto">
+                            <div className="sm:max-w-lg w-full bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
                                 <div className="text-center">
                                     <h2 className="mt-5 text-3xl font-bold text-gray-900">
                                         Upload Album
@@ -95,7 +95,7 @@ export default function AddAlbum(props) {
                                         </label>
                                         <input
                                             id="album_title"
-                                            className="text-base p-2 border border-gray-500 dark:bg-[#182237] rounded-lg focus:outline-none focus:border-turquoise"
+                                            className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                             type="text"
                                             name="album_title"
                                             value={data.album_title}
@@ -110,7 +110,7 @@ export default function AddAlbum(props) {
                                             </label>
                                             <input
                                                 id="album_release_date"
-                                                className="text-base p-2 border border-gray-500 dark:bg-[#182237] rounded-lg focus:outline-none focus:border-turquoise"
+                                                className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                                 type="date"
                                                 name="album_release_date"
                                                 value={data.album_release_date}
@@ -138,7 +138,7 @@ export default function AddAlbum(props) {
                                         </label>
                                         <input
                                             id="album_artist_name"
-                                            className="text-base p-2 border border-gray-500 dark:bg-[#182237] rounded-lg focus:outline-none focus:border-turquoise"
+                                            className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                             type=""
                                             name="album_artist_name"
                                             value={data.album_artist_name}
@@ -157,7 +157,7 @@ export default function AddAlbum(props) {
                                             </p>
                                             <input
                                                 id="album_price"
-                                                className="text-base w-full p-2 border-0 border-gray-500 dark:bg-[#182237] rounded-lg focus:outline-none focus:shadow-none"
+                                                className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
                                                 type="number"
                                                 name="album_price"
                                                 value={data.album_price}
