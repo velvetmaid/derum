@@ -2,20 +2,31 @@ import { Head, useForm } from "@inertiajs/react";
 import Layout from "../../../Layouts/Layout";
 import "@/../css/main.css";
 
-export default function Dashboard(props) {
+export default function AddAlbum(props) {
     const { data, setData, post, progress, errors } = useForm({
-        album_title: null,
-        album_release_date: null,
+        album_title: "",
+        album_release_date: "",
         album_art: null,
-        album_artist_name: null,
-        album_price: null,
+        album_artist_name: "",
+        album_price: "",
         album_user_id: props.auth.user.id,
     });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setData({ ...data, [name]: value });
+    };
+
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        setData({ ...data, album_art: file });
+    };
 
     function submit(e) {
         e.preventDefault();
         post("store");
     }
+    // console.log(data);
 
     return (
         <>
@@ -89,12 +100,7 @@ export default function Dashboard(props) {
                                             name="album_title"
                                             value={data.album_title}
                                             placeholder="Your Album Title"
-                                            onChange={(e) =>
-                                                setData(
-                                                    "album_title",
-                                                    e.target.value
-                                                )
-                                            }
+                                            onChange={handleInputChange}
                                         />
                                     </div>
                                     <div className="flex flex-col md:flex-row space-x-1 space-y-2">
@@ -109,12 +115,7 @@ export default function Dashboard(props) {
                                                 name="album_release_date"
                                                 value={data.album_release_date}
                                                 placeholder="Your Album Title"
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "album_release_date",
-                                                        e.target.value
-                                                    )
-                                                }
+                                                onChange={handleInputChange}
                                             />
                                         </div>
                                         <div className="grid grid-cols-1 space-y-2 md:w-2/3">
@@ -127,12 +128,7 @@ export default function Dashboard(props) {
                                                 type="file"
                                                 name="album_art"
                                                 value={undefined}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "album_art",
-                                                        e.target.files[0]
-                                                    )
-                                                }
+                                                onChange={handleFileInputChange}
                                             />
                                         </div>
                                     </div>
@@ -147,12 +143,7 @@ export default function Dashboard(props) {
                                             name="album_artist_name"
                                             value={data.album_artist_name}
                                             placeholder="Your Artits Name"
-                                            onChange={(e) =>
-                                                setData(
-                                                    "album_artist_name",
-                                                    e.target.value
-                                                )
-                                            }
+                                            onChange={handleInputChange}
                                         />
                                     </div>
 
@@ -171,12 +162,7 @@ export default function Dashboard(props) {
                                                 name="album_price"
                                                 value={data.album_price}
                                                 placeholder="enter zero or more (e.g., 0, 10000"
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "album_price",
-                                                        e.target.value
-                                                    )
-                                                }
+                                                onChange={handleInputChange}
                                             />
                                         </div>
                                     </div>
