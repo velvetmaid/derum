@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('album_id');
             $table->string('song_title');
-            $table->text('song_lyric');
+            $table->text('song_lyric')->nullable();
+            $table->string('song_file');
 
             $table->foreign('album_id')->references('id')->on('artist_album')->onDelete('cascade');
         });

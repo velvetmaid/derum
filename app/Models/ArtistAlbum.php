@@ -24,7 +24,7 @@ class ArtistAlbum extends Model
         'album_user_id'
     ];
 
-    public function artist_songs(): HasMany
+    public function artist_song(): HasMany
     {
         return $this->hasMany(ArtistSong::class);
     }
