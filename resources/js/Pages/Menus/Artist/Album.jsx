@@ -14,9 +14,12 @@ export default function Album({ posts }) {
                                         <>
                                             <div
                                                 key={post.id}
+                                                // Each child in a list should have a unique "key" prop. Check the render method of `Album`
                                                 className="flex md:w-1/3 flex-wrap"
                                             >
                                                 <div className="relative w-full p-5">
+                                                    <h1>{post.id}</h1>
+
                                                     <img
                                                         className="block h-full w-full rounded-lg object-cover object-center"
                                                         src={
@@ -25,7 +28,7 @@ export default function Album({ posts }) {
                                                         }
                                                         alt={post.album_title}
                                                     />
-                                                    <span className="absolute bg-black opacity-80 hover:opacity-95 hover:scale-105 transition-all cursor-pointer rounded-lg px-2 left-2 bottom-8 text-md md:text-3xl mx-5">
+                                                    <span className="absolute bg-black text-white font-robotocondensed opacity-80 hover:opacity-95 hover:scale-105 transition-all cursor-pointer rounded-lg px-3 left-2 bottom-8 text-md md:text-3xl mx-5">
                                                         {post.album_title}
                                                     </span>
                                                 </div>
