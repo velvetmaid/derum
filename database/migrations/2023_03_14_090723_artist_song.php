@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('artist_song', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('song_album_id');
+            $table->unsignedBigInteger('album_id');
             $table->string('song_title');
-            $table->string('song_description')->nullable();
-            $table->text('song_lyric');
+            $table->text('song_lyric')->nullable();
+            $table->string('song_file');
 
-            $table->foreign('song_album_id')->references('id')->on('artist_album')->onDelete('cascade');
+            $table->foreign('album_id')->references('id')->on('artist_album')->onDelete('cascade');
         });
     }
 
