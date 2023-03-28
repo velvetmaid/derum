@@ -38,10 +38,10 @@ class ArtistAlbumController extends Controller
             'album_art' => 'required|mimes:jpeg,jpg,png',
             'album_artist_name' => 'required',
             'album_price' => 'required',
-            'songs' => 'required|array|min:1',
-            'songs.*.song_title' => 'required',
-            'songs.*.song_lyric' => 'required',
-            'songs.*.song_file' => 'required|mimes:mp3,wav',
+            'songs' => 'required|array|min:2',
+            'songs.*.song_title' => '',
+            'songs.*.song_lyric' => '',
+            'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma',
         ]);
 
         if ($validator->fails()) {
@@ -66,26 +66,29 @@ class ArtistAlbumController extends Controller
         ]);
 
         foreach ($request->input('songs') as $index => $songData) {
-            $songFileName = '';
-            if ($request->hasFile("songs.{$index}.song_file") && $request->file("songs.{$index}.song_file")->isValid()) {
-                $songFile = $request->file("songs.{$index}.song_file");
-                $destinationPath = 'musics';
-                $songName = date('YmdHis') . "." . $songFile->getClientOriginalName();
-                $songFile->move($destinationPath, $songName);
-                $songFileName = $songName;
-            }
+            if (!empty($songData['song_title']) && !empty($songData['song_lyric'])) {
+                $songFileName = '';
+                if ($request->hasFile("songs.{$index}.song_file") && $request->file("songs.{$index}.song_file")->isValid()) {
+                    $songFile = $request->file("songs.{$index}.song_file");
+                    $destinationPath = 'musics';
+                    $songName = date('YmdHis') . "." . $songFile->getClientOriginalName();
+                    $songFile->move($destinationPath, $songName);
+                    $songFileName = $songName;
+                }
 
-            $song = new ArtistSong([
-                'song_title' => $songData['song_title'],
-                'song_lyric' => $songData['song_lyric'],
-                'album_id' => $album->id,
-                'song_file' => $songFileName,
-            ]);
-            $song->save();
+                $song = new ArtistSong([
+                    'song_title' => $songData['song_title'],
+                    'song_lyric' => $songData['song_lyric'],
+                    'album_id' => $album->id,
+                    'song_file' => $songFileName,
+                ]);
+                $song->save();
+
+            }
         }
+
 
         // return response()->json(['success' => true]);
         return redirect()->route('artistDashboard');
-
     }
 }
