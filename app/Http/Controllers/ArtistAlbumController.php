@@ -32,63 +32,55 @@ class ArtistAlbumController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'album_title' => 'required',
             'album_release_date' => 'required',
-            'album_art' => 'required|mimes:jpeg,jpg,png',
+            'album_art' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
             'album_artist_name' => 'required',
             'album_price' => 'required',
             'songs' => 'required|array|min:2',
-            'songs.*.song_title' => '',
-            'songs.*.song_lyric' => '',
+            'songs.*.song_title' => 'nullable',
+            'songs.*.song_lyric' => 'nullable',
             'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma',
-        ]);
+        ])->validate();
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
-        }
-
-        $albumArt = '';
-        if ($image = $request->file('album_art')) {
-            $destinationPath = 'images/content/albums';
-            $albumArtName = date('YmdHis') . "." . $image->getClientOriginalName();
-            $image->move($destinationPath, $albumArtName);
-            $albumArt = "$albumArtName";
-        }
-
-        $album = ArtistAlbum::create([
+        $album = new ArtistAlbum([
             'album_title' => $request->album_title,
             'album_release_date' => $request->album_release_date,
-            'album_art' => $albumArt,
             'album_artist_name' => $request->album_artist_name,
             'album_price' => $request->album_price,
             'album_user_id' => $request->user()->id,
         ]);
 
+        if ($image = $request->file('album_art')) {
+            $destinationPath = 'images/content/albums';
+            $albumArtName = $album->album_title . "_COVER_" . $album->id . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $albumArtName);
+            $album->album_art = "$albumArtName";
+            $album->save();
+        }
+
         foreach ($request->input('songs') as $index => $songData) {
             if (!empty($songData['song_title']) && !empty($songData['song_lyric'])) {
-                $songFileName = '';
-                if ($request->hasFile("songs.{$index}.song_file") && $request->file("songs.{$index}.song_file")->isValid()) {
-                    $songFile = $request->file("songs.{$index}.song_file");
-                    $destinationPath = 'musics';
-                    $songName = date('YmdHis') . "." . $songFile->getClientOriginalName();
-                    $songFile->move($destinationPath, $songName);
-                    $songFileName = $songName;
-                }
-
                 $song = new ArtistSong([
                     'song_title' => $songData['song_title'],
                     'song_lyric' => $songData['song_lyric'],
                     'album_id' => $album->id,
-                    'song_file' => $songFileName,
                 ]);
+
                 $song->save();
 
+                if ($request->hasFile("songs.{$index}.song_file") && $request->file("songs.{$index}.song_file")->isValid()) {
+                    $songFile = $request->file("songs.{$index}.song_file");
+                    $destinationPath = 'musics/' . $album->album_title;
+                    $songName = $album->id . $song->id . '_' . $song->song_title . "." . $songFile->getClientOriginalExtension();
+                    $songFile->move($destinationPath, $songName);
+                    $song->song_file = $songName;
+                    $song->save();
+                }
             }
         }
 
-
-        // return response()->json(['success' => true]);
         return redirect()->route('artistDashboard');
     }
 }
