@@ -62,6 +62,7 @@ export default function AddAlbum(props) {
             songs: [...prevState.songs.slice(0, newLastIndex), newSong],
         }));
         setLastIndex(newLastIndex);
+
         setShowModal(false);
     };
 
@@ -70,8 +71,30 @@ export default function AddAlbum(props) {
     function submit(e) {
         e.preventDefault();
         post("store");
-        if (errors) {
+
+        const hasErrors =
+            !data.album_title ||
+            !data.album_release_date ||
+            !data.album_art ||
+            !data.album_artist_name ||
+            !data.album_price ||
+            data.songs.length < 2 ||
+            data.songs.some(
+                (song) =>
+                    (!song.song_file && song.song_file !== null) ||
+                    (song.song_file &&
+                        !song.song_file.name.match(
+                            /\.(mp3|wav|flac|acc|ogg|wma)$/i
+                        ))
+            );
+
+        if (hasErrors) {
             toast.error("Error Notification !", {
+                position: toast.POSITION.TOP_LEFT,
+                className: "w-5/6 md:w-full dark:bg-gray-800",
+            });
+        } else {
+            toast.success("Form submitted successfully", {
                 position: toast.POSITION.TOP_LEFT,
                 className: "w-5/6 md:w-full dark:bg-gray-800",
             });
@@ -99,6 +122,7 @@ export default function AddAlbum(props) {
             const newData = { ...data };
             newData.songs.splice(index, 1);
             setData(newData);
+            setLastIndex((prev) => prev - 1);
         };
 
         const filteredSongs = data.songs.filter(
