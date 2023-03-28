@@ -1,9 +1,11 @@
-import { Head, useForm, usePage } from "@inertiajs/react";
-import Layout from "@/Layouts/Layout";
-import "@/../css/main.css";
-import Modal from "@/Components/Modal";
 import { useState } from "react";
+import { Head, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
+import Layout from "@/Layouts/Layout";
+import Modal from "@/Components/Modal";
+import FormFeedback from "./Resources/FormFeedback";
+import PreviewAll from "./PreviewAll";
+import "@/../css/main.css";
 
 export default function AddAlbum(props) {
     const [showModal, setShowModal] = useState(false);
@@ -11,9 +13,7 @@ export default function AddAlbum(props) {
         setShowModal(false);
     };
 
-    const { errors } = usePage().props;
-
-    const { data, setData, post, progress } = useForm({
+    const { data, setData, post, errors, progress } = useForm({
         album_title: "",
         album_release_date: "",
         album_art: null,
@@ -51,10 +51,8 @@ export default function AddAlbum(props) {
                 position: toast.POSITION.TOP_LEFT,
                 className: "w-5/6 md:w-full dark:bg-gray-800",
             });
-
             return;
         }
-
         const newLastIndex = lastIndex + 1;
         const newSong = { song_title: "", song_lyric: "", song_file: null };
         setData((prevState) => ({
@@ -62,7 +60,6 @@ export default function AddAlbum(props) {
             songs: [...prevState.songs.slice(0, newLastIndex), newSong],
         }));
         setLastIndex(newLastIndex);
-
         setShowModal(false);
     };
 
@@ -101,151 +98,6 @@ export default function AddAlbum(props) {
         }
     }
 
-    const PreviewMusic = ({ data, setData }) => {
-        const [editingSongIndex, setEditingSongIndex] = useState(-1);
-        const [editedSong, setEditedSong] = useState({});
-
-        const handleEdit = (index, song) => {
-            setEditingSongIndex(index);
-            setEditedSong(song);
-        };
-
-        const handleSave = (index) => {
-            const newData = { ...data };
-            newData.songs[index] = editedSong;
-            setData(newData);
-            setEditingSongIndex(-1);
-            setEditedSong({});
-        };
-
-        const handleRemove = (index) => {
-            const newData = { ...data };
-            newData.songs.splice(index, 1);
-            setData(newData);
-            setLastIndex((prev) => prev - 1);
-        };
-
-        const filteredSongs = data.songs.filter(
-            (song) =>
-                song.song_title.trim() !== "" ||
-                song.song_lyric.trim() !== "" ||
-                song.song_file !== null
-        );
-
-        return (
-            <>
-                {filteredSongs.map((song, index) => {
-                    return (
-                        <div key={index} className="border p-2">
-                            <h3>Song {index + 1}</h3>
-                            {editingSongIndex === index ? (
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Song Title"
-                                        value={editedSong.song_title}
-                                        onChange={(e) =>
-                                            setEditedSong({
-                                                ...editedSong,
-                                                song_title: e.target.value,
-                                            })
-                                        }
-                                    />
-                                    <br />
-                                    <textarea
-                                        placeholder="Song Lyric"
-                                        value={editedSong.song_lyric}
-                                        onChange={(e) =>
-                                            setEditedSong({
-                                                ...editedSong,
-                                                song_lyric: e.target.value,
-                                            })
-                                        }
-                                    />
-                                    <br />
-                                    <input
-                                        type="file"
-                                        onChange={(e) =>
-                                            setEditedSong({
-                                                ...editedSong,
-                                                song_file: e.target.files[0],
-                                            })
-                                        }
-                                    />
-                                    <br />
-                                    <button onClick={() => handleSave(index)}>
-                                        Save
-                                    </button>
-                                </div>
-                            ) : (
-                                <div>
-                                    <p>Song Title: {song.song_title}</p>
-                                    <p>Song Lyric: {song.song_lyric}</p>
-                                    {song.song_file && (
-                                        <audio
-                                            src={URL.createObjectURL(
-                                                song.song_file
-                                            )}
-                                            controls
-                                        />
-                                    )}
-                                    <button
-                                        onClick={() => handleEdit(index, song)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button onClick={() => handleRemove(index)}>
-                                        Remove
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    );
-                })}
-            </>
-        );
-    };
-
-    const PreviewAll = ({ data }) => {
-        return (
-            <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
-                <div className="flex w-full md:w-max h-[4rem] border-2 rounded-md mx-auto">
-                    <div className="relative w-[4rem] h-full p-1">
-                        <img
-                            className="object-cover w-[4rem] h-full z-50 rounded-md"
-                            src={
-                                data.album_art
-                                    ? URL.createObjectURL(data.album_art)
-                                    : null
-                            }
-                            alt={
-                                data.album_art
-                                    ? "Cover Art " + data.album_title
-                                    : null
-                            }
-                        />
-                    </div>
-                    <div className="relative md:w-56 w-full over overflow-hidden">
-                        <p className="pl-1 text-xl">{data.album_title}</p>
-                        <span className="pl-1 absolute bottom-5 text-xs">
-                            by:
-                            {data.album_artist_name}
-                        </span>
-                        <span className="pl-1 text-xs absolute md:block bottom-1">
-                            Relase date:
-                            {data.album_release_date}
-                        </span>
-                    </div>
-                </div>
-                <p className="text-center">
-                    Price: Rp.
-                    {data.album_price}
-                </p>
-                <PreviewMusic data={data} setData={setData} />
-            </div>
-        );
-    };
-
     return (
         <>
             <Layout>
@@ -253,7 +105,7 @@ export default function AddAlbum(props) {
                 <div className="px-6 py-8">
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white dark:bg-blueNavy-dark rounded-3xl p-8 mb-5 flex flex-col md:flex-row overflow-hidden">
-                            <PreviewAll data={data} />
+                            <PreviewAll data={data} setData={setData} setLastIndex={setLastIndex} />
                             <div className="sm:max-w-lg w-full bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
                                 <div className="text-center">
                                     <h2 className="mt-5 text-3xl font-bold">
@@ -567,58 +419,10 @@ export default function AddAlbum(props) {
                                     {/* End Modal */}
 
                                     <div>
-                                        {progress && (
-                                            <progress
-                                                value={progress.percentage}
-                                                max="100"
-                                            >
-                                                {progress.percentage}%
-                                            </progress>
-                                        )}
-                                        {(errors.album_title && (
-                                            <span className="text-rose-500 text-xs">
-                                                Looks like you missed entering
-                                                album title
-                                            </span>
-                                        )) ||
-                                            (errors.album_release_date && (
-                                                <span className="text-rose-500 text-xs">
-                                                    Looks like you missed
-                                                    entering release date
-                                                </span>
-                                            )) ||
-                                            (errors.album_art && (
-                                                <span className="text-rose-500 text-xs">
-                                                    Looks like you missed
-                                                    entering album art or enter
-                                                    an imag$validator = e not up
-                                                    to 1 Mb
-                                                </span>
-                                            )) ||
-                                            (errors.album_artist_name && (
-                                                <span className="text-rose-500 text-xs">
-                                                    Looks like you missed
-                                                    entering artist name
-                                                </span>
-                                            )) ||
-                                            (errors.album_price && (
-                                                <span className="text-rose-500 text-xs">
-                                                    "Oops! It looks like you
-                                                    forgot to enter the price.
-                                                    Don't worry, it happens to
-                                                    the best of us. Just make
-                                                    sure to enter a number so we
-                                                    can get this album rockin'
-                                                    and rollin'!"
-                                                </span>
-                                            ))}
-                                        {errors.songs &&
-                                            errors.songs.length === 1 && (
-                                                <span className="text-red-500 text-sm">
-                                                    Please add at least one
-                                                    song.
-                                                </span>
-                                            )}
+                                        <FormFeedback
+                                            errors={errors}
+                                            progress={progress}
+                                        />
 
                                         <button
                                             type="submit"
