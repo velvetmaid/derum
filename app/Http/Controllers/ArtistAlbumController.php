@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Intervention\Image\Facades\Image;
 
 class ArtistAlbumController extends Controller
 {
@@ -53,8 +54,14 @@ class ArtistAlbumController extends Controller
         ]);
 
         if ($image = $request->file('album_art')) {
-            $destinationPath = 'images/content/albums';
-            $albumArtName = $album->album_title . "_COVER_" . $album->id . "." . $image->getClientOriginalExtension();
+            $destinationPath = public_path('images/albums/thumbnails');
+            $albumArtName =  $album->album_title . $album->id . "." . $image->getClientOriginalExtension();
+            $img = Image::make($image->path());
+            $img->fit(280, 280, function ($const) {
+                $const->aspectRatio();
+            })->save($destinationPath . '/thumb_' . $albumArtName, 90);
+
+            $destinationPath = 'images/albums/main';
             $image->move($destinationPath, $albumArtName);
             $album->album_art = "$albumArtName";
             $album->save();
