@@ -63,6 +63,21 @@ export default function AddAlbum(props) {
         setShowModal(false);
     };
 
+    const handleCancelAddSong = () => {
+        const updatedSongs = [...data.songs];
+        const lastSongIndex = updatedSongs.length - 1;
+        updatedSongs[lastSongIndex] = {
+            song_title: "",
+            song_lyric: "",
+            song_file: null,
+        };
+        setData({
+            ...data,
+            songs: updatedSongs,
+        });
+        setShowModal(false);
+    };
+
     console.log(data);
 
     function submit(e) {
@@ -105,7 +120,11 @@ export default function AddAlbum(props) {
                 <div className="px-6 py-8">
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white dark:bg-blueNavy-dark rounded-3xl p-8 mb-5 flex flex-col md:flex-row overflow-hidden">
-                            <PreviewAll data={data} setData={setData} setLastIndex={setLastIndex} />
+                            <PreviewAll
+                                data={data}
+                                setData={setData}
+                                setLastIndex={setLastIndex}
+                            />
                             <div className="sm:max-w-lg w-full bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
                                 <div className="text-center">
                                     <h2 className="mt-5 text-3xl font-bold">
@@ -393,10 +412,8 @@ export default function AddAlbum(props) {
                                                     <div className="flex space-x-4">
                                                         <button
                                                             type="button"
-                                                            onClick={() =>
-                                                                setShowModal(
-                                                                    false
-                                                                )
+                                                            onClick={
+                                                                handleCancelAddSong
                                                             }
                                                             className="my-5 w-full flex justify-center bg-[#04ddb4] text-[#0d2758] p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-green-300 shadow-lg cursor-pointer transition ease-in duration-200"
                                                         >
