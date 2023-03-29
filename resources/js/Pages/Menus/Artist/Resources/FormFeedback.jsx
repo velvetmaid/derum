@@ -8,38 +8,31 @@ export default function FormFeedback({ progress, errors }) {
             )}
             {(errors.album_title && (
                 <span className="text-rose-500 text-xs">
-                    Looks like you missed entering album title
+                    Please enter album title.
                 </span>
             )) ||
                 (errors.album_release_date && (
                     <span className="text-rose-500 text-xs">
-                        Looks like you missed entering release date
+                        Please enter release date.
                     </span>
                 )) ||
                 (errors.album_art && (
                     <span className="text-rose-500 text-xs">
-                        Looks like you missed entering album art or enter an
-                        imag$validator = e not up to 1 Mb
+                        Please enter album art. Make sure that the file size is
+                        not greater than 2048 kB and file must be an image
+                        format (jpg, jpeg, png, svg).
                     </span>
                 )) ||
                 (errors.album_artist_name && (
                     <span className="text-rose-500 text-xs">
-                        Looks like you missed entering artist name
+                        Please enter artist name.
                     </span>
                 )) ||
                 (errors.album_price && (
                     <span className="text-rose-500 text-xs">
-                        "Oops! It looks like you forgot to enter the price.
-                        Don't worry, it happens to the best of us. Just make
-                        sure to enter a number so we can get this album rockin'
-                        and rollin'!"
+                        Please enter price.
                     </span>
                 ))}
-            {errors.songs && errors.songs.length === 1 && (
-                <span className="text-red-500 text-sm">
-                    Please add at least one song.
-                </span>
-            )}
         </>
     );
 }
