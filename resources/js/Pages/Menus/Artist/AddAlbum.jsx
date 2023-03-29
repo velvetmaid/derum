@@ -9,9 +9,7 @@ import "@/../css/main.css";
 
 export default function AddAlbum(props) {
     const [showModal, setShowModal] = useState(false);
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
+    const [lastIndex, setLastIndex] = useState(0);
 
     const { data, setData, post, errors, progress } = useForm({
         album_title: "",
@@ -20,13 +18,7 @@ export default function AddAlbum(props) {
         album_artist_name: "",
         album_price: "",
         album_user_id: props.auth.user.id,
-        songs: [
-            {
-                song_title: "",
-                song_lyric: "",
-                song_file: null,
-            },
-        ],
+        songs: [],
     });
 
     const handleInputChange = (e) => {
@@ -39,42 +31,46 @@ export default function AddAlbum(props) {
         setData({ ...data, album_art: file });
     };
 
-    const [lastIndex, setLastIndex] = useState(0);
-    const addSongInput = () => {
+    const hanldeFormSong = () => {
         const lastSong = data.songs[data.songs.length - 1];
-        if (
-            !lastSong.song_title ||
-            !lastSong.song_lyric ||
-            !lastSong.song_file
-        ) {
-            toast.error("Error Notification !", {
-                position: toast.POSITION.TOP_LEFT,
-                className: "w-5/6 md:w-full dark:bg-gray-800",
-            });
+        if (!lastSong.song_title || !lastSong.song_file) {
+            toast.error(
+                "Make sure the title and file are inputted according to the format",
+                {
+                    position: toast.POSITION.TOP_LEFT,
+                    className: "w-5/6 md:w-full dark:bg-gray-800",
+                }
+            );
             return;
         }
         const newLastIndex = lastIndex + 1;
-        const newSong = { song_title: "", song_lyric: "", song_file: null };
         setData((prevState) => ({
             ...prevState,
-            songs: [...prevState.songs.slice(0, newLastIndex), newSong],
+            songs: [...prevState.songs.slice(0, newLastIndex)],
         }));
         setLastIndex(newLastIndex);
         setShowModal(false);
     };
 
+    const handleAddSong = () => {
+        setData((prevData) => ({
+            ...prevData,
+            songs: [
+                ...prevData.songs,
+                {
+                    song_title: "",
+                    song_lyric: "",
+                    song_file: null,
+                },
+            ],
+        }));
+        setShowModal(true);
+    };
+
     const handleCancelAddSong = () => {
-        const updatedSongs = [...data.songs];
-        const lastSongIndex = updatedSongs.length - 1;
-        updatedSongs[lastSongIndex] = {
-            song_title: "",
-            song_lyric: "",
-            song_file: null,
-        };
-        setData({
-            ...data,
-            songs: updatedSongs,
-        });
+        const newData = { ...data };
+        newData.songs.pop();
+        setData(newData);
         setShowModal(false);
     };
 
@@ -90,21 +86,26 @@ export default function AddAlbum(props) {
             !data.album_art ||
             !data.album_artist_name ||
             !data.album_price ||
-            data.songs.length < 2 ||
+            data.songs.length < 1 ||
             data.songs.some(
                 (song) =>
                     (!song.song_file && song.song_file !== null) ||
                     (song.song_file &&
                         !song.song_file.name.match(
                             /\.(mp3|wav|flac|acc|ogg|wma)$/i
-                        ))
+                        )) ||
+                    !song.song_title
             );
 
         if (hasErrors) {
-            toast.error("Error Notification !", {
-                position: toast.POSITION.TOP_LEFT,
-                className: "w-5/6 md:w-full dark:bg-gray-800",
-            });
+            toast.error(
+                "There must be something wrong, please recheck that pal!",
+                {
+                    position: toast.POSITION.TOP_LEFT,
+                    className: "w-5/6 md:w-full dark:bg-gray-800",
+                }
+            );
+            return;
         } else {
             toast.success("Form submitted successfully", {
                 position: toast.POSITION.TOP_LEFT,
@@ -218,10 +219,9 @@ export default function AddAlbum(props) {
                                         </div>
                                     </div>
 
-                                    {/* Modal */}
                                     <Modal
                                         show={showModal}
-                                        onClose={handleCloseModal}
+                                        // onClose={}
                                     >
                                         {data.songs &&
                                             data.songs.map((song, index) => (
@@ -422,7 +422,7 @@ export default function AddAlbum(props) {
 
                                                         <button
                                                             onClick={
-                                                                addSongInput
+                                                                hanldeFormSong
                                                             }
                                                             type="buttin"
                                                             className="my-5 w-full flex justify-center bg-[#04ddb4] text-[#0d2758] p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-green-300 shadow-lg cursor-pointer transition ease-in duration-200"
@@ -433,27 +433,27 @@ export default function AddAlbum(props) {
                                                 </div>
                                             ))}
                                     </Modal>
-                                    {/* End Modal */}
 
                                     <div>
                                         <FormFeedback
                                             errors={errors}
                                             progress={progress}
                                         />
-
-                                        <button
-                                            type="submit"
-                                            className="my-5 w-full flex justify-center bg-turquoise hover:bg-green-300 dark:bg-white dark:hover:bg-gray-300 text-blueNavy p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline shadow-lg cursor-pointer transition duration-200"
-                                        >
-                                            Submit
-                                        </button>
                                         <button
                                             type="button"
-                                            onClick={() => setShowModal(true)}
+                                            onClick={handleAddSong}
                                             className="my-5 w-full flex justify-center bg-turquoise hover:bg-green-300 dark:bg-white dark:hover:bg-gray-300 text-blueNavy p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline shadow-lg cursor-pointer transition duration-200"
                                         >
                                             Add Songs
                                         </button>
+                                        {data.songs.length > 0 && (
+                                            <button
+                                                type="submit"
+                                                className="my-5 w-full flex justify-center bg-turquoise hover:bg-green-300 dark:bg-white dark:hover:bg-gray-300 text-blueNavy p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline shadow-lg cursor-pointer transition duration-200"
+                                            >
+                                                Submit
+                                            </button>
+                                        )}
                                     </div>
                                 </form>
                             </div>
