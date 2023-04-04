@@ -14,15 +14,13 @@ class ArtistAlbumController extends Controller
 {
     public function index()
     {
-        $posts = ArtistAlbum::all();
-        // dd($posts);
-        return Inertia::render('Welcome', ['posts' => $posts]);
+        $posts = ArtistAlbum::with('artist_song')->get();
+        return Inertia::render('Welcome', ['props' => $posts]);
     }
 
     public function artistIndex()
     {
         $posts = ArtistAlbum::where('album_user_id', Auth::id())->get();
-
         return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts]);
     }
 
