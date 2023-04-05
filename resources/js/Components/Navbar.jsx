@@ -58,7 +58,7 @@ export default function Navbar() {
                                                 <DarkModeToggle />
                                                 <Link
                                                     href=""
-                                                    className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Help
                                                 </Link>
@@ -99,7 +99,7 @@ export default function Navbar() {
                                                 <DarkModeToggle />{" "}
                                                 <Link
                                                     href={route("login")}
-                                                    className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                 >
                                                     Login
                                                 </Link>
@@ -173,7 +173,7 @@ export default function Navbar() {
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link
                                                         href=""
-                                                        className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Help
                                                     </Link>
@@ -201,7 +201,7 @@ export default function Navbar() {
                                                 <div className="flex flex-col items-center pt-10 space-y-5">
                                                     <Link
                                                         href={route("login")}
-                                                        className="mr-4 font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Login
                                                     </Link>

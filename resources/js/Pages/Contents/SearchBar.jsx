@@ -1,7 +1,7 @@
 export default function SearchBar() {
     return (
-        <div className="md:max-w-md md:p-0 mx-auto max-w-xs px-8">
-            <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden shadow-xl">
+        <div className="md:max-w-md md:p-0 mx-auto max-w-xs px-8 my-8">
+            <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden shadow-md">
                 <div className="grid place-items-center h-full w-12 text-blueNavy ">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
