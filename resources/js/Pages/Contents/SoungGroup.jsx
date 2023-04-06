@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ChevronLeftIcon,
     ChevronRightIcon,
@@ -13,6 +13,7 @@ export default function SongGroup({ props }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentSongId, setCurrentSongId] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
+    const [width, setWidth] = useState(window.innerWidth);
 
     const handlePlay = (song) => {
         const soundUrl =
@@ -61,6 +62,17 @@ export default function SongGroup({ props }) {
         setCurrentPage(selectedPage);
     };
 
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowSizeChange);
+        return () => {
+            window.removeEventListener("resize", handleWindowSizeChange);
+        };
+    }, []);
+
     return (
         <>
             <div className="flex flex-wrap mx-auto">
@@ -106,26 +118,45 @@ export default function SongGroup({ props }) {
                     </div>
                 ))}
             </div>
-            <ReactPaginate
-                className="flex items-center justify-center space-x-6"
-                previousLabel={
-                    <ChevronLeftIcon className="w-16 h-16 hover:scale-110" />
-                }
-                nextLabel={
-                    <ChevronRightIcon className="w-16 h-16 hover:scale-110" />
-                }
-                pageCount={pageCount}
-                pageRangeDisplayed={4}
-                marginPagesDisplayed={1}
-                onPageChange={handlePageChange}
-                containerClassName={"pagination"}
-                disabledClassName={"disabled"}
-                activeClassName={"bg-white bg-opacity-50 rounded-full"}
-                breakLabel={"..."}
-                pageLinkClassName={
-                    "w-12 h-12 rounded-full flex items-center justify-center hover:bg-white hover:bg-opacity-25 ease-in-out duration-150"
-                }
-            />
+            {width <= 768 ? (
+                <ReactPaginate
+                    className="flex items-center justify-center space-x-2"
+                    previousLabel={
+                        <ChevronLeftIcon className="w-10 h-10" />
+                    }
+                    nextLabel={
+                        <ChevronRightIcon className="w-10 h-10" />
+                    }
+                    pageCount={pageCount}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={-1}
+                    onPageChange={handlePageChange}
+                    activeClassName={"bg-white bg-opacity-50 rounded-full"}
+                    breakLabel={"..."}
+                    pageLinkClassName={
+                        "w-8 h-8 rounded-full flex items-center justify-center hover:bg-white hover:bg-opacity-25 ease-in-out duration-150"
+                    }
+                />
+            ) : (
+                <ReactPaginate
+                    className="flex items-center justify-center space-x-6"
+                    previousLabel={
+                        <ChevronLeftIcon className="w-16 h-16 hover:scale-110" />
+                    }
+                    nextLabel={
+                        <ChevronRightIcon className="w-16 h-16 hover:scale-110" />
+                    }
+                    pageCount={pageCount}
+                    pageRangeDisplayed={4}
+                    marginPagesDisplayed={1}
+                    onPageChange={handlePageChange}
+                    activeClassName={"bg-white bg-opacity-50 rounded-full"}
+                    breakLabel={"..."}
+                    pageLinkClassName={
+                        "w-12 h-12 rounded-full flex items-center justify-center hover:bg-white hover:bg-opacity-25 ease-in-out duration-150"
+                    }
+                />
+            )}
         </>
     );
 }
