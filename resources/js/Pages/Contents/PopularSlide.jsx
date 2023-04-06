@@ -6,9 +6,9 @@ import "@/../css/main.css";
 export default function PopularSlide({ props }) {
     const [width, setWidth] = useState(window.innerWidth);
 
-    function handleWindowSizeChange() {
+    const handleWindowSizeChange = () => {
         setWidth(window.innerWidth);
-    }
+    };
     useEffect(() => {
         window.addEventListener("resize", handleWindowSizeChange);
         return () => {
@@ -46,10 +46,10 @@ export default function PopularSlide({ props }) {
                                         />
                                     </a>
                                     <div className="px-4 flex flex-col -space-y-1">
-                                        <span className="font-robotocondensed">
+                                        <span className="font-robotocondensed truncate">
                                             {post.album_title}
                                         </span>
-                                        <span className="font-sofiacondensed text-xs">
+                                        <span className="font-sofiacondensed text-xs truncate">
                                             by: {post.album_artist_name}
                                         </span>
                                     </div>
@@ -84,10 +84,10 @@ export default function PopularSlide({ props }) {
                                         />
                                     </a>
                                     <div className="px-4 flex flex-col -space-y-1">
-                                        <span className="font-robotocondensed">
+                                        <span className="font-robotocondensed truncate">
                                             {post.album_title}
                                         </span>
-                                        <span className="font-sofiacondensed text-xs">
+                                        <span className="font-sofiacondensed text-xs truncate">
                                             by: {post.album_artist_name}
                                         </span>
                                     </div>
