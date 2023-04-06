@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { PauseIcon, PlayIcon } from "@heroicons/react/solid";
+import {
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    PauseIcon,
+    PlayIcon,
+} from "@heroicons/react/solid";
+import ReactPaginate from "react-paginate";
 
 export default function SongGroup({ props }) {
+    console.log(props.length);
     const [audio] = useState(new Audio());
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentSongId, setCurrentSongId] = useState(null);
+    const [currentPage, setCurrentPage] = useState(0);
 
     const handlePlay = (song) => {
         const soundUrl =
@@ -42,42 +50,82 @@ export default function SongGroup({ props }) {
         }
     };
 
+    const pageSize = 8;
+    const pageCount = Math.ceil(props.length / pageSize);
+    const data = props.slice(
+        currentPage * pageSize,
+        (currentPage + 1) * pageSize
+    );
+
+    const handlePageChange = ({ selected: selectedPage }) => {
+        setCurrentPage(selectedPage);
+    };
+
     return (
-        <div className="flex flex-wrap mx-auto">
-            {props.map((album) => (
-                <div
-                    className="flex-2 w-2/5 md:w-[25%] mx-auto px-0 md:px-2 my-6 flex flex-col"
-                    key={album.id}
-                >
-                    <div className="relative inline-block group:">
-                        <img
-                            src={
-                                "images/albums/thumbnails/thumb_" +
-                                album.album_art
-                            }
-                            alt={album.album_title}
-                        />
-                        {album.artist_song.length > 0 && (
-                            <div className="cursor-pointer absolute inset-0 bg-gray-900 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 text-gray-100">
-                                <PlayIcon
-                                    className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
-                                        album
-                                    )}`}
-                                    onClick={() => handlePlay(album)}
-                                />
-                                <PauseIcon
-                                    className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
-                                        album
-                                    )}`}
-                                    onClick={handlePause}
-                                />
-                            </div>
-                        )}
+        <>
+            <div className="flex flex-wrap mx-auto">
+                {data.map((album) => (
+                    <div
+                        className="flex-2 w-2/5 md:w-[25%] mx-auto px-0 md:px-2 my-6"
+                        key={album.id}
+                    >
+                        <div className="mx-auto relative">
+                            <img
+                                className="w-full h-full"
+                                src={
+                                    "images/albums/thumbnails/thumb_" +
+                                    album.album_art
+                                }
+                                alt={album.album_title}
+                            />
+                            {album.artist_song.length > 0 && (
+                                <div className="cursor-pointer absolute inset-0 bg-gray-900 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 text-gray-100">
+                                    <PlayIcon
+                                        className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
+                                            album
+                                        )}`}
+                                        onClick={() => handlePlay(album)}
+                                    />
+                                    <PauseIcon
+                                        className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
+                                            album
+                                        )}`}
+                                        onClick={handlePause}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                        <div className="flex flex-col">
+                            <a className="truncate" href="/">
+                                {album.album_title}
+                            </a>
+                            <a className="truncate text-gray-600" href="/">
+                                {album.album_artist_name}
+                            </a>
+                        </div>
                     </div>
-                    <a className="truncate" href="/">{album.album_title}</a>
-                    <a className="truncate text-gray-600" href="/">{album.album_artist_name}</a>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+            <ReactPaginate
+                className="flex items-center justify-center space-x-6"
+                previousLabel={
+                    <ChevronLeftIcon className="w-16 h-16 hover:scale-110" />
+                }
+                nextLabel={
+                    <ChevronRightIcon className="w-16 h-16 hover:scale-110" />
+                }
+                pageCount={pageCount}
+                pageRangeDisplayed={4}
+                marginPagesDisplayed={1}
+                onPageChange={handlePageChange}
+                containerClassName={"pagination"}
+                disabledClassName={"disabled"}
+                activeClassName={"bg-white bg-opacity-50 rounded-full"}
+                breakLabel={"..."}
+                pageLinkClassName={
+                    "w-12 h-12 rounded-full flex items-center justify-center hover:bg-white hover:bg-opacity-25 ease-in-out duration-150"
+                }
+            />
+        </>
     );
 }
