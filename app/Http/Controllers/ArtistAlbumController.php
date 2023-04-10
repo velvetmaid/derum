@@ -18,10 +18,19 @@ class ArtistAlbumController extends Controller
         return Inertia::render('Welcome', ['props' => $posts]);
     }
 
-    public function artistIndex()
+    public function artistDashboardIndex()
     {
         $posts = ArtistAlbum::where('album_user_id', Auth::id())->get();
         return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts]);
+    }
+
+    public function albumInfoIndex($id)
+    {
+        $posts = ArtistAlbum::with('artist_song')->find($id);
+
+        return Inertia::render('Contents/AlbumInfo', [
+            'posts' => $posts,
+        ]);
     }
 
     public function create()

@@ -6,8 +6,10 @@ import {
     PlayIcon,
 } from "@heroicons/react/solid";
 import ReactPaginate from "react-paginate";
+import { Link } from "@inertiajs/react";
 
 export default function SongGroup({ props }) {
+    console.log(props);
     const [audio] = useState(new Audio());
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentSongId, setCurrentSongId] = useState(null);
@@ -90,20 +92,22 @@ export default function SongGroup({ props }) {
                                 alt={album.album_title}
                             />
                             {album.artist_song.length > 0 && (
-                                <div className="cursor-pointer absolute inset-0 bg-gray-900 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 text-gray-100">
-                                    <PlayIcon
-                                        className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
-                                            album
-                                        )}`}
-                                        onClick={() => handlePlay(album)}
-                                    />
-                                    <PauseIcon
-                                        className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
-                                            album
-                                        )}`}
-                                        onClick={handlePause}
-                                    />
-                                </div>
+                                <Link href={route("albumInfo",{ id: album.id })}>
+                                    <div className="cursor-pointer absolute inset-0 bg-gray-900 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 text-gray-100">
+                                        <PlayIcon
+                                            className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
+                                                album
+                                            )}`}
+                                            onClick={() => handlePlay(album)}
+                                        />
+                                        <PauseIcon
+                                            className={`w-12 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
+                                                album
+                                            )}`}
+                                            onClick={handlePause}
+                                        />
+                                    </div>
+                                </Link>
                             )}
                         </div>
                         <div className="flex flex-col">
@@ -120,12 +124,8 @@ export default function SongGroup({ props }) {
             {width <= 768 ? (
                 <ReactPaginate
                     className="flex items-center justify-center space-x-2"
-                    previousLabel={
-                        <ChevronLeftIcon className="w-10 h-10" />
-                    }
-                    nextLabel={
-                        <ChevronRightIcon className="w-10 h-10" />
-                    }
+                    previousLabel={<ChevronLeftIcon className="w-10 h-10" />}
+                    nextLabel={<ChevronRightIcon className="w-10 h-10" />}
                     pageCount={pageCount}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={-1}
