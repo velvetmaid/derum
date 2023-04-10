@@ -8,7 +8,7 @@
 - [ ] Artist Page
     - [x] Dashboard
     - [x] Store Album
-    - [ ] Store Song
+    - [x] Store Song
     - [ ] Store Merch
     - [x] Index Album
     - [ ] Index Song

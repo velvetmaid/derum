@@ -179,6 +179,7 @@ export default function AddAlbum(props) {
                                                 className="relative text-base block flex-auto cursor-pointer rounded-lg border border-solid border-gray-100 dark:border-none bg-clip-padding px-3 font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:cursor-pointer file:overflow-hidden file:rounded-md file:border-0 file:border-solid file:border-inherit file:bg-turquoise dark:file:bg-white file:px-3 file:py-2 file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] hover:file:bg-green-300 focus:shadow-primary focus:outline-none"
                                                 type="file"
                                                 name="album_art"
+                                                accept=".jpg, .jpeg, .png, .svg"
                                                 value={undefined}
                                                 onChange={handleFileInputChange}
                                             />
@@ -226,7 +227,7 @@ export default function AddAlbum(props) {
                                         {data.songs &&
                                             data.songs.map((song, index) => (
                                                 <div
-                                                    className="text-blueNavy dark:text-gray-100 sm:max-w-lg w-full py-20 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto"
+                                                    className="text-blueNavy dark:text-gray-100 sm:max-w-lg w-full px-9 md:px-0  py-20 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto space-y-4"
                                                     key={index}
                                                     style={{
                                                         display:
@@ -367,7 +368,7 @@ export default function AddAlbum(props) {
                                                                     type="file"
                                                                     className="hidden"
                                                                     name="song_file"
-                                                                    accept="audio/"
+                                                                    accept=".mp3, .wav, .aac, .flac, .ogg, .wma"
                                                                     value={
                                                                         undefined
                                                                     }

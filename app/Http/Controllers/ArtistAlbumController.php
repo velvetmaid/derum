@@ -41,7 +41,7 @@ class ArtistAlbumController extends Controller
             'songs' => 'required|array|min:1',
             'songs.*.song_title' => 'required',
             'songs.*.song_lyric' => 'nullable',
-            'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma',
+            'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma|max:1048576',
         ])->validate();
 
         // if ($validator->fails()) {

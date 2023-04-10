@@ -8,7 +8,6 @@ import {
 import ReactPaginate from "react-paginate";
 
 export default function SongGroup({ props }) {
-    console.log(props.length);
     const [audio] = useState(new Audio());
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentSongId, setCurrentSongId] = useState(null);
@@ -75,7 +74,7 @@ export default function SongGroup({ props }) {
 
     return (
         <>
-            <div className="flex flex-wrap mx-auto">
+            <div className="flex flex-wrap mx-auto p-6 bg-white dark:bg-blueNavy-dark rounded-xl">
                 {data.map((album) => (
                     <div
                         className="flex-2 w-2/5 md:w-[25%] mx-auto px-0 md:px-2 my-6"
