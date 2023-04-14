@@ -1,12 +1,21 @@
 import Modal from "@/Components/Modal";
-import { useState } from "react";
-import { PencilIcon, TrashIcon } from "@heroicons/react/solid";
+import { useEffect, useRef, useState } from "react";
+import {
+    PencilIcon,
+    TrashIcon,
+    PlayIcon,
+    PauseIcon,
+} from "@heroicons/react/solid";
 import "@/../css/main.css";
 
 export default function PreviewMusic({ data, setData, setLastIndex }) {
+    console.log("this", data);
     const [editingSongIndex, setEditingSongIndex] = useState(-1);
     const [editedSong, setEditedSong] = useState({});
     const [showModal, setShowModal] = useState(false);
+    const [audio] = useState(new Audio());
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentSongId, setCurrentSongId] = useState(null);
 
     const handleEdit = (index, song) => {
         setEditingSongIndex(index);
@@ -35,6 +44,53 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
             song.song_lyric.trim() !== "" ||
             song.song_file !== null
     );
+
+    const handlePlay = (song, index) => {
+        const blob = new Blob([song.song_file], { type: song.song_file.type });
+        const soundUrl = URL.createObjectURL(blob);
+        audio.pause();
+        audio.src = soundUrl;
+        audio.play();
+        setIsPlaying(true);
+        setCurrentSongId(index);
+    };
+
+    const handlePause = () => {
+        audio.pause();
+        setIsPlaying(false);
+        setCurrentSongId(null);
+    };
+
+    const getPlayButtonClass = (index) => {
+        if (currentSongId === index) {
+            return isPlaying
+                ? "opacity-0 pointer-events-none"
+                : "opacity-100 pointer-events-auto";
+        } else {
+            return "opacity-100 pointer-events-auto";
+        }
+    };
+
+    const getPauseButtonClass = (index) => {
+        if (currentSongId === index) {
+            return isPlaying
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 pointer-events-none";
+        } else {
+            return "opacity-0 pointer-events-none";
+        }
+    };
+
+    let handleBeforeUnload;
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            audio.pause();
+        };
+    }, []);
 
     return (
         <>
@@ -140,15 +196,26 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
                                 </p>
                                 <div className="flex items-center justify-between rounded-lg shadow-xl">
                                     {song.song_file && (
-                                        <audio
-                                            className="w-full p-4 rounded-lg shadow-md bg-gradient-to-r"
-                                            src={URL.createObjectURL(
-                                                song.song_file
-                                            )}
-                                            controls
-                                            controlsList="nodownload nofullscreen noremoteplayback"
-                                            disablePictureInPicture
-                                        />
+                                        <div className="relative">
+                                            <PlayIcon
+                                                className={`z-50 w-16 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
+                                                    index
+                                                )}`}
+                                                onClick={(event) => {
+                                                    event.preventDefault();
+                                                    handlePlay(song, index);
+                                                }}
+                                            />
+                                            <PauseIcon
+                                                className={`z-50 w-16 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
+                                                    index
+                                                )}`}
+                                                onClick={(event) => {
+                                                    event.preventDefault();
+                                                    handlePause();
+                                                }}
+                                            />
+                                        </div>
                                     )}
                                     <div>
                                         <button
