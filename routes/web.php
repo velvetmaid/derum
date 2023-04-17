@@ -30,6 +30,7 @@ Route::get('/', function () {
 
 Route::get('/', [ArtistAlbumController::class, 'index']);
 Route::get('/albumInfo/{id}', [ArtistAlbumController::class, 'albumInfoIndex'])->name('albumInfo');
+Route::get('/search/{key}', [ArtistAlbumController::class, 'search']);
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

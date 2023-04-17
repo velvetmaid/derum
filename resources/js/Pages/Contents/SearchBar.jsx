@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AlbumGroup from "./AlbumGroup";
-import ErrorBoundary from "./ErrorB";
 
 export default function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState("");

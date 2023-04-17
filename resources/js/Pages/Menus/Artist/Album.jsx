@@ -21,7 +21,7 @@ export default function Album({ posts }) {
                                                 <img
                                                     className="block h-full w-full rounded-lg object-cover object-center"
                                                     src={
-                                                        "images/albums/thumbnails/thumb_" +
+                                                        "/images/albums/thumbnails/thumb_" +
                                                         post.album_art
                                                     }
                                                     alt={post.album_title}

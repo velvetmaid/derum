@@ -39,7 +39,7 @@ export default function PopularSlide({ props }) {
                                         <img
                                             className="px-2 md:px-4 object-cover w-full h-full relative"
                                             src={
-                                                "images/albums/thumbnails/thumb_" +
+                                                "/images/albums/thumbnails/thumb_" +
                                                 post.album_art
                                             }
                                             alt={post.album_title}
@@ -77,7 +77,7 @@ export default function PopularSlide({ props }) {
                                         <img
                                             className="px-2 md:px-4 object-cover w-full h-full relative"
                                             src={
-                                                "images/albums/thumbnails/thumb_" +
+                                                "/images/albums/thumbnails/thumb_" +
                                                 post.album_art
                                             }
                                             alt={post.album_title}

@@ -26,11 +26,11 @@ export default function Hero() {
             <div className="flex-1 sm:text-center md:text-left">
                 <img
                     className="w-full mx-auto sm:w-10/12 md:w-full block dark:hidden"
-                    src="./images/main/hero-light.svg"
+                    src="/images/main/hero-light.svg"
                 />
                 <img
                     className="w-full mx-auto sm:w-10/12 md:w-full hidden dark:block"
-                    src="./images/main/hero-dark.svg"
+                    src="/images/main/hero-dark.svg"
                 />
             </div>
         </section>
