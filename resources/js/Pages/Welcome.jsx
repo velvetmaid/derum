@@ -3,7 +3,6 @@ import Hero from "@/Components/Hero";
 import PopularSlide from "@/Pages/Contents/PopularSlide";
 import Layout from "../Layouts/Layout";
 import SearchBar from "./Contents/SearchBar";
-import SongGroup from "./Contents/AlbumGroup";
 import Footer from "@/Components/Footer";
 
 export default function Welcome(props) {
@@ -13,8 +12,7 @@ export default function Welcome(props) {
                 <Head title="Home" />
                 <Hero />
                 <PopularSlide {...props} />
-                <SearchBar />
-                <SongGroup {...props} />
+                <SearchBar {...props}/>
                 <Footer />
             </Layout>
         </>

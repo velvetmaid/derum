@@ -26,11 +26,20 @@ class ArtistAlbumController extends Controller
 
     public function albumInfoIndex($id)
     {
-        $posts = ArtistAlbum::with('artist_song')->find($id);
-
+        $posts  = ArtistAlbum::with('artist_song')->find($id);
         return Inertia::render('Contents/AlbumInfo', [
             'posts' => $posts,
         ]);
+    }
+
+    public function search($key)
+    {
+        return ArtistAlbum::with('artist_song')
+            ->where('album_title', 'like', "%$key%")
+            ->orWhereHas('artist_song', function ($query) use ($key) {
+                $query->where('song_title', 'like', "%$key%");
+            })
+            ->get();
     }
 
     public function create()
