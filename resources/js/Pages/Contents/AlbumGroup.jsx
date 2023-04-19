@@ -16,7 +16,6 @@ export default function AlbumGroup({ props, searchRes }) {
     const [width, setWidth] = useState(window.innerWidth);
 
     const handlePlay = (song) => {
-        console.log(song);
         const soundUrl =
             "musics/" + song.album_title + "/" + song.artist_song[0].song_file;
         audio.pause();

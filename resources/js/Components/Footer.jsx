@@ -249,7 +249,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-12 mt-12 border-t border-gray-100">
+                <div className="pt-12 mt-12 border-t border-gray-900 dark:border-gray-100">
                     <div className="sm:flex sm:items-center sm:justify-between">
                         <nav aria-label="Footer Navigation - Support">
                             <ul className="flex flex-wrap gap-4 text-xs">

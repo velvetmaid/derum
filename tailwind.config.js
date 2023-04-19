@@ -11,9 +11,6 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
-            // backgroundImage: {
-            //     'hero': "url('./images/main/hero-light.svg')",
-            // },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 robotocondensed: ['Roboto Condensed', 'sans-serif'],
