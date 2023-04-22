@@ -15,12 +15,11 @@ export default function AddAlbum(props) {
         album_title: "",
         album_release_date: "",
         album_art: null,
-        album_artist_name: "",
+        album_artist_name: props.auth.user.name,
         album_price: "",
         album_user_id: props.auth.user.id,
         songs: [],
     });
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
@@ -74,8 +73,6 @@ export default function AddAlbum(props) {
         setShowModal(false);
     };
 
-    console.log(data);
-
     function submit(e) {
         e.preventDefault();
         post("store");
@@ -84,8 +81,6 @@ export default function AddAlbum(props) {
             !data.album_title ||
             !data.album_release_date ||
             !data.album_art ||
-            !data.album_artist_name ||
-            !data.album_price ||
             data.songs.length < 1 ||
             data.songs.some(
                 (song) =>
@@ -153,6 +148,7 @@ export default function AddAlbum(props) {
                                             value={data.album_title}
                                             placeholder="Your Album Title"
                                             onChange={handleInputChange}
+                                            autoComplete="off"
                                         />
                                     </div>
                                     <div className="flex flex-col md:flex-row space-x-1 space-y-2">
@@ -194,9 +190,11 @@ export default function AddAlbum(props) {
                                             className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                             type="text"
                                             name="album_artist_name"
-                                            value={data.album_artist_name}
+                                            value={props.auth.user.name}
                                             placeholder="Your Artits Name"
                                             onChange={handleInputChange}
+                                            autoComplete="off"
+                                            disabled
                                         />
                                     </div>
 

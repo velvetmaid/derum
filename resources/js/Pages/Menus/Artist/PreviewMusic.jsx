@@ -9,7 +9,6 @@ import {
 import "@/../css/main.css";
 
 export default function PreviewMusic({ data, setData, setLastIndex }) {
-    console.log("this", data);
     const [editingSongIndex, setEditingSongIndex] = useState(-1);
     const [editedSong, setEditedSong] = useState({});
     const [showModal, setShowModal] = useState(false);
@@ -96,7 +95,7 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
         <>
             {filteredSongs.map((song, index) => {
                 return (
-                    <div key={index} className="border p-2">
+                    <div key={index} className="p-1 hover:translate-x-1 duration-200">
                         {editingSongIndex === index ? (
                             <Modal show={showModal}>
                                 <div className="text-blueNavy dark:text-gray-100 sm:max-w-lg w-full px-9 md:px-0 py-20 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
@@ -191,33 +190,35 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
                             </Modal>
                         ) : (
                             <>
-                                <p className="text-xs mx-5 -mb-4">
-                                    {song.song_title}
-                                </p>
-                                <div className="flex items-center justify-between rounded-lg shadow-xl">
+                                <div className="flex items-center justify-between rounded-lg shadow-md">
                                     {song.song_file && (
-                                        <div className="relative">
-                                            <PlayIcon
-                                                className={`z-50 w-16 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
-                                                    index
-                                                )}`}
-                                                onClick={(event) => {
-                                                    event.preventDefault();
-                                                    handlePlay(song, index);
-                                                }}
-                                            />
-                                            <PauseIcon
-                                                className={`z-50 w-16 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
-                                                    index
-                                                )}`}
-                                                onClick={(event) => {
-                                                    event.preventDefault();
-                                                    handlePause();
-                                                }}
-                                            />
-                                        </div>
+                                        <>
+                                            <div className="relative m-4">
+                                                <PlayIcon
+                                                    className={`w-8 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPlayButtonClass(
+                                                        index
+                                                    )}`}
+                                                    onClick={(event) => {
+                                                        event.preventDefault();
+                                                        handlePlay(song, index);
+                                                    }}
+                                                />
+                                                <PauseIcon
+                                                    className={`w-8 cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${getPauseButtonClass(
+                                                        index
+                                                    )}`}
+                                                    onClick={(event) => {
+                                                        event.preventDefault();
+                                                        handlePause();
+                                                    }}
+                                                />
+                                            </div>
+                                            <p className="text-xs mx-5">
+                                                {song.song_title}
+                                            </p>
+                                        </>
                                     )}
-                                    <div>
+                                    <div className="flex">
                                         <button
                                             onClick={() =>
                                                 handleEdit(index, song)
