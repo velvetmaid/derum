@@ -55,8 +55,7 @@ export default function SearchBar(props) {
                     </div>
                 </form>
             </div>
-
-                <AlbumGroup {...props} searchRes={searchResults} />
+            <AlbumGroup {...props} searchRes={searchResults} />
         </>
     );
 }

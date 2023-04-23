@@ -12,18 +12,33 @@ use Intervention\Image\Facades\Image;
 
 class ArtistAlbumController extends Controller
 {
+    /**
+     * Display albums on the welcome page.
+     */
     public function index()
     {
         $posts = ArtistAlbum::with('artist_song')->get();
         return Inertia::render('Welcome', ['props' => $posts]);
     }
 
+    /**
+     * Retrieve and display albums created by the currently authenticated artist user.
+     */
     public function artistDashboardIndex()
     {
-        $posts = ArtistAlbum::where('album_user_id', Auth::id())->get();
-        return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts]);
+        $total_songs = 0;
+        $posts = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
+
+        foreach ($posts as $post) {
+            $total_songs += count($post->artist_song);
+        }
+
+        return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts, 'songsCount' => $total_songs]);
     }
 
+    /**
+     * Retrieve and display information about a specific album.
+     */
     public function albumInfoIndex($id)
     {
         $posts  = ArtistAlbum::with('artist_song')->find($id);
@@ -32,6 +47,9 @@ class ArtistAlbumController extends Controller
         ]);
     }
 
+    /**
+     * Search for albums and songs that match the given keyword.
+     */
     public function search($key)
     {
         return ArtistAlbum::with('artist_song')
@@ -42,11 +60,17 @@ class ArtistAlbumController extends Controller
             ->get();
     }
 
+    /**
+     * Display the page for adding a new artist album.
+     */
     public function create()
     {
         return Inertia::render('Menus/Artist/AddAlbum');
     }
 
+    /**
+     * Store a newly created artist album.
+     */
     public function store(Request $request)
     {
         // Validator
@@ -55,7 +79,7 @@ class ArtistAlbumController extends Controller
             'album_release_date' => 'required',
             'album_art' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
             'album_artist_name' => 'required',
-            'album_price' => 'required',
+            'album_price' => 'nullable',
             'songs' => 'required|array|min:1',
             'songs.*.song_title' => 'required',
             'songs.*.song_lyric' => 'nullable',
@@ -108,5 +132,21 @@ class ArtistAlbumController extends Controller
         }
 
         return redirect()->route('artistDashboard');
+    }
+
+    /**
+     * Display the edit form for a specific post.
+     */
+    public function show($id)
+    {
+        $posts  = ArtistAlbum::with('artist_song')->find($id);
+
+        if ($posts->album_user_id == Auth::id()) {
+            return Inertia::render('Menus/Artist/EditAlbum', [
+                'posts' => $posts,
+            ]);
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }

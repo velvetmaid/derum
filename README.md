@@ -1,17 +1,19 @@
 <!-- ROADMAP -->
 ### Roadmap
 
-- [ ] Home
+- [x] Home
 - [x] Login
 - [x] Sign Up
 - [x] Log Out
+- [x] Search
+- [x] Pagination
 - [ ] Artist Page
     - [x] Dashboard
     - [x] Store Album
     - [x] Store Song
     - [ ] Store Merch
     - [x] Index Album
-    - [ ] Index Song
+    - [x] Index Song
     - [ ] Index merch
     - [ ] Edit Album
     - [ ] Edit Song

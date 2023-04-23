@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::controller(ArtistAlbumController::class)->group(function () {
             Route::get('/artistAddAlbum/create', 'create')->name('artistAddAlbum.create');
             Route::post('/artistAddAlbum/store', 'store')->name('artistAddAlbum.store');
+            Route::get('/editAlbum/{id}', 'show')->name('editAlbum');
             // Route::get('/artistAddAlbum.{...}.edit', 'edit')->name('artistAddAlbum.edit');
             // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
         });

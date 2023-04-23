@@ -46,41 +46,31 @@ export default function Desk(props) {
                     <div className="grid grid-cols-2 gap-4 pb-12 md:p-0">
                         <div className="col-span-2">
                             <div className="p-4 bg-green-100 dark:bg-[#16113f] rounded-xl flex justify-around">
-                                <div>
-                                    <Link
-                                        href={route("artistAddAlbum.create")}
-                                        type="button"
-                                        className="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white dark:bg-[#110128] hover:text-green-500 dark:hover:text-blue-200 text-sm font-semibold transition"
-                                    >
-                                        Add an album
-                                    </Link>
-                                </div>
-                                <div>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white dark:bg-[#110128] hover:text-green-500 dark:hover:text-blue-200 text-sm font-semibold transition"
-                                    >
-                                        Add an song
-                                    </button>
-                                </div>
+                                <Link
+                                    href={route("artistAddAlbum.create")}
+                                    type="button"
+                                    className="inline-flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white dark:bg-[#110128] hover:text-green-500 dark:hover:text-blue-200 text-sm font-semibold transition"
+                                >
+                                    Add an album
+                                </Link>
                             </div>
                         </div>
                         <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
                             <div className="font-bold text-2xl leading-none">
-                                20
+                                {props.posts.length}
                             </div>
                             <div className="mt-2">Your album</div>
                         </div>
                         <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
                             <div className="font-bold text-2xl leading-none">
-                                100
+                                {props.songsCount}
                             </div>
                             <div className="mt-2">Your song</div>
                         </div>
                         <div className="col-span-2">
                             <div className="p-4 bg-purple-100 dark:bg-[#022C43] rounded-xl ">
                                 <div className="font-bold text-xl leading-none">
-                                    idk idk
+                                    {props.posts[0].album_title}
                                 </div>
                                 <div className="mt-2">Your current album</div>
                             </div>

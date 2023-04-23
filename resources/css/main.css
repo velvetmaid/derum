@@ -28,15 +28,3 @@ input[type=number] {
         transition: background-color 5000s ease-in-out 1s;
     }
 }
-
-/* .splide__arrow {
-    background: none;
-}
-
-.splide__arrow--next {
-    right: -1rem;
-}
-
-.splide__arrow--prev {
-    left: -1rem;
-} */

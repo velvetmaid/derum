@@ -215,7 +215,7 @@ export default function AlbumGroup({ props, searchRes }) {
             </div>
             {width <= 768 ? (
                 <ReactPaginate
-                    className="flex items-center justify-center space-x-2"
+                    className="flex items-center justify-center space-x-2 bg-white dark:bg-blueNavy-dark my-4 rounded-lg"
                     previousLabel={<ChevronLeftIcon className="w-10 h-10" />}
                     nextLabel={<ChevronRightIcon className="w-10 h-10" />}
                     pageCount={pageCount}
@@ -230,7 +230,7 @@ export default function AlbumGroup({ props, searchRes }) {
                 />
             ) : (
                 <ReactPaginate
-                    className="flex items-center justify-center space-x-6"
+                    className="flex items-center justify-center space-x-6 bg-white dark:bg-blueNavy-dark my-4 rounded-lg"
                     previousLabel={
                         <ChevronLeftIcon className="w-16 h-16 hover:scale-110" />
                     }
