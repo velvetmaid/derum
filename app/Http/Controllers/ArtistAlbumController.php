@@ -73,9 +73,8 @@ class ArtistAlbumController extends Controller
      */
     public function store(Request $request)
     {
-        // Validator
         Validator::make($request->all(), [
-            'album_title' => 'required',
+            'album_title' => 'required:unique',
             'album_release_date' => 'required',
             'album_art' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
             'album_artist_name' => 'required',
@@ -85,10 +84,6 @@ class ArtistAlbumController extends Controller
             'songs.*.song_lyric' => 'nullable',
             'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma|max:1048576',
         ])->validate();
-
-        // if ($validator->fails()) {
-        //     return response()->json(['errors' => $validator->errors()]);
-        // }
 
         $album = new ArtistAlbum([
             'album_title' => $request->album_title,
@@ -123,7 +118,7 @@ class ArtistAlbumController extends Controller
 
             if ($request->hasFile("songs.{$index}.song_file") && $request->file("songs.{$index}.song_file")->isValid()) {
                 $songFile = $request->file("songs.{$index}.song_file");
-                $destinationPath = 'musics/' . $album->album_title;
+                $destinationPath = 'musics/';
                 $songName = $album->id . $song->id . '_' . $song->song_title . "." . $songFile->getClientOriginalExtension();
                 $songFile->move($destinationPath, $songName);
                 $song->song_file = $songName;
@@ -153,32 +148,30 @@ class ArtistAlbumController extends Controller
     public function update(Request $request, $id)
     {
         // Validator
-        dd($request->all());
+        // $validator = Validator::make($request->input('data'), [
         $validator = Validator::make($request->all(), [
-            'album_title' => 'required',
-            'album_release_date' => 'required',
-            'album_art' => 'required|max:2048',
-            'album_artist_name' => 'required',
-            'album_price' => 'nullable',
-            'songs' => 'required|array|min:1',
-            'songs.*.song_title' => 'required',
-            'songs.*.song_lyric' => 'nullable',
-            'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma|max:1048576',
+            'data.album_title' => 'required',
+            'data.album_release_date' => 'required',
+            'data.album_art' => 'nullable|max:2048',
+            'data.album_artist_name' => 'required',
+            'data.album_price' => 'nullable',
+            'data.songs' => 'required|array|min:1',
+            'data.songs.*.song_title' => 'required',
+            'data.songs.*.song_lyric' => 'nullable',
+            'data.songs.*.song_file' => 'nullable|max:1048576',
         ]);
-        dd($validator);
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
 
         $album = ArtistAlbum::findOrFail($id);
-        $album->album_title = $request->album_title;
-        $album->album_release_date = $request->album_release_date;
-        $album->album_artist_name = $request->album_artist_name;
-        $album->album_price = $request->album_price;
-        $album->save();
+        $album->album_title = $request->input('data')['album_title'];
+        $album->album_release_date = $request->input('data')['album_release_date'];
+        $album->album_artist_name = $request->input('data')['album_artist_name'];
+        $album->album_price = $request->input('data')['album_price'];
+        $album->album_user_id = $request->input('data')['album_user_id'];
 
-        if ($image = $request->file('album_art')) {
+        if ($image = $request->file('data.album_art')) {
             if ($album->album_art) {
                 $oldImage = public_path('images/albums/main/' . $album->album_art);
                 if (file_exists($oldImage)) {
@@ -198,31 +191,48 @@ class ArtistAlbumController extends Controller
 
             $destinationPath = 'images/albums/main';
             $image->move($destinationPath, $albumArtName);
-            $album->album_art = "$albumArtName";
-            $album->save();
+            $album->album_art = $albumArtName;
         }
-        foreach ($request->input('songs') as $index => $songData) {
-            $song = new ArtistSong([
-                'song_title' => $songData['song_title'],
-                'song_lyric' => $songData['song_lyric'],
-                'album_id' => $album->id,
-            ]);
+        $album->save();
 
-            $song->save();
+        $existingSongIds = $album->artist_song()->pluck('id')->toArray();
+        foreach ($request->input('data.songs') as $index => $songData) {
+            if (isset($songData['id'])) {
+                $song = ArtistSong::findOrFail($songData['id']);
+                $song->song_title = $songData['song_title'];
+                $song->song_lyric = $songData['song_lyric'];
+                $existingSongIds = array_diff($existingSongIds, [$songData['id']]);
+            } else {
+                $song = new ArtistSong([
+                    'song_title' => $songData['song_title'],
+                    'song_lyric' => $songData['song_lyric'],
+                    'album_id' => $album->id,
+                ]);
+            }
 
-            if ($request->hasFile("songs.{$index}.song_file") && $request->file("songs.{$index}.song_file")->isValid()) {
+            if ($request->hasFile("data.songs.{$index}.song_file") && $request->file("data.songs.{$index}.song_file")->isValid()) {
                 if ($song->song_file) {
-                    $oldSongFile = public_path('musics/' . $album->album_title . '/' . $song->song_file);
+                    $oldSongFile = public_path('musics/' . '/' . $song->song_file);
                     if (file_exists($oldSongFile)) {
                         unlink($oldSongFile);
                     }
                 }
-                $songFile = $request->file("songs.{$index}.song_file");
-                $destinationPath = 'musics/' . $album->album_title;
+                $songFile = $request->file("data.songs.{$index}.song_file");
+                $destinationPath = 'musics/';
                 $songName = $album->id . $song->id . '_' . $song->song_title . "." . $songFile->getClientOriginalExtension();
                 $songFile->move($destinationPath, $songName);
                 $song->song_file = $songName;
-                $song->save();
+            }
+
+            $song->save();
+        }
+
+        $deletedSongs = ArtistSong::whereIn('id', $existingSongIds)->get();
+        foreach ($deletedSongs as $song) {
+            $song->delete();
+            $songFile = public_path('musics/' . $song->song_file);
+            if (file_exists($songFile)) {
+                unlink($songFile);
             }
         }
 
