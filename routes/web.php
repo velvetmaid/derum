@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ArtistAlbumController;
-use App\Http\Controllers\ArtistSongController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -54,7 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::controller(ArtistAlbumController::class)->group(function () {
             Route::get('/artistAddAlbum/create', 'create')->name('artistAddAlbum.create');
             Route::post('/artistAddAlbum/store', 'store')->name('artistAddAlbum.store');
-            Route::get('/editAlbum/{id}', 'show')->name('editAlbum');
+            Route::get('/editAlbum/{id}', 'edit')->name('editAlbum');
+            Route::put('/editAlbum/updateAlbum/{id}', 'update')->name('updateAlbum');
             // Route::get('/artistAddAlbum.{...}.edit', 'edit')->name('artistAddAlbum.edit');
             // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
         });

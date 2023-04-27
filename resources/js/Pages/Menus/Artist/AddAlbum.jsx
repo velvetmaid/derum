@@ -20,6 +20,22 @@ export default function AddAlbum(props) {
         album_user_id: props.auth.user.id,
         songs: [],
     });
+
+    const handleAddSong = () => {
+        setData((prevData) => ({
+            ...prevData,
+            songs: [
+                ...prevData.songs,
+                {
+                    song_title: "",
+                    song_lyric: "",
+                    song_file: null,
+                },
+            ],
+        }));
+        setShowModal(true);
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
@@ -30,7 +46,7 @@ export default function AddAlbum(props) {
         setData({ ...data, album_art: file });
     };
 
-    const hanldeFormSong = () => {
+    const handleSubmitSong = () => {
         const lastSong = data.songs[data.songs.length - 1];
         if (!lastSong.song_title || !lastSong.song_file) {
             toast.error(
@@ -49,21 +65,6 @@ export default function AddAlbum(props) {
         }));
         setLastIndex(newLastIndex);
         setShowModal(false);
-    };
-
-    const handleAddSong = () => {
-        setData((prevData) => ({
-            ...prevData,
-            songs: [
-                ...prevData.songs,
-                {
-                    song_title: "",
-                    song_lyric: "",
-                    song_file: null,
-                },
-            ],
-        }));
-        setShowModal(true);
     };
 
     const handleCancelAddSong = () => {
@@ -421,7 +422,7 @@ export default function AddAlbum(props) {
 
                                                         <button
                                                             onClick={
-                                                                hanldeFormSong
+                                                                handleSubmitSong
                                                             }
                                                             type="buttin"
                                                             className="my-5 w-full flex justify-center bg-[#04ddb4] text-[#0d2758] p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-green-300 shadow-lg cursor-pointer transition ease-in duration-200"

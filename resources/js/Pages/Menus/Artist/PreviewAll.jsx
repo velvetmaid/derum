@@ -1,6 +1,6 @@
 import PreviewMusic from "./PreviewMusic";
 
-export default function PreviewAll({ data, setData, setLastIndex }) {
+export default function PreviewAll({ posts, data, setData, setLastIndex }) {
     return (
         <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
             <div className="flex w-full h-[5rem] rounded-md">
@@ -8,9 +8,9 @@ export default function PreviewAll({ data, setData, setLastIndex }) {
                     <img
                         className="object-cover w-full h-full z-50"
                         src={
-                            data.album_art
+                            data.album_art && data.album_art instanceof File
                                 ? URL.createObjectURL(data.album_art)
-                                : null
+                                : "/images/albums/thumbnails/thumb_" + data.album_art || null
                         }
                         alt={
                             data.album_art
@@ -30,14 +30,15 @@ export default function PreviewAll({ data, setData, setLastIndex }) {
                         {data.album_release_date}
                     </span>
                     <span className="text-xs absolute bottom-[2px]">
-                        {data.album_price == 0
-                            ? "Free"
-                            : `Rp. ${data.album_price}`}
+                        {(data.album_price === 0 || !data.album_price) &&
+                            "Free"}
+                        {data.album_price > 0 && `Rp. ${data.album_price}`}
                     </span>
                 </div>
             </div>
 
             <PreviewMusic
+            posts={posts}
                 data={data}
                 setData={setData}
                 setLastIndex={setLastIndex}

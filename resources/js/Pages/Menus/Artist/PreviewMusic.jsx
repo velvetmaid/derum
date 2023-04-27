@@ -1,5 +1,5 @@
 import Modal from "@/Components/Modal";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     PencilIcon,
     TrashIcon,
@@ -20,6 +20,9 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
         setEditingSongIndex(index);
         setEditedSong(song);
         setShowModal(true);
+        audio.pause();
+        setIsPlaying(false);
+        setCurrentSongId(null);
     };
 
     const handleSave = (index) => {
@@ -35,6 +38,9 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
         newData.songs.splice(index, 1);
         setData(newData);
         setLastIndex((prev) => prev - 1);
+        audio.pause();
+        setIsPlaying(false);
+        setCurrentSongId(null);
     };
 
     const filteredSongs = data.songs.filter(
@@ -45,11 +51,21 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
     );
 
     const handlePlay = (song, index) => {
-        const blob = new Blob([song.song_file], { type: song.song_file.type });
-        const soundUrl = URL.createObjectURL(blob);
-        audio.pause();
-        audio.src = soundUrl;
-        audio.play();
+        if (typeof song.song_file === "string") {
+            const soundUrl =
+                "/musics/" + "/" + song.song_file;
+            audio.pause();
+            audio.src = soundUrl;
+            audio.play();
+        } else {
+            const blob = new Blob([song.song_file], {
+                type: song.song_file.type,
+            });
+            const soundUrl = URL.createObjectURL(blob);
+            audio.pause();
+            audio.src = soundUrl;
+            audio.play();
+        }
         setIsPlaying(true);
         setCurrentSongId(index);
     };
@@ -95,7 +111,10 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
         <>
             {filteredSongs.map((song, index) => {
                 return (
-                    <div key={index} className="p-1 hover:translate-x-1 duration-200">
+                    <div
+                        key={index}
+                        className="p-1 hover:translate-x-1 duration-200"
+                    >
                         {editingSongIndex === index ? (
                             <Modal show={showModal}>
                                 <div className="text-blueNavy dark:text-gray-100 sm:max-w-lg w-full px-9 md:px-0 py-20 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
@@ -164,6 +183,7 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
                                                 </div>
                                                 <input
                                                     type="file"
+                                                    accept=".mp3, .wav, .aac, .flac, .ogg, .wma"
                                                     onChange={(e) =>
                                                         setEditedSong({
                                                             ...editedSong,

@@ -11,47 +11,38 @@ export default function EditAlbum(props) {
     const [showModal, setShowModal] = useState(false);
     const [lastIndex, setLastIndex] = useState(0);
 
-    const { data, setData, post, errors, progress } = useForm({
+    const { data, setData, errors, progress } = useForm({
         album_title: props.posts.album_title || "",
         album_release_date: props.posts.album_release_date || "",
         album_art: props.posts.album_art || null,
         album_artist_name: props.auth.user.name,
-        album_price: props.posts.album_price || null,
+        album_price: props.posts.album_price || "",
         album_user_id: props.auth.user.id,
 
         songs: props.posts.artist_song.map((song) => {
             return {
                 id: song.id,
                 album_id: song.album_id,
-                song_title: song.song_title,
-                song_lyric: song.song_lyric,
-                song_file: song.song_file,
+                song_title: song.song_title || "",
+                song_lyric: song.song_lyric || "",
+                song_file: song.song_file || null,
             };
         }),
     });
-
     console.log("input", data);
 
     const handleAddSong = () => {
-        const newSong = {
-            song_title: "",
-            song_lyric: "",
-            song_file: null,
-        };
-
         setData((prevData) => {
-            return { ...prevData, songs: [...prevData.songs, newSong] };
+            const newSong = {
+                song_title: "",
+                song_lyric: "",
+                song_file: null,
+            };
+            const songs = [...prevData.songs, newSong];
+            return { ...prevData, songs };
         });
+        setLastIndex((prevIndex) => prevIndex + data.songs.length) + 1;
         setShowModal(true);
-    };
-
-    const handleSongTitleChange = (index, value) => {
-        console.log("Song title changed:", value);
-        setData((prevState) => {
-            const updatedSongs = [...prevState.songs];
-            updatedSongs[index] = { ...updatedSongs[index], song_title: value };
-            return { ...prevState, songs: updatedSongs };
-        });
     };
 
     const handleInputChange = (e) => {
@@ -64,7 +55,7 @@ export default function EditAlbum(props) {
         setData({ ...data, album_art: file });
     };
 
-    const submitSong = () => {
+    const handleSubmitSong = () => {
         const lastSong = data.songs[data.songs.length - 1];
         if (!lastSong.song_title || !lastSong.song_file) {
             toast.error(
@@ -96,9 +87,10 @@ export default function EditAlbum(props) {
         e.preventDefault();
 
         router.post(
-            "updateAlbum",
+            `updateAlbum/${props.posts.id}`,
 
             {
+                forceFormData: true,
                 data,
                 _method: "put",
             }
@@ -113,6 +105,7 @@ export default function EditAlbum(props) {
                 (song) =>
                     (!song.song_file && song.song_file !== null) ||
                     (song.song_file &&
+                        song.song_file.name &&
                         !song.song_file.name.match(
                             /\.(mp3|wav|flac|acc|ogg|wma)$/i
                         )) ||
@@ -218,7 +211,7 @@ export default function EditAlbum(props) {
                                             className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                             type="text"
                                             name="album_artist_name"
-                                            value={props.auth.user.name}
+                                            value={data.album_artist_name}
                                             placeholder="Your Artits Name"
                                             onChange={handleInputChange}
                                             autoComplete="off"
@@ -270,17 +263,28 @@ export default function EditAlbum(props) {
                                                             className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                                             type="text"
                                                             placeholder="Song Title"
-                                                            name={`songs[${index}].song_title`}
+                                                            name="song_title"
                                                             value={
-                                                                data.songs[
-                                                                    index
-                                                                ].song_title
-                                                            } // ambil nilai dari updatedSongs
+                                                                song.song_title
+                                                            }
                                                             onChange={(e) =>
-                                                                handleSongTitleChange(
-                                                                    index,
-                                                                    e.target
-                                                                        .value
+                                                                setData(
+                                                                    (
+                                                                        prevData
+                                                                    ) => {
+                                                                        const newSongs =
+                                                                            [
+                                                                                ...prevData.songs,
+                                                                            ];
+                                                                        newSongs[
+                                                                            lastIndex
+                                                                        ].song_title =
+                                                                            e.target.value; // update the new song title
+                                                                        return {
+                                                                            ...prevData,
+                                                                            songs: newSongs,
+                                                                        };
+                                                                    }
                                                                 )
                                                             }
                                                         />
@@ -295,7 +299,9 @@ export default function EditAlbum(props) {
                                                             type="text"
                                                             placeholder="Write a lyric here..."
                                                             name="song_lyric"
-                                                            value={null}
+                                                            value={
+                                                                song.song_lyric
+                                                            }
                                                             onChange={(e) =>
                                                                 setData(
                                                                     (
@@ -426,7 +432,7 @@ export default function EditAlbum(props) {
                                                         </button>
 
                                                         <button
-                                                            onClick={submitSong}
+                                                            onClick={handleSubmitSong}
                                                             type="buttin"
                                                             className="my-5 w-full flex justify-center bg-[#04ddb4] text-[#0d2758] p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-green-300 shadow-lg cursor-pointer transition ease-in duration-200"
                                                         >
