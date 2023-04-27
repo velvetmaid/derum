@@ -17,7 +17,7 @@ export default function AlbumGroup({ props, searchRes }) {
 
     const handlePlay = (song) => {
         const soundUrl =
-            "musics/" + song.album_title + "/" + song.artist_song[0].song_file;
+            "musics/" + "/" + song.artist_song[0].song_file;
         audio.pause();
         audio.src = soundUrl;
         audio.play();

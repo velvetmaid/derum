@@ -20,7 +20,7 @@ export default function AudioPlayr({ songs }) {
         name: song.song_title,
         writer: songs.album_artist_name,
         img: "/images/albums/thumbnails/thumb_" + songs.album_art,
-        src: "/musics/" + songs.album_title + "/" + song.song_file,
+        src: "/musics/" + "/" + song.song_file,
         id: index + 1,
     }));
 
