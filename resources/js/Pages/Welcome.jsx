@@ -1,6 +1,6 @@
 import { Head } from "@inertiajs/react";
 import Hero from "@/Components/Hero";
-import PopularSlide from "@/Pages/Contents/PopularSlide";
+import NewAlbumSlider from "@/Pages/Contents/NewAlbumSlider";
 import Layout from "../Layouts/Layout";
 import SearchBar from "./Contents/SearchBar";
 import Footer from "@/Components/Footer";
@@ -11,7 +11,7 @@ export default function Welcome(props) {
             <Layout>
                 <Head title="Home" />
                 <Hero />
-                <PopularSlide {...props} />
+                <NewAlbumSlider {...props} />
                 <SearchBar {...props}/>
                 <Footer />
             </Layout>
