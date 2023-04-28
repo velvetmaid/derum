@@ -1,10 +1,11 @@
 import Layout from "@/Layouts/Layout";
 import { CloudDownloadIcon } from "@heroicons/react/outline";
-import { CreditCardIcon } from "@heroicons/react/solid";
-import { Head } from "@inertiajs/react";
+import { CreditCardIcon, ViewGridIcon } from "@heroicons/react/solid";
+import { Head, usePage } from "@inertiajs/react";
 import AudioPlayr from "./AudioInfoPlayer";
 
 export default function AlbumInfo({ posts }) {
+    const user = usePage().props.auth.user;
     return (
         <Layout>
             <Head title={posts.album_title} />
@@ -39,20 +40,31 @@ export default function AlbumInfo({ posts }) {
                                     </p>
                                 </div>
                                 <div className="w-full text-center my-1">
-                                    <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
-                                        <CreditCardIcon className="h-6 w-6" />
-                                        <span>Buy</span>
-                                    </button>
-                                    {posts.album_price == null ||
-                                    posts.album_price == "0" ? (
+                                    {posts.album_user_id != user.id ? (
                                         <>
-                                            <span>or download for free</span>
                                             <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
-                                                <CloudDownloadIcon className="h-6 w-6" />
-                                                <span>Download</span>
+                                                <CreditCardIcon className="h-6 w-6" />
+                                                <span>Buy</span>
                                             </button>
+                                            {posts.album_price == null ||
+                                            posts.album_price == "0" ? (
+                                                <>
+                                                    <span>
+                                                        or download for free
+                                                    </span>
+                                                    <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                        <CloudDownloadIcon className="h-6 w-6" />
+                                                        <span>Download</span>
+                                                    </button>
+                                                </>
+                                            ) : null}
                                         </>
-                                    ) : null}
+                                    ) : (
+                                        <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                            <ViewGridIcon className="h-6 w-6" />
+                                            <span>Manage</span>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -77,15 +89,31 @@ export default function AlbumInfo({ posts }) {
                                     <p>Price: {posts.album_price}</p>
                                 </div>
                                 <div className="w-full text-center my-1">
-                                    <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
-                                        <CreditCardIcon className="h-6 w-6" />
-                                        <span>Buy</span>
-                                    </button>
-                                    <span>or download for free</span>
-                                    <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
-                                        <CloudDownloadIcon className="h-6 w-6" />
-                                        <span>Download</span>
-                                    </button>
+                                    {posts.album_user_id != user.id ? (
+                                        <>
+                                            <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                <CreditCardIcon className="h-6 w-6" />
+                                                <span>Buy</span>
+                                            </button>
+                                            {posts.album_price == null ||
+                                            posts.album_price == "0" ? (
+                                                <>
+                                                    <span>
+                                                        or download for free
+                                                    </span>
+                                                    <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                        <CloudDownloadIcon className="h-6 w-6" />
+                                                        <span>Download</span>
+                                                    </button>
+                                                </>
+                                            ) : null}
+                                        </>
+                                    ) : (
+                                        <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                            <ViewGridIcon className="h-6 w-6" />
+                                            <span>Manage</span>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
