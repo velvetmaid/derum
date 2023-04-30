@@ -16,8 +16,7 @@ export default function AlbumGroup({ props, searchRes }) {
     const [width, setWidth] = useState(window.innerWidth);
 
     const handlePlay = (song) => {
-        const soundUrl =
-            "musics/" + "/" + song.artist_song[0].song_file;
+        const soundUrl = "musics/" + "/" + song.artist_song[0].song_file;
         audio.pause();
         audio.src = soundUrl;
         audio.play();
@@ -215,9 +214,13 @@ export default function AlbumGroup({ props, searchRes }) {
             </div>
             {width <= 768 ? (
                 <ReactPaginate
-                    className="flex items-center justify-center space-x-2 bg-white dark:bg-blueNavy-dark my-4 rounded-lg"
-                    previousLabel={<ChevronLeftIcon className="w-10 h-10" />}
-                    nextLabel={<ChevronRightIcon className="w-10 h-10" />}
+                    className="flex text-xl items-center justify-center space-x-2 bg-white dark:bg-blueNavy-dark my-4 rounded-lg"
+                    previousLabel={
+                        <ChevronLeftIcon className="w-10 h-10 hover:-translate-x-1 duration-100" />
+                    }
+                    nextLabel={
+                        <ChevronRightIcon className="w-10 h-10 hover:translate-x-1 duration-100" />
+                    }
                     pageCount={pageCount}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={-1}
@@ -230,12 +233,12 @@ export default function AlbumGroup({ props, searchRes }) {
                 />
             ) : (
                 <ReactPaginate
-                    className="flex items-center justify-center space-x-6 bg-white dark:bg-blueNavy-dark my-4 rounded-lg"
+                    className="flex text-xl items-center justify-center space-x-6 bg-white dark:bg-blueNavy-dark my-4 rounded-lg"
                     previousLabel={
-                        <ChevronLeftIcon className="w-16 h-16 hover:scale-110" />
+                        <ChevronLeftIcon className="w-16 h-16 hover:-translate-x-1 duration-100" />
                     }
                     nextLabel={
-                        <ChevronRightIcon className="w-16 h-16 hover:scale-110" />
+                        <ChevronRightIcon className="w-16 h-16 hover:translate-x-1 duration-100" />
                     }
                     pageCount={pageCount}
                     pageRangeDisplayed={4}

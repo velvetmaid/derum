@@ -23,8 +23,6 @@ export default function Album({ posts }) {
                                                 })}
                                             >
                                                 <div className="relative w-full p-5">
-                                                    <h1>{post.id}</h1>
-
                                                     <img
                                                         className="block h-full w-full rounded-lg object-cover object-center"
                                                         src={

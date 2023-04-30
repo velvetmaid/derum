@@ -15,7 +15,7 @@ export default function Desk(props) {
                 <div className="flex items-center gap-x-2 mb-8 md:mb-0">
                     <button
                         type="button"
-                        className="inline-flex items-center justify-center h-9 px-3 rounded-xl border hover:border-gray-400  hover:text-gray-900 transition"
+                        className="inline-flex items-center justify-center h-9 px-3 rounded-xl border hover:border-gray-400 hover:text-gray-900 transition"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -55,27 +55,53 @@ export default function Desk(props) {
                                 </Link>
                             </div>
                         </div>
-                        <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
-                            <div className="font-bold text-2xl leading-none">
-                                {props.posts.length}
-                            </div>
-                            <div className="mt-2">Your album</div>
-                        </div>
-                        <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
-                            <div className="font-bold text-2xl leading-none">
-                                {props.songsCount}
-                            </div>
-                            <div className="mt-2">Your song</div>
-                        </div>
-                        <div className="col-span-2">
-                            <div className="p-4 bg-purple-100 dark:bg-[#022C43] rounded-xl ">
-                                <div className="font-bold text-xl leading-none">
-                                    {props.posts[0].album_title}
+                        {props.posts.length > 0 ? (
+                            <>
+                                <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
+                                    <div className="font-bold text-2xl leading-none">
+                                        {props.posts.length || null}
+                                    </div>
+                                    <div className="mt-2">Your album</div>
                                 </div>
-                                <div className="mt-2">Your current album</div>
-                            </div>
-                        </div>
+                                <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
+                                    <div className="font-bold text-2xl leading-none">
+                                        {props.songsCount}
+                                    </div>
+                                    <div className="mt-2">Your song</div>
+                                </div>
+                                <div className="col-span-2">
+                                    <div className="p-4 bg-purple-100 dark:bg-[#022C43] rounded-xl ">
+                                        <div className="font-bold text-xl leading-none">
+                                            Your current album
+                                        </div>
+                                        <div className="mt-2">
+                                            {props.posts.slice(-1)[0] && (
+                                                <Link
+                                                    href={route("albumInfo", {
+                                                        id: props.posts.slice(
+                                                            -1
+                                                        )[0].id,
+                                                    })}
+                                                >
+                                                    {
+                                                        props.posts.slice(-1)[0]
+                                                            .album_title
+                                                    }
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : null}
                     </div>
+                    {props.posts.length === 0 && (
+                        <div className="my-4 w-full h-1/2 flex items-center justify-center bg-purple-100 dark:bg-[#022C43] rounded-xl ">
+                            <span className="font-bold text-xl leading-none">
+                                You haven't uploaded an album yet
+                            </span>
+                        </div>
+                    )}
                 </div>
                 <div>
                     <h2 className="text-2xl font-bold mb-4">IDK IDK</h2>

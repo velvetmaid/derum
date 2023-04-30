@@ -15,8 +15,8 @@
     - [x] Index Album
     - [x] Index Song
     - [ ] Index merch
-    - [ ] Edit Album
-    - [ ] Edit Song
+    - [x] Edit Album
+    - [x] Edit Song
     - [ ] Edit Merch
     - [ ] Destroy Album
     - [ ] Destroy Song

@@ -246,7 +246,7 @@ export default function EditAlbum(props) {
                                         {data.songs &&
                                             data.songs.map((song, index) => (
                                                 <div
-                                                    className="text-blueNavy dark:text-gray-100 sm:max-w-lg w-full px-9 md:px-0  py-20 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto space-y-4"
+                                                    className="text-blueNavy dark:text-gray-100 sm:max-w-lg w-full px-9 md:px-0 py-20 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto space-y-4"
                                                     key={index}
                                                     style={{
                                                         display:
@@ -279,7 +279,7 @@ export default function EditAlbum(props) {
                                                                         newSongs[
                                                                             lastIndex
                                                                         ].song_title =
-                                                                            e.target.value; // update the new song title
+                                                                            e.target.value; 
                                                                         return {
                                                                             ...prevData,
                                                                             songs: newSongs,

@@ -30,15 +30,16 @@ input[type=number] {
 }
 
 .splide__arrow {
-    width: 3rem;
-    height: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
     opacity: 0.6;
+    top: 42.5%;
 }
 
 .splide__arrow--next {
-    right: 1rem;
+    right: 1.5rem;
 }
 
 .splide__arrow--prev {
-    left: 1rem;
+    left: 1.5rem;
 }

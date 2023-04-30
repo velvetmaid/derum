@@ -10,7 +10,10 @@ export default function PreviewAll({ posts, data, setData, setLastIndex }) {
                         src={
                             data.album_art && data.album_art instanceof File
                                 ? URL.createObjectURL(data.album_art)
-                                : "/images/albums/thumbnails/thumb_" + data.album_art || null
+                                : data.album_art
+                                ? "/images/albums/thumbnails/thumb_" +
+                                  data.album_art
+                                : null
                         }
                         alt={
                             data.album_art
@@ -38,7 +41,7 @@ export default function PreviewAll({ posts, data, setData, setLastIndex }) {
             </div>
 
             <PreviewMusic
-            posts={posts}
+                posts={posts}
                 data={data}
                 setData={setData}
                 setLastIndex={setLastIndex}
