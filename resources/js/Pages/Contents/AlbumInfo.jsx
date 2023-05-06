@@ -69,12 +69,15 @@ export default function AlbumInfo({ posts }) {
                                                                     or download
                                                                     for free
                                                                 </span>
-                                                                <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                                <a
+                                                                    href={`/download-album/${posts.id}`}
+                                                                    className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center"
+                                                                >
                                                                     <CloudDownloadIcon className="h-6 w-6" />
                                                                     <span>
                                                                         Download
                                                                     </span>
-                                                                </button>
+                                                                </a>
                                                             </>
                                                         ) : null}
                                                     </>
@@ -165,12 +168,15 @@ export default function AlbumInfo({ posts }) {
                                                                     or download
                                                                     for free
                                                                 </span>
-                                                                <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                                <a
+                                                                    href={`/download-album/${posts.id}`}
+                                                                    className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center"
+                                                                >
                                                                     <CloudDownloadIcon className="h-6 w-6" />
                                                                     <span>
                                                                         Download
                                                                     </span>
-                                                                </button>
+                                                                </a>
                                                             </>
                                                         ) : null}
                                                     </>

@@ -29,6 +29,7 @@ Route::get('/', function () {
 
 Route::get('/', [ArtistAlbumController::class, 'index']);
 Route::get('/albumInfo/{id}', [ArtistAlbumController::class, 'albumInfoIndex'])->name('albumInfo');
+Route::get('/download-album/{id}', [ArtistAlbumController::class, 'downloadAlbum'])->name('downloadAlbum');
 Route::get('/search/{key}', [ArtistAlbumController::class, 'search']);
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

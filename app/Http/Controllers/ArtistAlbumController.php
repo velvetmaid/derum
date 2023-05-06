@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
+use ZipArchive;
 
 class ArtistAlbumController extends Controller
 {
@@ -223,7 +224,6 @@ class ArtistAlbumController extends Controller
                 $songFile->move($destinationPath, $songName);
                 $song->song_file = $songName;
             }
-
             $song->save();
         }
 
@@ -237,5 +237,27 @@ class ArtistAlbumController extends Controller
         }
 
         return redirect()->route('artistDashboard');
+    }
+
+    public function downloadAlbum($id)
+    {
+        $album = ArtistAlbum::findOrFail($id);
+        $songs = $album->artist_song;
+
+        $zip = new ZipArchive();
+        $zipFileName = $album->album_title . '.zip';
+        $zipFilePath = public_path('downloads/') . $zipFileName;
+
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+            $albumArtPath = public_path('images/albums/main/') . $album->album_art;
+            $zip->addFile($albumArtPath, $album->album_art);
+
+            foreach ($songs as $song) {
+                $songPath = public_path('musics/') . $song->song_file;
+                $zip->addFile($songPath, $song->song_title . '.mp3');
+            }
+            $zip->close();
+        }
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
     }
 }
