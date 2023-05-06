@@ -248,7 +248,7 @@ class ArtistAlbumController extends Controller
         $zipFileName = $album->album_title . '.zip';
         $zipFilePath = public_path('downloads/') . $zipFileName;
 
-        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE === TRUE)) {
             $albumArtPath = public_path('images/albums/main/') . $album->album_art;
             $zip->addFile($albumArtPath, $album->album_art);
 
