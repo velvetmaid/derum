@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ArtistAlbum::class);
     }
+
+    public function merches(): HasMany
+    {
+        return $this->hasMany(Merch::class, 'merch_user_id');
+    }
 }
