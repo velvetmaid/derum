@@ -11,7 +11,7 @@
     - [x] Dashboard
     - [x] Store Album
     - [x] Store Song
-    - [ ] Store Merch
+    - [x] Store Merch
     - [x] Index Album
     - [x] Index Song
     - [ ] Index merch

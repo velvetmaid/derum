@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('merch_user_id');
             $table->string('merch_title');
-            $table->string('merch_image');
+            $table->text('merch_image');
             $table->string('merch_category');
             $table->text('merch_description')->nullable();
             $table->bigInteger('merch_price');

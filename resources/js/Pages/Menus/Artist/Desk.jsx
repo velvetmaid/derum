@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import Merch from "./Merch";
 
 export default function Desk(props) {
     return (
@@ -37,21 +38,28 @@ export default function Desk(props) {
                 </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-x-20">
-                <div>
+            <div className="block md:flex gap-x-8">
+                <div className="w-full h-full">
                     <h2 className="text-2xl font-bold mb-4">
                         Add an album or track
                     </h2>
 
-                    <div className="grid grid-cols-2 gap-4 pb-12 md:p-0">
-                        <div className="col-span-2">
-                            <div className="p-4 bg-green-100 dark:bg-[#16113f] rounded-xl flex justify-around">
+                    <div className="grid grid-cols-3 gap-4 pb-12 md:p-0 ">
+                        <div className="col-span-3">
+                            <div className="p-4 bg-green-100 space-x-4 dark:bg-[#16113f] rounded-xl flex justify-around">
                                 <Link
-                                    href={route("artistAddAlbum.create")}
+                                    href={route("add-album")}
                                     type="button"
                                     className="inline-flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white dark:bg-[#110128] hover:text-green-500 dark:hover:text-blue-200 text-sm font-semibold transition"
                                 >
                                     Add an album
+                                </Link>
+                                <Link
+                                    href={route("add-merch")}
+                                    type="button"
+                                    className="inline-flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white dark:bg-[#110128] hover:text-green-500 dark:hover:text-blue-200 text-sm font-semibold transition"
+                                >
+                                    Add merchandise
                                 </Link>
                             </div>
                         </div>
@@ -69,7 +77,13 @@ export default function Desk(props) {
                                     </div>
                                     <div className="mt-2">Your song</div>
                                 </div>
-                                <div className="col-span-2">
+                                <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
+                                    <div className="font-bold text-2xl leading-none">
+                                        {props.songsCount}
+                                    </div>
+                                    <div className="mt-2">Your song</div>
+                                </div>
+                                <div className="col-span-3 space-y-4">
                                     <div className="p-4 bg-purple-100 dark:bg-[#022C43] rounded-xl ">
                                         <div className="font-bold text-xl leading-none">
                                             Your current album
@@ -103,79 +117,8 @@ export default function Desk(props) {
                         </div>
                     )}
                 </div>
-                <div>
-                    <h2 className="text-2xl font-bold mb-4">IDK IDK</h2>
-
-                    <div className="space-y-4">
-                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl space-y-2">
-                            <div className="flex justify-between">
-                                <div className="text-gray-400 text-xs">
-                                    Number 10
-                                </div>
-                                <div className="text-gray-400 text-xs">4h</div>
-                            </div>
-                            <a
-                                href=""
-                                className="font-bold hover:text-yellow-800 hover:underline"
-                            >
-                                Blog and social posts
-                            </a>
-                            <div className="text-sm text-gray-600">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="1em"
-                                    height="1em"
-                                    fill="currentColor"
-                                    className=" inline align-middle mr-1"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                                Deadline is today
-                            </div>
-                        </div>
-                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl space-y-2">
-                            <div className="flex justify-between">
-                                <div className="text-gray-400 text-xs">
-                                    Grace Aroma
-                                </div>
-                                <div className="text-gray-400 text-xs">7d</div>
-                            </div>
-                            <a
-                                href=""
-                                className="font-bold hover:text-yellow-800 hover:underline"
-                            >
-                                New campaign review
-                            </a>
-                            <div className="text-sm text-gray-600">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="1em"
-                                    height="1em"
-                                    fill="currentColor"
-                                    className=" inline align-middle mr-1"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                                New feedback
-                            </div>
-                        </div>
-                        <div className="p-4 bg-white dark:bg-[#1D2D50] border rounded-xl space-y-2">
-                            <div className="flex justify-between">
-                                <div className="text-gray-400 text-xs">
-                                    Petz App
-                                </div>
-                                <div className="text-gray-400 text-xs">2h</div>
-                            </div>
-                            <a
-                                href=""
-                                className="font-bold hover:text-yellow-800 hover:underline"
-                            >
-                                Cross-platform and browser QA
-                            </a>
-                        </div>
-                    </div>
+                <div className="w-full h-full">
+                    <Merch />
                 </div>
             </div>
         </div>

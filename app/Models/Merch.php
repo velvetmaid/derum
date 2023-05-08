@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Merch extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $fillable = [
         'merch_user_id',
         'merch_title',
@@ -19,7 +19,6 @@ class Merch extends Model
         'merch_price',
         'merch_exists'
     ];
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'merch_user_id');

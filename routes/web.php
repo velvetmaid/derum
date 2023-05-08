@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArtistAlbumController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
+use App\Http\Controllers\MerchController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -45,19 +46,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get("/redirectAuthenticatedUsers", [RedirectAuthenticatedUsersController::class, "home"]);
 
     Route::group(['middleware' => 'checkRole:fan'], function () {
-        Route::inertia('/fanDashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
+        Route::inertia('/fan-dashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
     });
 
     Route::group(['middleware' => 'checkRole:artist'], function () {
-        Route::get('/artistDashboard', [ArtistAlbumController::class, 'artistDashboardIndex'])->name('artistDashboard');
+        Route::get('artist/dashboard', [ArtistAlbumController::class, 'artistDashbord'])->name('artist.dashboard');
 
         Route::controller(ArtistAlbumController::class)->group(function () {
-            Route::get('/artistAddAlbum/create', 'create')->name('artistAddAlbum.create');
-            Route::post('/artistAddAlbum/store', 'store')->name('artistAddAlbum.store');
-            Route::get('/editAlbum/{id}', 'edit')->name('editAlbum');
-            Route::put('/editAlbum/updateAlbum/{id}', 'update')->name('updateAlbum');
+            Route::get('/add-album', 'create')->name('add-album');
+            Route::post('/add-album/store', 'store')->name('add-album.store');
+            Route::get('/edit-album/{id}', 'edit')->name('edit-album');
+            Route::put('/edit-album/update/{id}', 'update')->name('update');
             // Route::get('/artistAddAlbum.{...}.edit', 'edit')->name('artistAddAlbum.edit');
             // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
+        });
+        Route::controller(MerchController::class)->group(function () {
+            Route::get('/add-merch', 'create')->name('add-merch');
+            Route::post('/add-merch/store', 'store')->name('add-merch.store');
         });
     });
 });
