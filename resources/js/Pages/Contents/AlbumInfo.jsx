@@ -84,7 +84,7 @@ export default function AlbumInfo({ posts }) {
                                                 ) : (
                                                     <Link
                                                         href={route(
-                                                            "editAlbum",
+                                                            "edit-album",
                                                             {
                                                                 id: posts.id,
                                                             }
@@ -183,7 +183,7 @@ export default function AlbumInfo({ posts }) {
                                                 ) : (
                                                     <Link
                                                         href={route(
-                                                            "editAlbum",
+                                                            "edit-album",
                                                             {
                                                                 id: posts.id,
                                                             }

@@ -18,7 +18,7 @@ export default function Album({ posts }) {
                                             className="flex md:w-1/3 flex-wrap"
                                         >
                                             <Link
-                                                href={route("editAlbum", {
+                                                href={route("edit-album", {
                                                     id: post.id,
                                                 })}
                                             >

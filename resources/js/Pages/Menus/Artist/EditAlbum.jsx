@@ -87,7 +87,7 @@ export default function EditAlbum(props) {
         e.preventDefault();
 
         router.post(
-            `updateAlbum/${props.posts.id}`,
+            `update/${props.posts.id}`,
 
             {
                 forceFormData: true,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ArtistAlbum;
 use App\Models\ArtistSong;
+use App\Models\Merch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,14 +19,15 @@ class ArtistAlbumController extends Controller
      */
     public function index()
     {
-        $posts = ArtistAlbum::with('artist_song')->get();
-        return Inertia::render('Welcome', ['props' => $posts]);
+        $merches = Merch::all();
+        $albums = ArtistAlbum::with('artist_song')->get();
+        return Inertia::render('Welcome', ['merches' => $merches, 'albums' => $albums]);
     }
 
     /**
      * Retrieve and display albums created by the currently authenticated artist user.
      */
-    public function artistDashboardIndex()
+    public function artistDashbord()
     {
         $total_songs = 0;
         $posts = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
@@ -127,7 +129,7 @@ class ArtistAlbumController extends Controller
             }
         }
 
-        return redirect()->route('artistDashboard');
+        return redirect()->route('artist.dashboard');
     }
 
     /**
@@ -150,7 +152,7 @@ class ArtistAlbumController extends Controller
     {
         // Validator
         // $validator = Validator::make($request->input('data'), [
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'data.album_title' => 'required',
             'data.album_release_date' => 'required',
             'data.album_art' => 'nullable|max:2048',
@@ -160,10 +162,11 @@ class ArtistAlbumController extends Controller
             'data.songs.*.song_title' => 'required',
             'data.songs.*.song_lyric' => 'nullable',
             'data.songs.*.song_file' => 'nullable|max:1048576',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
-        }
+        ])->validate();
+
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => $validator->errors()]);
+        // }
 
         $album = ArtistAlbum::findOrFail($id);
         $album->album_title = $request->input('data')['album_title'];
@@ -235,8 +238,7 @@ class ArtistAlbumController extends Controller
                 unlink($songFile);
             }
         }
-
-        return redirect()->route('artistDashboard');
+        return redirect()->route('artist.dashboard');
     }
 
     public function downloadAlbum($id)

@@ -76,7 +76,7 @@ export default function AddAlbum(props) {
 
     function submit(e) {
         e.preventDefault();
-        post("store");
+        post("add-album/store");
 
         const hasErrors =
             !data.album_title ||

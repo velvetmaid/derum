@@ -12,7 +12,7 @@ class RedirectAuthenticatedUsersController extends Controller
         if (auth()->user()->role == 'fan') {
             return redirect('/fanDashboard');
         } elseif (auth()->user()->role == 'artist') {
-            return redirect('/artistDashboard');
+            return redirect('/artist/dashboard');
         } else {
             return auth()->logout();
         }

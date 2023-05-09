@@ -26,20 +26,20 @@ export default function Authenticated({ auth, header, children }) {
                                             <>
                                                 <NavLink
                                                     href={route(
-                                                        "artistDashboard"
+                                                        "artist.dashboard"
                                                     )}
                                                     active={route().current(
-                                                        "artistDashboard"
+                                                        "artist.dashboard"
                                                     )}
                                                 >
                                                     Dashboard
                                                 </NavLink>
                                                 <NavLink
                                                     href={route(
-                                                        "artistAddAlbum.create"
+                                                        "add-album"
                                                     )}
                                                     active={route().current(
-                                                        "artistAddAlbum"
+                                                        "add-album"
                                                     )}
                                                 >
                                                     Add Album
