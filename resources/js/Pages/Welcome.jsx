@@ -7,14 +7,12 @@ import Footer from "@/Components/Footer";
 
 export default function Welcome(props) {
     return (
-        <>
-            <Layout>
-                <Head title="Home" />
-                <Hero />
-                <NewAlbumSlider {...props} />
-                <SearchBar {...props}/>
-                <Footer />
-            </Layout>
-        </>
+        <Layout>
+            <Head title="Home" />
+            <Hero />
+            <NewAlbumSlider props={props.albums} />
+            <SearchBar props={props.albums} />
+            <Footer />
+        </Layout>
     );
 }
