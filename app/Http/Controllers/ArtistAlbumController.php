@@ -29,14 +29,15 @@ class ArtistAlbumController extends Controller
      */
     public function artistDashbord()
     {
+        $merches = Merch::all();
         $total_songs = 0;
-        $posts = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
+        $albums = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
 
-        foreach ($posts as $post) {
-            $total_songs += count($post->artist_song);
+        foreach ($albums as $album) {
+            $total_songs += count($album->artist_song);
         }
 
-        return Inertia::render('Menus/Artist/Dashboard', ['posts' => $posts, 'songsCount' => $total_songs]);
+        return Inertia::render('Menus/Artist/Dashboard', ['merches' => $merches, 'albums' => $albums, 'songsCount' => $total_songs]);
     }
 
     /**
