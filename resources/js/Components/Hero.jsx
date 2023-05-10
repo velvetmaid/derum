@@ -3,7 +3,12 @@ import Modal from "./Modal";
 import Register from "@/Pages/Auth/Register";
 import Login from "@/Pages/Auth/Login";
 
-export default function Hero() {
+export default function Hero(props) {
+    const handleScroll = () => {
+        props.scrollTo();
+        props.targetRef.current;
+    };
+
     const [showModalLogin, setShowModalLogin] = useState(false);
     const [showModalRegister, setShowModalRegister] = useState(false);
 
@@ -20,21 +25,35 @@ export default function Hero() {
                         all in one spot
                     </p>
                     <div className="items-center justify-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex md:justify-start">
-                        <a
-                            className="block px-6 py-2 text-center bg-blueNavy hover:scale-105 transition-all duration-300 text-gray-100 dark:bg-yellow-500 dark:text-blueNavy rounded-md cursor-pointer"
-                            type="button"
-                            onClick={() => setShowModalRegister(true)}
-                        >
-                            Sign Up
-                        </a>
-                        <a
-                            className="block px-4 py-2 text-center rounded-md cursor-pointer md:relative md:before:content-[''] md:before:absolute md:before:block md:before:w-full md:before:h-[2px] 
-                        md:before:bottom-2 md:before:left-0 md:before:bg-blueNavy dark:md:before:bg-gray-100
-                        md:before:hover:scale-x-100 md:before:scale-x-0 md:before:origin-top-left
-                        md:before:transition md:before:ease-in-out md:before:duration-300"
-                        >
-                            See More
-                        </a>
+                        {props.auth.user === null ? (
+                            <>
+                                <a
+                                    className="block px-6 py-2 text-center bg-blueNavy hover:scale-105 transition-all duration-300 text-gray-100 dark:bg-yellow-500 dark:text-blueNavy rounded-md cursor-pointer"
+                                    type="button"
+                                    onClick={() => setShowModalRegister(true)}
+                                >
+                                    Sign Up
+                                </a>
+                                <a
+                                    className="block px-4 py-2 text-center rounded-md cursor-pointer md:relative md:before:content-[''] md:before:absolute md:before:block md:before:w-full md:before:h-[2px] 
+                                    md:before:bottom-2 md:before:left-0 md:before:bg-blueNavy dark:md:before:bg-gray-100
+                                    md:before:hover:scale-x-100 md:before:scale-x-0 md:before:origin-top-left
+                                    md:before:transition md:before:ease-in-out md:before:duration-300"
+                                    type="button"
+                                    onClick={() => setShowModalLogin(true)}
+                                >
+                                    See More
+                                </a>
+                            </>
+                        ) : (
+                            <a
+                                className="block px-6 py-2 text-center bg-blueNavy hover:scale-105 transition-all duration-300 text-gray-100 dark:bg-yellow-500 dark:text-blueNavy rounded-md cursor-pointer"
+                                type="button"
+                                onClick={handleScroll}
+                            >
+                                See More
+                            </a>
+                        )}
                     </div>
                 </div>
                 <div className="flex-1 sm:text-center md:text-left">

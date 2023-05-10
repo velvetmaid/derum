@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import AlbumGroup from "./AlbumGroup";
 
-export default function SearchBar(props) {
+const SearchBar = forwardRef((props, ref) => {
+    const scrollRef = useRef(null);
+
+    useImperativeHandle(ref, () => ({
+        scrollIntoView: () => {
+            scrollRef.current.scrollIntoView({ behavior: "smooth" });
+        },
+    }));
+
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
@@ -23,7 +31,10 @@ export default function SearchBar(props) {
 
     return (
         <>
-            <div className="md:max-w-md md:p-0 mx-auto max-w-xs px-8 my-8">
+            <div
+                ref={scrollRef}
+                className="md:max-w-md md:p-0 mx-auto max-w-xs px-8 my-8"
+            >
                 <form onSubmit={handleSubmit}>
                     <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden shadow-md">
                         <div className="grid place-items-center h-full w-12 text-blueNavy ">
@@ -58,4 +69,6 @@ export default function SearchBar(props) {
             <AlbumGroup {...props} searchRes={searchResults} />
         </>
     );
-}
+});
+
+export default SearchBar;
