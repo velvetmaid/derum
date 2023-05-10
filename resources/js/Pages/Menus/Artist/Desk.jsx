@@ -3,7 +3,7 @@ import Merch from "./Merch";
 
 export default function Desk(props) {
     return (
-        <div className="rounded-3xl p-8 mb-5">
+        <div className="rounded-3xl mb-5 px-6">
             <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
                 Welcome{" "}
                 <span className="bg-[#04ddb4] dark:bg-[#3e607b] text-[#0d2758] dark:text-gray-100 italic px-2">
@@ -39,12 +39,12 @@ export default function Desk(props) {
             </div>
 
             <div className="block md:flex gap-x-8">
-                <div className="w-full h-full">
+                <div className="h-full md:flex-1 md:items-stretch">
                     <h2 className="text-2xl font-bold mb-4">
                         Add an album or track
                     </h2>
 
-                    <div className="grid grid-cols-3 gap-4 pb-12 md:p-0 ">
+                    <div className="grid grid-cols-3 gap-4 pb-12 md:p-0 h-full">
                         <div className="col-span-3">
                             <div className="p-4 bg-green-100 space-x-4 dark:bg-[#16113f] rounded-xl flex justify-around">
                                 <Link
@@ -63,25 +63,25 @@ export default function Desk(props) {
                                 </Link>
                             </div>
                         </div>
-                        {props.posts.length > 0 ? (
+                        {props.albums.length > 0 ? (
                             <>
                                 <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
                                     <div className="font-bold text-2xl leading-none">
-                                        {props.posts.length || null}
+                                        {props.albums.length || null}
                                     </div>
-                                    <div className="mt-2">Your album</div>
+                                    <span className="mt-2">Your album</span>
                                 </div>
                                 <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
                                     <div className="font-bold text-2xl leading-none">
                                         {props.songsCount}
                                     </div>
-                                    <div className="mt-2">Your song</div>
+                                    <span className="mt-2">Your song</span>
                                 </div>
                                 <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
                                     <div className="font-bold text-2xl leading-none">
                                         {props.songsCount}
                                     </div>
-                                    <div className="mt-2">Your song</div>
+                                    <span className="mt-2">Your merch</span>
                                 </div>
                                 <div className="col-span-3 space-y-4">
                                     <div className="p-4 bg-purple-100 dark:bg-[#022C43] rounded-xl ">
@@ -89,17 +89,18 @@ export default function Desk(props) {
                                             Your current album
                                         </div>
                                         <div className="mt-2">
-                                            {props.posts.slice(-1)[0] && (
+                                            {props.albums.slice(-1)[0] && (
                                                 <Link
                                                     href={route("albumInfo", {
-                                                        id: props.posts.slice(
+                                                        id: props.albums.slice(
                                                             -1
                                                         )[0].id,
                                                     })}
                                                 >
                                                     {
-                                                        props.posts.slice(-1)[0]
-                                                            .album_title
+                                                        props.albums.slice(
+                                                            -1
+                                                        )[0].album_title
                                                     }
                                                 </Link>
                                             )}
@@ -109,7 +110,7 @@ export default function Desk(props) {
                             </>
                         ) : null}
                     </div>
-                    {props.posts.length === 0 && (
+                    {props.albums.length === 0 && (
                         <div className="my-4 w-full h-1/2 flex items-center justify-center bg-purple-100 dark:bg-[#022C43] rounded-xl ">
                             <span className="font-bold text-xl leading-none">
                                 You haven't uploaded an album yet
@@ -117,8 +118,8 @@ export default function Desk(props) {
                         </div>
                     )}
                 </div>
-                <div className="w-full h-full">
-                    <Merch />
+                <div className="h-full md:flex-1 md:items-stretch">
+                    <Merch {...props} />
                 </div>
             </div>
         </div>
