@@ -38,7 +38,7 @@ class MerchController extends Controller
         $merchImages = [];
         foreach ($request->file('merch_image') as $image) {
             $destinationPath = public_path('images/merches/thumbnails');
-            $merchImageName = $merch->merch_title . $merch->id . "_" . time() . mt_rand(1000, 9999) . $image->getClientOriginalExtension();
+            $merchImageName = $merch->merch_title . $merch->id . "_" . time() . mt_rand(1000, 9999) . '.' . $image->getClientOriginalExtension();
             $img = Image::make($image->path());
             $img->fit(280, 280, function ($const) {
                 $const->aspectRatio();
