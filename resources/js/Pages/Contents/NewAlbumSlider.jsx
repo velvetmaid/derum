@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Link } from "@inertiajs/react";
 import "@splidejs/react-splide/css";
 import "@/../css/main.css";
-import { Link } from "@inertiajs/react";
 
 export default function NewAlbumSlider({ props }) {
     const [width, setWidth] = useState(window.innerWidth);
@@ -24,6 +24,9 @@ export default function NewAlbumSlider({ props }) {
             {width <= 768 ? (
                 <Splide
                     options={{
+                        autoplay: true,
+                        interval: 2500,
+                        speed: 2500,
                         type: "loop",
                         drag: "free",
                         focus: "center",
@@ -68,13 +71,16 @@ export default function NewAlbumSlider({ props }) {
             ) : (
                 <Splide
                     options={{
+                        autoplay: true,
+                        interval: 2500,
+                        speed: 2500,
                         type: "loop",
                         drag: "free",
                         focus: "center",
                         arrows: false,
                         pagination: false,
                         perPage: 4,
-                        arrows: true
+                        arrows: true,
                     }}
                 >
                     {props.slice(props.length - 5, props.length).map((post) => {
