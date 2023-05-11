@@ -29,7 +29,7 @@ class ArtistAlbumController extends Controller
      */
     public function artistDashbord()
     {
-        $merches = Merch::all();
+        $merches = Merch::where('merch_user_id', Auth::id())->with('user')->get();
         $total_songs = 0;
         $albums = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
 
