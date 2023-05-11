@@ -44,16 +44,14 @@ export default function NewAlbumSlider({ props }) {
                                     })}
                                 >
                                     <div className="flex flex-col w-full h-full">
-                                        <a href="" className="w-full h-full">
-                                            <img
-                                                className="px-2 md:px-4 object-cover w-full h-full relative"
-                                                src={
-                                                    "/images/albums/thumbnails/thumb_" +
-                                                    post.album_art
-                                                }
-                                                alt={post.album_title}
-                                            />
-                                        </a>
+                                        <img
+                                            className="px-2 md:px-4 object-cover w-full h-full relative"
+                                            src={
+                                                "/images/albums/thumbnails/thumb_" +
+                                                post.album_art
+                                            }
+                                            alt={post.album_title}
+                                        />
                                         <div className="px-4 flex flex-col -space-y-1">
                                             <span className="font-robotocondensed truncate">
                                                 {post.album_title}
@@ -92,16 +90,14 @@ export default function NewAlbumSlider({ props }) {
                                     })}
                                 >
                                     <div className="flex flex-col w-full h-full">
-                                        <a href="" className="w-full h-full">
-                                            <img
-                                                className="px-2 md:px-4 object-cover w-full h-full relative"
-                                                src={
-                                                    "/images/albums/thumbnails/thumb_" +
-                                                    post.album_art
-                                                }
-                                                alt={post.album_title}
-                                            />
-                                        </a>
+                                        <img
+                                            className="px-2 md:px-4 object-cover w-full h-full relative"
+                                            src={
+                                                "/images/albums/thumbnails/thumb_" +
+                                                post.album_art
+                                            }
+                                            alt={post.album_title}
+                                        />
                                         <div className="px-4 flex flex-col -space-y-1">
                                             <span className="font-robotocondensed truncate">
                                                 {post.album_title}
