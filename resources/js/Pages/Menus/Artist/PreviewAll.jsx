@@ -33,9 +33,14 @@ export default function PreviewAll({ posts, data, setData, setLastIndex }) {
                         {data.album_release_date}
                     </span>
                     <span className="text-xs absolute bottom-[2px]">
-                        {(data.album_price === 0 || !data.album_price) &&
-                            "Free"}
-                        {data.album_price > 0 && `Rp. ${data.album_price}`}
+                        {data.album_price === 0 ||
+                        !data.album_price ||
+                        data.album_price < 500
+                            ? "Free"
+                            : Number(data.album_price).toLocaleString("id-ID", {
+                                  style: "currency",
+                                  currency: "IDR",
+                              })}
                     </span>
                 </div>
             </div>

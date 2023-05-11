@@ -99,11 +99,14 @@ export default function PreviewMerch({ data }) {
                             <div>
                                 <p className="text-xl">{data.merch_title}</p>
                                 <span className="text-lg bottom-[2px]">
-                                    {(data.merch_price === 0 ||
-                                        !data.merch_price) &&
-                                        "Free"}
-                                    {data.merch_price > 0 &&
-                                        `Rp.${data.merch_price}`}
+                                    {data.merch_price > 500 &&
+                                        Number(data.merch_price).toLocaleString(
+                                            "id-ID",
+                                            {
+                                                style: "currency",
+                                                currency: "IDR",
+                                            }
+                                        )}
                                 </span>
                                 <p>{data.merch_description}</p>
                             </div>
