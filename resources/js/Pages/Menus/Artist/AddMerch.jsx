@@ -93,15 +93,29 @@ export default function AddMerch(props) {
                                             <label className="text-sm font-bold tracking-wide">
                                                 Merch Category
                                             </label>
-                                            <input
+                                            <select
                                                 id="merch_category"
-                                                type="text"
                                                 className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                                 name="merch_category"
                                                 value={data.merch_category}
-                                                placeholder="Your Merch Title"
                                                 onChange={handleInputChange}
-                                            />
+                                            >
+                                                <option disabled value="">
+                                                    Select Category
+                                                </option>
+                                                <option value="Accessories">
+                                                    Accessories
+                                                </option>
+                                                <option value="Apparel">
+                                                    Clothing Line
+                                                </option>
+                                                <option value="Physical Media">
+                                                    Physical Media
+                                                </option>
+                                                <option value="Other">
+                                                    Other
+                                                </option>
+                                            </select>
                                         </div>
                                         <div className="grid grid-cols-1 space-y-2 md:w-2/3">
                                             <label className="text-sm font-bold tracking-wide">
@@ -123,7 +137,7 @@ export default function AddMerch(props) {
                                         <label className="text-sm font-bold tracking-wide">
                                             Description
                                         </label>
-                                        <input
+                                        <textarea
                                             id="merch_description"
                                             className="text-base p-2 border border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:border-turquoise"
                                             type="text"
