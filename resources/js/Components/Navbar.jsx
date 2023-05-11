@@ -11,6 +11,14 @@ export default function Navbar() {
     const [showModalLogin, setShowModalLogin] = useState(false);
     const [showModalRegister, setShowModalRegister] = useState(false);
 
+    const handleCloseModalLogin = () => {
+        setShowModalLogin(false);
+    };
+
+    const handleCloseModalRegister = () => {
+        setShowModalRegister(false);
+    };
+
     const user = usePage().props.auth.user;
     return (
         <>
@@ -45,7 +53,7 @@ export default function Navbar() {
                                                     {user.role == "artist" ? (
                                                         <Link
                                                             href={route(
-                                                                "artistDashboard"
+                                                                "artist.dashboard"
                                                             )}
                                                             className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                         >
@@ -172,7 +180,7 @@ export default function Navbar() {
                                                         "artist" ? (
                                                             <Link
                                                                 href={route(
-                                                                    "artistDashboard"
+                                                                    "artist.dashboard"
                                                                 )}
                                                                 className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                             >
@@ -254,13 +262,14 @@ export default function Navbar() {
                     )}
                 </Menu>
             </div>
-            <Modal show={showModalLogin}>
+            <Modal show={showModalLogin} onClose={handleCloseModalLogin}>
                 <Login
                     showModalLogin={showModalLogin}
                     setShowModalLogin={setShowModalLogin}
                 />
             </Modal>
-            <Modal show={showModalRegister}>
+
+            <Modal show={showModalRegister} onClose={handleCloseModalRegister}>
                 <Register
                     showModalRegister={showModalRegister}
                     setShowModalRegister={setShowModalRegister}

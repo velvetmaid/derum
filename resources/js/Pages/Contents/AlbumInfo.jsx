@@ -12,6 +12,14 @@ export default function AlbumInfo({ posts }) {
     const [showModalLogin, setShowModalLogin] = useState(false);
     const [showModalRegister, setShowModalRegister] = useState(false);
 
+    const handleCloseModalLogin = () => {
+        setShowModalLogin(false);
+    };
+
+    const handleCloseModalRegister = () => {
+        setShowModalRegister(false);
+    };
+
     const user = usePage().props.auth.user;
     return (
         <>
@@ -232,13 +240,14 @@ export default function AlbumInfo({ posts }) {
                     </div>
                 </div>
             </Layout>
-            <Modal show={showModalLogin}>
+            <Modal show={showModalLogin} onClose={handleCloseModalLogin}>
                 <Login
                     showModalLogin={showModalLogin}
                     setShowModalLogin={setShowModalLogin}
                 />
             </Modal>
-            <Modal show={showModalRegister}>
+
+            <Modal show={showModalRegister} onClose={handleCloseModalRegister}>
                 <Register
                     showModalRegister={showModalRegister}
                     setShowModalRegister={setShowModalRegister}
