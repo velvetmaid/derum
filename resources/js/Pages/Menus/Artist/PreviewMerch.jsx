@@ -1,46 +1,124 @@
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
+
 export default function PreviewMerch({ data }) {
+    console.log(data);
     return (
         <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
-            <div className="flex w-full h-[5rem] rounded-md">
-                <div className="relative aspect-square p-1">
-                    <img
-                        className="object-cover w-full h-full z-50"
-                        src={
-                            data.merch_image && Array.isArray(data.merch_image)
-                                ? data.merch_image.length > 0 &&
-                                  data.merch_image[0] instanceof File
-                                    ? URL.createObjectURL(data.merch_image[0])
-                                    : null
-                                : data.merch_image
-                                ? "/images/merches/thumbnails/thumb_" +
-                                  data.merch_image
-                                : null
-                        }
-                        alt={
-                            data.merch_image
-                                ? "Cover Art " + data.merch_title
-                                : null
-                        }
-                    />
-                </div>
-                <div className="pl-1 relative md:w-56 w-full over overflow-hidden">
-                    <p className="text-xl">{data.merch_title}</p>
-                    <span className="absolute bottom-8 text-xs">
-                        by:
-                        {data.merch_title}
-                    </span>
-                    <span className="text-xs absolute md:block bottom-[1rem]">
-                        Relase date:
-                        {data.merch_title}
-                    </span>
-                    <span className="text-xs absolute bottom-[2px]">
-                        {(data.merch_price === 0 || !data.merch_price) &&
-                            "Free"}
-                        {data.merch_price > 0 && `Rp. ${data.merch_price}`}
-                    </span>
-                </div>
-            </div>
-            <h1>Description</h1>
+            {data.merch_title !== "" ||
+            data.merch_price !== "" ||
+            data.merch_description !== "" ||
+            data.merch_image !== null ? (
+                <>
+                    <div className="flex flex-col gap-2">
+                        <Splide
+                            options={{
+                                gap: "1rem",
+                                rewind: true,
+                                autoplay: true,
+                                interval: 4000,
+                                speed: 2000,
+                                arrows: false,
+                                drag: false,
+                                pagination: false,
+                                autoHeight: false,
+                            }}
+                            aria-label={data.merch_title}
+                        >
+                            {data.merch_image &&
+                                data.merch_image
+                                    .slice(0, 3)
+                                    .map((post, index) => (
+                                        <SplideSlide
+                                            key={index}
+                                            className="aspect-square rounded-lg overflow-hidden"
+                                        >
+                                            <img
+                                                className="w-full h-full object-cover"
+                                                src={
+                                                    post instanceof File
+                                                        ? URL.createObjectURL(
+                                                              post
+                                                          )
+                                                        : "/images/merches/thumbnails/thumb_" +
+                                                          post
+                                                }
+                                                alt={
+                                                    post
+                                                        ? "Art " +
+                                                          data.merch_title
+                                                        : null
+                                                }
+                                            />
+                                        </SplideSlide>
+                                    ))}
+                        </Splide>
+                        {data.merch_image && data.merch_image.length >= 4 ? (
+                            <Splide
+                                options={{
+                                    autoplay: true,
+                                    interval: 2500,
+                                    speed: 5000,
+                                    gap: ".5rem",
+                                    type: "loop",
+                                    perPage: 4,
+                                    arrows: false,
+                                    pagination: false,
+                                    fixedHeight: "4rem",
+                                }}
+                                aria-label={data.merch_title}
+                            >
+                                {data.merch_image.map((post, index) => (
+                                    <SplideSlide
+                                        className="rounded-md overflow-hidden"
+                                        key={index}
+                                    >
+                                        <img
+                                            className="object-cover w-full h-full"
+                                            src={
+                                                post instanceof File
+                                                    ? URL.createObjectURL(post)
+                                                    : "/images/merches/thumbnails/thumb_" +
+                                                      post
+                                            }
+                                            alt={
+                                                post
+                                                    ? "Art " + data.merch_title
+                                                    : null
+                                            }
+                                        />
+                                    </SplideSlide>
+                                ))}
+                            </Splide>
+                        ) : null}
+                    </div>
+                    <div className="overflow-hidden">
+                        {data.merch_title !== "" ||
+                        data.merch_description !== "" ||
+                        data.merch_image !== null ? (
+                            <div>
+                                <p className="text-xl">{data.merch_title}</p>
+                                <span className="text-lg bottom-[2px]">
+                                    {(data.merch_price === 0 ||
+                                        !data.merch_price) &&
+                                        "Free"}
+                                    {data.merch_price > 0 &&
+                                        `Rp.${data.merch_price}`}
+                                </span>
+                                <p>{data.merch_description}</p>
+                            </div>
+                        ) : null}
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className="w-full h-full flex flex-col justify-center items-center">
+                        <div className="flex justify-center items-center">
+                            <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-blueNavy-dark dark:border-gray-300"></div>
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
