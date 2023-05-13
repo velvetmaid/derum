@@ -14,7 +14,7 @@
     - [x] Store Merch
     - [x] Index Album
     - [x] Index Song
-    - [ ] Index merch
+    - [x] Index merch
     - [x] Edit Album
     - [x] Edit Song
     - [ ] Edit Merch
