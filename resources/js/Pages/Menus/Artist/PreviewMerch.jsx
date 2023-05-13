@@ -2,7 +2,6 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
 export default function PreviewMerch({ data }) {
-    console.log("pre", JSON.parse(data.merch_image).length);
     return (
         <div className="sm:max-w-lg w-full p-2 md:p-8 bg-white dark:bg-blueNavy-dark rounded-xl z-10 mx-auto">
             {data.merch_title !== "" ||
@@ -72,69 +71,101 @@ export default function PreviewMerch({ data }) {
                                       )
                                   )}
                         </Splide>
-                        {(data.merch_image && data.merch_image.length >= 4) &&
-                        JSON.parse(data.merch_image).length >= 4 ? (
-                            <Splide
-                                options={{
-                                    autoplay: true,
-                                    interval: 2500,
-                                    speed: 5000,
-                                    gap: ".5rem",
-                                    type: "loop",
-                                    perPage: 4,
-                                    arrows: false,
-                                    pagination: false,
-                                    fixedHeight: "4rem",
-                                }}
-                                aria-label={data.merch_title}
-                            >
-                                {Array.isArray(data.merch_image)
-                                    ? data.merch_image.map((post, index) => (
-                                          <SplideSlide
-                                              className="rounded-md overflow-hidden"
-                                              key={index}
-                                          >
-                                              <img
-                                                  className="object-cover w-full h-full"
-                                                  src={
-                                                      post instanceof File
-                                                          ? URL.createObjectURL(
-                                                                post
-                                                            )
-                                                          : "/images/merches/thumbnails/thumb_" +
-                                                            post
-                                                  }
-                                                  alt={
-                                                      post
-                                                          ? "Art " +
-                                                            data.merch_title
-                                                          : null
-                                                  }
-                                              />
-                                          </SplideSlide>
-                                      ))
-                                    : JSON.parse(data.merch_image).map(
-                                          (post, index) => (
-                                              <SplideSlide
-                                                  className="rounded-md overflow-hidden"
-                                                  key={index}
-                                              >
-                                                  <img
-                                                      className="object-cover w-full h-full"
-                                                      src={
-                                                          "/images/merches/thumbnails/thumb_" +
-                                                          post
-                                                      }
-                                                      alt={
-                                                          "Art " +
+                        <Splide
+                            options={{
+                                autoplay: true,
+                                interval: 2500,
+                                speed: 5000,
+                                gap: ".5rem",
+                                type: "loop",
+                                perPage: 4,
+                                arrows: false,
+                                pagination: false,
+                                fixedHeight: "4rem",
+                            }}
+                            aria-label={data.merch_title}
+                        >
+                            {data.merch_image &&
+                                data.merch_image.length >= 4 &&
+                                (() => {
+                                    if (typeof data.merch_image === "string") {
+                                        try {
+                                            const parseImg = JSON.parse(
+                                                data.merch_image
+                                            );
+                                            if (
+                                                Array.isArray(parseImg) &&
+                                                parseImg.length >= 4
+                                            ) {
+                                                return parseImg.map(
+                                                    (post, index) => (
+                                                        <SplideSlide
+                                                            className="rounded-md overflow-hidden"
+                                                            key={index}
+                                                        >
+                                                            <img
+                                                                className="object-cover w-full h-full"
+                                                                src={
+                                                                    "/images/merches/thumbnails/thumb_" +
+                                                                    post
+                                                                }
+                                                                alt={
+                                                                    "Art " +
+                                                                    data.merch_title
+                                                                }
+                                                            />
+                                                        </SplideSlide>
+                                                    )
+                                                );
+                                            }
+                                        } catch (error) {
+                                            console.log(
+                                                "Invalid JSON format:",
+                                                error
+                                            );
+                                        }
+                                    }
+                                    return Array.isArray(data.merch_image) ? (
+                                        data.merch_image.map((image, index) => (
+                                            <SplideSlide
+                                                className="rounded-md overflow-hidden"
+                                                key={index}
+                                            >
+                                                <img
+                                                    className="object-cover w-full h-full"
+                                                    src={URL.createObjectURL(
+                                                        image
+                                                    )}
+                                                    alt={
+                                                        "Art " +
+                                                        data.merch_title
+                                                    }
+                                                />
+                                            </SplideSlide>
+                                        ))
+                                    ) : (
+                                        <SplideSlide className="rounded-md overflow-hidden">
+                                            <img
+                                                className="object-cover w-full h-full"
+                                                src={
+                                                    data.merch_image instanceof
+                                                    File
+                                                        ? URL.createObjectURL(
+                                                              data.merch_image
+                                                          )
+                                                        : null
+                                                }
+                                                alt={
+                                                    data.merch_image
+                                                        ? "Art " +
                                                           data.merch_title
-                                                      }
-                                                  />
-                                              </SplideSlide>
-                                          )
-                                      )}
-                            </Splide>
-                        ) : null}
+                                                        : null
+                                                }
+                                            />
+                                        </SplideSlide>
+                                    );
+                                })()}
+                        </Splide>
                     </div>
                     <div className="overflow-hidden">
                         {data.merch_title !== "" ||
