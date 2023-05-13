@@ -55,7 +55,13 @@ export default function AlbumInfo({ posts }) {
                                             {posts.album_price == null ||
                                             posts.album_price == "0"
                                                 ? "Free"
-                                                : posts.album_price}
+                                                : posts.album_price.toLocaleString(
+                                                      "id-ID",
+                                                      {
+                                                          style: "currency",
+                                                          currency: "IDR",
+                                                      }
+                                                  )}
                                         </p>
                                     </div>
                                     <div className="w-full text-center my-1">

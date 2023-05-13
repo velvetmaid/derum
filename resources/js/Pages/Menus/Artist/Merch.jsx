@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 export default function Merch(props) {
     return (
         <>
@@ -9,14 +11,20 @@ export default function Merch(props) {
                             key={post.id}
                             className="flex-[1_0_21%] overflow-hidden rounded-lg"
                         >
-                            <img
-                                className="hover:scale-105 ease-in duration-200"
-                                src={
-                                    "/images/merches/thumbnails/thumb_" +
-                                    JSON.parse(post.merch_image)[0]
-                                }
-                                alt={post.merch_title}
-                            />
+                            <Link
+                                href={route("edit-merch", {
+                                    id: post.id,
+                                })}
+                            >
+                                <img
+                                    className="hover:scale-105 ease-in duration-200 w-full"
+                                    src={
+                                        "/images/merches/thumbnails/thumb_" +
+                                        JSON.parse(post.merch_image)[0]
+                                    }
+                                    alt={post.merch_title}
+                                />
+                            </Link>
                         </div>
                     ))}
                     {props.merches.length >= 11 && (
@@ -29,14 +37,20 @@ export default function Merch(props) {
                 <div className="flex gap-4">
                     {props.merches.map((post) => (
                         <div key={post.id} className="h-full">
-                            <img
-                                className="rounded-lg"
-                                src={
-                                    "/images/merches/thumbnails/thumb_" +
-                                    JSON.parse(post.merch_image)[0]
-                                }
-                                alt={post.merch_title}
-                            />
+                            <Link
+                                href={route("edit-merch", {
+                                    id: post.id,
+                                })}
+                            >
+                                <img
+                                    className="rounded-lg"
+                                    src={
+                                        "/images/merches/thumbnails/thumb_" +
+                                        JSON.parse(post.merch_image)[0]
+                                    }
+                                    alt={post.merch_title}
+                                />
+                            </Link>
                         </div>
                     ))}
                 </div>

@@ -31,7 +31,7 @@ export default function AddMerch(props) {
         post("add-merch/store");
 
         const hasErrors =
-            !data.merch_title || !data.merch_image || !data.merch_category;
+            !data.merch_title || !data.merch_image || !data.merch_category || data.merch_price < 500;
 
         if (hasErrors) {
             toast.error(

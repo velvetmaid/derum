@@ -5,7 +5,7 @@ export default function Desk(props) {
     return (
         <div className="rounded-3xl mb-5 px-6">
             <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
-                Welcome{" "}
+                Welcome
                 <span className="bg-[#04ddb4] dark:bg-[#3e607b] text-[#0d2758] dark:text-gray-100 italic px-2">
                     {props.auth.user.name}
                 </span>
@@ -79,7 +79,7 @@ export default function Desk(props) {
                                 </div>
                                 <div className="p-4 bg-yellow-100 dark:bg-[#443C68] rounded-xl">
                                     <div className="font-bold text-2xl leading-none">
-                                        {props.songsCount}
+                                        {props.merches.length}
                                     </div>
                                     <span className="mt-2">Your merch</span>
                                 </div>

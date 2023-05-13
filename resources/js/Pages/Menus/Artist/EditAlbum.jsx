@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Head, router, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import Layout from "@/Layouts/Layout";
