@@ -31,7 +31,10 @@ export default function AddMerch(props) {
         post("add-merch/store");
 
         const hasErrors =
-            !data.merch_title || !data.merch_image || !data.merch_category || data.merch_price < 500;
+            !data.merch_title ||
+            !data.merch_image ||
+            !data.merch_category ||
+            data.merch_price < 500;
 
         if (hasErrors) {
             toast.error(
@@ -88,7 +91,7 @@ export default function AddMerch(props) {
                                             autoComplete="off"
                                         />
                                     </div>
-                                    <div className="flex flex-col md:flex-row space-x-1 space-y-2">
+                                    <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-1">
                                         <div className="grid grid-cols-1 space-y-2 md:w-1/2">
                                             <label className="text-sm font-bold tracking-wide">
                                                 Merch Category
@@ -123,7 +126,7 @@ export default function AddMerch(props) {
                                             </label>
                                             <input
                                                 id="merch_image"
-                                                className="relative text-base block flex-auto cursor-pointer rounded-lg border border-solid border-gray-100 dark:border-none bg-clip-padding px-3 font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:cursor-pointer file:overflow-hidden file:rounded-md file:border-0 file:border-solid file:border-inherit file:bg-turquoise dark:file:bg-white file:px-3 file:py-2 file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] hover:file:bg-green-300 focus:shadow-primary focus:outline-none"
+                                                className="relative text-base block flex-auto cursor-pointer rounded-lg border border-solid border-gray-100 dark:border-none bg-clip-padding px-3 font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:cursor-pointer file:overflow-hidden file:rounded-md file:border-0 file:border-solid file:border-inherit file:bg-turquoise dark:file:bg-white file:px-3 file:p-2 file:text-blueNavy file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] hover:file:bg-green-300 focus:shadow-primary focus:outline-none"
                                                 type="file"
                                                 name="merch_image"
                                                 multiple
