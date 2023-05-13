@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Merch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class MerchController extends Controller
@@ -23,8 +24,8 @@ class MerchController extends Controller
             'merch_category' => 'required',
             'merch_image' => 'required|array',
             'merch_image.*' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
-            'merch_description' => 'required',
-            'merch_price' => 'nullable',
+            'merch_description' => 'nullable',
+            'merch_price' => 'required|numeric|min:500',
         ])->validate();
 
         $merch = new Merch([
@@ -53,5 +54,18 @@ class MerchController extends Controller
         $merch->save();
 
         return redirect()->route('artist.dashboard');
+    }
+
+    public function edit($id)
+    {
+        $posts  = Merch::with('user')->find($id);
+
+        if ($posts->merch_user_id == Auth::id()) {
+            return Inertia::render('Menus/Artist/EditMerch', [
+                'merches' => $posts,
+            ]);
+        } else {
+            return redirect("https://http.cat/403");
+        }
     }
 }

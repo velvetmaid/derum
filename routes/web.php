@@ -56,13 +56,13 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/add-album', 'create')->name('add-album');
             Route::post('/add-album/store', 'store')->name('add-album.store');
             Route::get('/edit-album/{id}', 'edit')->name('edit-album');
-            Route::put('/edit-album/update/{id}', 'update')->name('update');
-            // Route::get('/artistAddAlbum.{...}.edit', 'edit')->name('artistAddAlbum.edit');
+            Route::put('/edit-album/update/{id}', 'update')->name('update-album');
             // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
         });
         Route::controller(MerchController::class)->group(function () {
             Route::get('/add-merch', 'create')->name('add-merch');
             Route::post('/add-merch/store', 'store')->name('add-merch.store');
+            Route::get('/edit-merch/{id}', 'edit')->name('edit-merch');
         });
     });
 });
