@@ -129,7 +129,6 @@ class ArtistAlbumController extends Controller
                 $song->save();
             }
         }
-
         return redirect()->route('artist.dashboard');
     }
 
@@ -140,19 +139,17 @@ class ArtistAlbumController extends Controller
     {
         $posts  = ArtistAlbum::with('artist_song')->find($id);
 
-        if ($posts->album_user_id == Auth::id()) {
+        if ($posts && $posts->album_user_id == Auth::id()) {
             return Inertia::render('Menus/Artist/EditAlbum', [
                 'posts' => $posts,
             ]);
         } else {
-            abort(403, 'Unauthorized action.');
+            return redirect("https://http.cat/403");
         }
     }
 
     public function update(Request $request, $id)
     {
-        // Validator
-        // $validator = Validator::make($request->input('data'), [
         Validator::make($request->all(), [
             'data.album_title' => 'required',
             'data.album_release_date' => 'required',
@@ -164,10 +161,6 @@ class ArtistAlbumController extends Controller
             'data.songs.*.song_lyric' => 'nullable',
             'data.songs.*.song_file' => 'nullable|max:1048576',
         ])->validate();
-
-        // if ($validator->fails()) {
-        //     return response()->json(['errors' => $validator->errors()]);
-        // }
 
         $album = ArtistAlbum::findOrFail($id);
         $album->album_title = $request->input('data')['album_title'];

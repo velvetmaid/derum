@@ -60,7 +60,7 @@ class MerchController extends Controller
     {
         $posts  = Merch::with('user')->find($id);
 
-        if ($posts->merch_user_id == Auth::id()) {
+        if ($posts && $posts->merch_user_id == Auth::id()) {
             return Inertia::render('Menus/Artist/EditMerch', [
                 'merches' => $posts,
             ]);
