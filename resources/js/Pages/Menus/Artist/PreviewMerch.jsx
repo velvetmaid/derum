@@ -51,7 +51,8 @@ export default function PreviewMerch({ data }) {
                                               />
                                           </SplideSlide>
                                       ))
-                                : JSON.parse(data.merch_image).map(
+                                : data.merch_image &&
+                                  JSON.parse(data.merch_image).map(
                                       (post, index) => (
                                           <SplideSlide
                                               className="aspect-square rounded-lg overflow-hidden"
@@ -125,45 +126,46 @@ export default function PreviewMerch({ data }) {
                                             );
                                         }
                                     }
-                                    return Array.isArray(data.merch_image) ? (
-                                        data.merch_image.map((image, index) => (
-                                            <SplideSlide
-                                                className="rounded-md overflow-hidden"
-                                                key={index}
-                                            >
-                                                <img
-                                                    className="object-cover w-full h-full"
-                                                    src={URL.createObjectURL(
-                                                        image
-                                                    )}
-                                                    alt={
-                                                        "Art " +
-                                                        data.merch_title
-                                                    }
-                                                />
-                                            </SplideSlide>
-                                        ))
-                                    ) : (
-                                        <SplideSlide className="rounded-md overflow-hidden">
-                                            <img
-                                                className="object-cover w-full h-full"
-                                                src={
-                                                    data.merch_image instanceof
-                                                    File
-                                                        ? URL.createObjectURL(
-                                                              data.merch_image
-                                                          )
-                                                        : null
-                                                }
-                                                alt={
-                                                    data.merch_image
-                                                        ? "Art " +
-                                                          data.merch_title
-                                                        : null
-                                                }
-                                            />
-                                        </SplideSlide>
-                                    );
+                                    return Array.isArray(data.merch_image)
+                                        ? data.merch_image.map(
+                                              (image, index) => (
+                                                  <SplideSlide
+                                                      className="rounded-md overflow-hidden"
+                                                      key={index}
+                                                  >
+                                                      <img
+                                                          className="object-cover w-full h-full"
+                                                          src={URL.createObjectURL(
+                                                              image
+                                                          )}
+                                                          alt={
+                                                              "Art " +
+                                                              data.merch_title
+                                                          }
+                                                      />
+                                                  </SplideSlide>
+                                              )
+                                          )
+                                        : null;
+                                          // <SplideSlide className="rounded-md overflow-hidden">
+                                          //     <img
+                                          //         className="asd object-cover w-full h-full"
+                                          //         src={
+                                          //             data.merch_image instanceof
+                                          //             File
+                                          //                 ? URL.createObjectURL(
+                                          //                       data.merch_image
+                                          //                   )
+                                          //                 : null
+                                          //         }
+                                          //         alt={
+                                          //             data.merch_image
+                                          //                 ? "Art " +
+                                          //                   data.merch_title
+                                          //                 : null
+                                          //         }
+                                          //     />
+                                          // </SplideSlide>
                                 })()}
                         </Splide>
                     </div>
