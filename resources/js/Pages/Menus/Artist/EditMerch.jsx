@@ -2,11 +2,11 @@ import { Head, router, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import Layout from "@/Layouts/Layout";
 import FormFeedback from "./Resources/FormFeedback";
-import "@/../css/main.css";
 import PreviewMerch from "./PreviewMerch";
+import "@/../css/main.css";
+import { useState } from "react";
 
 export default function EditAlbum(props) {
-    console.log(props);
     const { data, setData, errors, progress } = useForm({
         merch_title: props.merches.merch_title || "",
         merch_category: props.merches.merch_category || "",
@@ -15,7 +15,18 @@ export default function EditAlbum(props) {
         merch_price: props.merches.merch_price,
         merch_exists: props.merches.merch_exists,
     });
-    console.log("input", data);
+
+    const [toggleValue, setToggleValue] = useState(data.merch_exists);
+
+    const handleToggle = () => {
+        const newValue = toggleValue === 0 ? 1 : 0;
+        setToggleValue(newValue);
+        setData((prevData) => ({
+            ...prevData,
+            merch_exists: newValue,
+        }));
+    };
+    console.log(data.merch_exists);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -185,6 +196,21 @@ export default function EditAlbum(props) {
                                             />
                                         </div>
                                     </div>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            value=""
+                                            className="sr-only peer"
+                                            onClick={handleToggle}
+                                            defaultChecked={toggleValue === 1}
+                                        />
+                                        <div className="w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-turquoise dark:peer-checked:bg-blue-900" />
+                                        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            {data.merch_exists === 1
+                                                ? "Available"
+                                                : "Unavailable"}
+                                        </span>
+                                    </label>
 
                                     <div>
                                         <FormFeedback

@@ -97,6 +97,7 @@ class MerchController extends Controller
         $merch->merch_category = $request->input('data')['merch_category'];
         $merch->merch_description = $request->input('data')['merch_description'];
         $merch->merch_price = $request->input('data')['merch_price'];
+        $merch->merch_exists = $request->input('data')['merch_exists'];
 
         $isImageChanged = false;
 
