@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/add-merch', 'create')->name('add-merch');
             Route::post('/add-merch/store', 'store')->name('add-merch.store');
             Route::get('/edit-merch/{id}', 'edit')->name('edit-merch');
+            Route::put('/edit-merch/update/{id}', 'update')->name('update-merch');
         });
     });
 });
