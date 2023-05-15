@@ -1,3 +1,5 @@
+![My Image](assets/showcase.png)
+
 <!-- ROADMAP -->
 ### Roadmap
 
