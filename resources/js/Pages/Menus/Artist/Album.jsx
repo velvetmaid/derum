@@ -42,13 +42,7 @@ export default function Album({ posts }) {
                             </div>
                         </div>
                     </>
-                ) : (
-                    <>
-                        <p className="text-center">
-                            You haven't uploaded an album yet
-                        </p>
-                    </>
-                )}
+                ) : null}
             </section>
         </>
     );
