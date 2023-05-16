@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ArtistAlbum;
 use App\Models\ArtistSong;
 use App\Models\Merch;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -45,9 +46,14 @@ class ArtistAlbumController extends Controller
      */
     public function albumInfoIndex($id)
     {
-        $posts  = ArtistAlbum::with('artist_song')->find($id);
+        $album  = ArtistAlbum::with('artist_song')->find($id);
+        $merches = Merch::where('merch_user_id', $album->album_user_id)->get();
+        $artistuser = User::find($album->album_user_id);
+
         return Inertia::render('Contents/AlbumInfo', [
-            'posts' => $posts,
+            'album' => $album,
+            'merches' => $merches,
+            'user' => $artistuser,
         ]);
     }
 
@@ -263,7 +269,7 @@ class ArtistAlbumController extends Controller
         }
 
         $album->delete();
-        
+
         return redirect()->route('artist.dashboard');
     }
 
