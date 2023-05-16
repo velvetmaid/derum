@@ -235,6 +235,38 @@ class ArtistAlbumController extends Controller
         return redirect()->route('artist.dashboard');
     }
 
+    public function destroy($id)
+    {
+        $album = ArtistAlbum::findOrFail($id);
+
+        if ($album->album_art) {
+            $albumArtPath = public_path('images/albums');
+            $thumbnailPath = $albumArtPath . '/thumbnails/thumb_' . $album->album_art;
+            $mainImagePath = $albumArtPath . '/main/' . $album->album_art;
+            if (file_exists($thumbnailPath)) {
+                unlink($thumbnailPath);
+            }
+            if (file_exists($mainImagePath)) {
+                unlink($mainImagePath);
+            }
+        }
+
+        $songs = ArtistSong::where('album_id', $id)->get();
+        foreach ($songs as $song) {
+            if ($song->song_file) {
+                $songFilePath = public_path('musics/' . $song->song_file);
+                if (file_exists($songFilePath)) {
+                    unlink($songFilePath);
+                }
+            }
+            $song->delete();
+        }
+
+        $album->delete();
+        
+        return redirect()->route('artist.dashboard');
+    }
+
     public function downloadAlbum($id)
     {
         $album = ArtistAlbum::findOrFail($id);
