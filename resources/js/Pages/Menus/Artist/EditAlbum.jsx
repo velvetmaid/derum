@@ -11,7 +11,13 @@ export default function EditAlbum(props) {
     const [showModal, setShowModal] = useState(false);
     const [lastIndex, setLastIndex] = useState(0);
 
-    const { data, setData, errors, progress } = useForm({
+    const {
+        data,
+        setData,
+        errors,
+        progress,
+        delete: destroy,
+    } = useForm({
         album_title: props.posts.album_title || "",
         album_release_date: props.posts.album_release_date || "",
         album_art: props.posts.album_art || null,
@@ -129,6 +135,25 @@ export default function EditAlbum(props) {
         }
     }
 
+    const [showModalDelete, setShowModalDelete] = useState(false);
+
+    const handleCloseModalDelete = () => {
+        setShowModalDelete(false);
+    };
+
+    const handleConfirmDelete = async () => {
+        await destroy(
+            route("delete-album", {
+                id: props.posts.id,
+            })
+        );
+        handleCloseModalDelete();
+        toast.success("You have successfully deleted the merch", {
+            position: toast.POSITION.TOP_LEFT,
+            className: "w-5/6 md:w-full dark:bg-gray-800",
+        });
+    };
+
     return (
         <>
             <Layout>
@@ -237,6 +262,21 @@ export default function EditAlbum(props) {
                                                 onChange={handleInputChange}
                                             />
                                         </div>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setShowModalDelete(true)
+                                            }
+                                            className="relative inline-block px-4 font-medium group"
+                                        >
+                                            <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-[5px] translate-y-[5px] bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                                            <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+                                            <span className="relative text-blueNavy group-hover:text-white">
+                                                Delete Album
+                                            </span>
+                                        </button>
                                     </div>
 
                                     <Modal
@@ -472,6 +512,64 @@ export default function EditAlbum(props) {
                     </div>
                 </div>
             </Layout>
+            <Modal show={showModalDelete} onClose={handleCloseModalDelete}>
+                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button
+                        type="button"
+                        onClick={handleCloseModalDelete}
+                        className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                    >
+                        <svg
+                            aria-hidden="true"
+                            className="w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                            ></path>
+                        </svg>
+                        <span className="sr-only">Close modal</span>
+                    </button>
+                    <div className="p-6 text-center">
+                        <svg
+                            aria-hidden="true"
+                            className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Are you sure you want to delete this merch?
+                        </h3>
+                        <button
+                            type="button"
+                            onClick={handleConfirmDelete}
+                            className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                        >
+                            Yes, I'm sure
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleCloseModalDelete}
+                            className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                        >
+                            No, cancel
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </>
     );
 }
