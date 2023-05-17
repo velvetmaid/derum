@@ -49,26 +49,8 @@ export default function Merch(props) {
                     )}
                 </div>
             ) : (
-                <div className="flex gap-4">
-                    {props.merches.map((post) => (
-                        <div key={post.id} className="h-full">
-                            <Link
-                                href={route("edit-merch", {
-                                    id: post.id,
-                                })}
-                            >
-                                <img
-                                    className="rounded-lg"
-                                    src={
-                                        "/images/merches/thumbnails/thumb_" +
-                                        JSON.parse(post.merch_image)[0]
-                                    }
-                                    alt={post.merch_title}
-                                    title={post.merch_title}
-                                />
-                            </Link>
-                        </div>
-                    ))}
+                <div className="text-center">
+                        You haven't posted a merch yet.
                 </div>
             )}
             <Modal show={showModalMerch} onClose={handleCloseModalMerch}>

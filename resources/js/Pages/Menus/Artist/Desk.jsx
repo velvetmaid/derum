@@ -111,8 +111,8 @@ export default function Desk(props) {
                         ) : null}
                     </div>
                     {props.albums.length === 0 && (
-                        <div className="my-4 w-full h-1/2 flex items-center justify-center bg-purple-100 dark:bg-[#022C43] rounded-xl ">
-                            <span className="font-bold text-xl leading-none">
+                        <div className="my-4 w-full h-1/2 flex items-center justify-center bg-purple-100 dark:bg-[#022C43] rounded-xl">
+                            <span className="font-bold text-xl leading-none p-6">
                                 You haven't uploaded an album yet
                             </span>
                         </div>
