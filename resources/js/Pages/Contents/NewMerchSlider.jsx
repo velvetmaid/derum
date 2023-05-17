@@ -33,42 +33,46 @@ export default function NewMerchSlider({ props }) {
                     },
                 }}
             >
-                {props.slice(props.length - 10, props.length).map((post) => (
-                    <SplideSlide className="hover:opacity-75" key={post.id}>
-                        <div className="overflow-hidden rounded-md">
-                            <img
-                                className="object-cover object-center h-full w-full"
-                                src={
-                                    "/images/merches/thumbnails/thumb_" +
-                                    JSON.parse(post.merch_image)[0]
-                                }
-                                alt={post.merch_title}
-                            />
-                        </div>
-                        <div className="mt-3 flex justify-between">
-                            <div>
-                                <h3 className="text-sm text-gray-700">
-                                    <a href="#">
-                                        <span
-                                            aria-hidden="true"
-                                            className="absolute inset-0"
-                                        ></span>
-                                        {post.merch_title}
-                                    </a>
-                                </h3>
-                                <p className="mt-1 text-sm text-gray-500">
-                                    {post.merch_category}
+                {props
+                    .reverse()
+                    .filter((item) => item.merch_exists === 1)
+                    .slice(0, 10)
+                    .map((post) => (
+                        <SplideSlide className="hover:opacity-75" key={post.id}>
+                            <div className="overflow-hidden rounded-md">
+                                <img
+                                    className="object-cover object-center h-full w-full"
+                                    src={
+                                        "/images/merches/thumbnails/thumb_" +
+                                        JSON.parse(post.merch_image)[0]
+                                    }
+                                    alt={post.merch_title}
+                                />
+                            </div>
+                            <div className="mt-3 flex justify-between">
+                                <div>
+                                    <h3 className="text-sm text-gray-700">
+                                        <a href="#">
+                                            <span
+                                                aria-hidden="true"
+                                                className="absolute inset-0"
+                                            ></span>
+                                            {post.merch_title}
+                                        </a>
+                                    </h3>
+                                    <p className="mt-1 text-sm text-gray-500">
+                                        {post.merch_category}
+                                    </p>
+                                </div>
+                                <p className="text-sm font-medium">
+                                    {post.merch_price.toLocaleString("id-ID", {
+                                        style: "currency",
+                                        currency: "IDR",
+                                    })}
                                 </p>
                             </div>
-                            <p className="text-sm font-medium">
-                                {post.merch_price.toLocaleString("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                })}
-                            </p>
-                        </div>
-                    </SplideSlide>
-                ))}
+                        </SplideSlide>
+                    ))}
             </Splide>
         </div>
     );
