@@ -29,8 +29,9 @@ Route::get('/', function () {
 });
 
 Route::get('/', [ArtistAlbumController::class, 'index']);
-Route::get('/albumInfo/{id}', [ArtistAlbumController::class, 'albumInfoIndex'])->name('albumInfo');
-Route::get('/download-album/{id}', [ArtistAlbumController::class, 'downloadAlbum'])->name('downloadAlbum');
+Route::get('/album-info/{id}', [ArtistAlbumController::class, 'albumInfo'])->name('album-info');
+Route::get('/merch-info/{id}', [MerchController::class, 'merchInfo'])->name('merch-info');
+Route::get('/download-album/{id}', [ArtistAlbumController::class, 'downloadAlbum']);
 Route::get('/search/{key}', [ArtistAlbumController::class, 'search']);
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
@@ -57,13 +58,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/add-album/store', 'store')->name('add-album.store');
             Route::get('/edit-album/{id}', 'edit')->name('edit-album');
             Route::put('/edit-album/update/{id}', 'update')->name('update-album');
-            // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
+            Route::delete('/delete-album/{id}',  'destroy')->name('delete-album');
         });
         Route::controller(MerchController::class)->group(function () {
             Route::get('/add-merch', 'create')->name('add-merch');
             Route::post('/add-merch/store', 'store')->name('add-merch.store');
             Route::get('/edit-merch/{id}', 'edit')->name('edit-merch');
             Route::put('/edit-merch/update/{id}', 'update')->name('update-merch');
+            Route::delete('/delete-merch/{id}', 'destroy')->name('delete-merch');
         });
     });
 });
