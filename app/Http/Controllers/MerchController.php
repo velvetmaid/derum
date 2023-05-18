@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use App\Models\Merch;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
 class MerchController extends Controller
 {
+
+    public function merchInfo($id)
+    {
+        $merches  = Merch::find($id);
+
+        return Inertia::render('Contents/MerchInfo', [
+            'merches' => $merches,
+        ]);
+    }
 
     public function create()
     {
