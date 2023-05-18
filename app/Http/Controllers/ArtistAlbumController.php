@@ -44,7 +44,7 @@ class ArtistAlbumController extends Controller
     /**
      * Retrieve and display information about a specific album.
      */
-    public function albumInfoIndex($id)
+    public function albumInfo($id)
     {
         $album  = ArtistAlbum::with('artist_song')->find($id);
         $merches = Merch::where('merch_user_id', $album->album_user_id)->get();

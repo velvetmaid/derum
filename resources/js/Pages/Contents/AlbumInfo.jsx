@@ -261,7 +261,7 @@ export default function AlbumInfo(props) {
                                                 {post.merch_category}
                                             </span>
                                             <Link
-                                                href={route("edit-merch", {
+                                                href={route("merch-info", {
                                                     id: post.id,
                                                 })}
                                             >

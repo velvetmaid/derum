@@ -1,7 +1,6 @@
 import { Link } from "@inertiajs/react";
 
 export default function AllMerchModal(props) {
-    console.log(props);
     return (
         <div className="h-96 md:h-[44rem] overflow-y-scroll">
             <div className="flex flex-wrap gap-4 p-8">

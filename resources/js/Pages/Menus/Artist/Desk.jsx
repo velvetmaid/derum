@@ -91,7 +91,7 @@ export default function Desk(props) {
                                         <div className="mt-2">
                                             {props.albums.slice(-1)[0] && (
                                                 <Link
-                                                    href={route("albumInfo", {
+                                                    href={route("album-info", {
                                                         id: props.albums.slice(
                                                             -1
                                                         )[0].id,

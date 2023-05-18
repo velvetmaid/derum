@@ -35,7 +35,7 @@ export default function NewAlbumSlider({ props }) {
                 {props.slice(props.length - 5, props.length).map((post) => (
                     <SplideSlide className="hover:opacity-75" key={post.id}>
                         <Link
-                            href={route("albumInfo", {
+                            href={route("album-info", {
                                 id: post.id,
                             })}
                         >

@@ -86,7 +86,7 @@ export default function AlbumGroup({ props, searchRes }) {
         <>
             <div className="flex flex-wrap mx-auto p-6 bg-white dark:bg-blueNavy-dark rounded-xl">
                 {searchRes.length === 0
-                    ? data.map((album) => (
+                    ? data.reverse().map((album) => (
                           <div
                               className="flex-2 w-2/5 md:w-[25%] mx-auto px-0 md:px-2 my-6"
                               key={album.id}
@@ -102,7 +102,7 @@ export default function AlbumGroup({ props, searchRes }) {
                                   />
                                   {album.artist_song.length > 0 && (
                                       <Link
-                                          href={route("albumInfo", {
+                                          href={route("album-info", {
                                               id: album.id,
                                           })}
                                       >
@@ -132,7 +132,7 @@ export default function AlbumGroup({ props, searchRes }) {
                               <div className="flex flex-col">
                                   <Link
                                       className="truncate"
-                                      href={route("albumInfo", {
+                                      href={route("album-info", {
                                           id: album.id,
                                       })}
                                   >
@@ -140,7 +140,7 @@ export default function AlbumGroup({ props, searchRes }) {
                                   </Link>
                                   <Link
                                       className="truncate text-gray-600"
-                                      href={route("albumInfo", {
+                                      href={route("album-info", {
                                           id: album.id,
                                       })}
                                   >
@@ -165,7 +165,7 @@ export default function AlbumGroup({ props, searchRes }) {
                                   />
 
                                   <Link
-                                      href={route("albumInfo", {
+                                      href={route("album-info", {
                                           id: album.id,
                                       })}
                                   >
@@ -194,7 +194,7 @@ export default function AlbumGroup({ props, searchRes }) {
                               <div className="flex flex-col">
                                   <Link
                                       className="truncate"
-                                      href={route("albumInfo", {
+                                      href={route("album-info", {
                                           id: album.id,
                                       })}
                                   >
@@ -202,7 +202,7 @@ export default function AlbumGroup({ props, searchRes }) {
                                   </Link>
                                   <Link
                                       className="truncate text-gray-600"
-                                      href={route("albumInfo", {
+                                      href={route("album-info", {
                                           id: album.id,
                                       })}
                                   >

@@ -147,25 +147,25 @@ export default function PreviewMerch({ data }) {
                                               )
                                           )
                                         : null;
-                                          // <SplideSlide className="rounded-md overflow-hidden">
-                                          //     <img
-                                          //         className="asd object-cover w-full h-full"
-                                          //         src={
-                                          //             data.merch_image instanceof
-                                          //             File
-                                          //                 ? URL.createObjectURL(
-                                          //                       data.merch_image
-                                          //                   )
-                                          //                 : null
-                                          //         }
-                                          //         alt={
-                                          //             data.merch_image
-                                          //                 ? "Art " +
-                                          //                   data.merch_title
-                                          //                 : null
-                                          //         }
-                                          //     />
-                                          // </SplideSlide>
+                                    // <SplideSlide className="rounded-md overflow-hidden">
+                                    //     <img
+                                    //         className="asd object-cover w-full h-full"
+                                    //         src={
+                                    //             data.merch_image instanceof
+                                    //             File
+                                    //                 ? URL.createObjectURL(
+                                    //                       data.merch_image
+                                    //                   )
+                                    //                 : null
+                                    //         }
+                                    //         alt={
+                                    //             data.merch_image
+                                    //                 ? "Art " +
+                                    //                   data.merch_title
+                                    //                 : null
+                                    //         }
+                                    //     />
+                                    // </SplideSlide>
                                 })()}
                         </Splide>
                     </div>
