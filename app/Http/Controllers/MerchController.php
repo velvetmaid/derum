@@ -149,4 +149,24 @@ class MerchController extends Controller
             return redirect()->route('artist.dashboard');
         }
     }
+
+    public function destroy($id)
+    {
+        $merch = Merch::findOrFail($id);
+
+        $merchImages = json_decode($merch->merch_image, true);
+        foreach ($merchImages as $image) {
+            $thumbnailPath = public_path('images/merches/thumbnails/thumb_' . $image);
+            $imagePath = public_path('images/merches/main/' . $image);
+            if (file_exists($thumbnailPath)) {
+                unlink($thumbnailPath);
+            }
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $merch->delete();
+        return redirect()->route('artist.dashboard');
+    }
 }
