@@ -1,16 +1,41 @@
-### Todo
+![My Image](assets/showcase.png)
 
-#### Setup
-- [x] Skeleton Laravel Breeze:React, Tailwind
+<!-- ROADMAP -->
+### Roadmap
+
+- [x] Home
 - [x] Login
+- [x] Sign Up
+- [x] Log Out
+- [x] Search
+- [x] Pagination
+- [ ] Artist Page
+    - [x] Dashboard
+    - [x] Store Album
+    - [x] Store Song
+    - [x] Store Merch
+    - [x] Index Album
+    - [x] Index Song
+    - [x] Index merch
+    - [x] Edit Album
+    - [x] Edit Song
+    - [x] Edit Merch
+    - [ ] Destroy Album
+    - [ ] Destroy Song
+    - [ ] Destroy Merch
+    - [ ] Alert, Progress, etc for resources
+- [ ] Fan Page
+    - [ ] Dashboard
+    - [ ] Chart
+    - [ ] Playlist
+    - [ ] Nested Feature
+- [ ] Radio
+- [ ] ...
 
-#### Views
-- [ ] Home
-- [ ] Login
-- [ ] Sign Up
-    - [ ] Components 
-        - [ ] Navbar
-        - [ ] Hero
-        - [ ] Footer
-    - [ ] Pages
-        - [ ] Dashboard
+#
+<p align="center">
+    <img  src="https://raw.githubusercontent.com/camieuxgoofy/derum/main/public/favicon.ico"/>
+</p>
+<h1 align="center">
+    Derum
+</h1>

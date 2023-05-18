@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('artist_album', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('album_user_id');
             $table->string('album_title');
             $table->string('album_release_date')->nullable();
             $table->string('album_art');
             $table->string('album_artist_name');
-            $table->bigInteger('album_price');
+            $table->bigInteger('album_price')->nullable();
+
+            $table->foreign('album_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

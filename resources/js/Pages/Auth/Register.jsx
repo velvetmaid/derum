@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import { useForm } from "@inertiajs/react";
+import AuthLayout from "@/Layouts/AuthLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Register() {
+export default function Register({ setShowModalLogin, setShowModalRegister }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -37,17 +37,15 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Register" />
-
+        <AuthLayout>
             <form onSubmit={submit}>
-                <div>
+            <div className="mt-4">
                     <InputLabel htmlFor="name" value="Name" />
                     <TextInput
                         id="name"
                         name="name"
                         value={data.name}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full dark:bg-[#1f2937]"
                         autoComplete="name"
                         isFocused={true}
                         onChange={handleOnChange}
@@ -63,7 +61,7 @@ export default function Register() {
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full dark:bg-[#1f2937]"
                         autoComplete="username"
                         onChange={handleOnChange}
                         required
@@ -76,9 +74,12 @@ export default function Register() {
                     <select
                         name="role"
                         id="role"
-                        className="mt-1 block w-full rounded-md"
+                        className="mt-1 block w-full dark:bg-[#1f2937] rounded-md"
                         onChange={handleOnChange}
                     >
+                        <option selected disabled>
+                            Please select
+                        </option>
                         <option value="fan">Fan</option>
                         <option value="artist">Artist</option>
                     </select>
@@ -92,7 +93,7 @@ export default function Register() {
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full dark:bg-[#1f2937]"
                         autoComplete="new-password"
                         onChange={handleOnChange}
                         required
@@ -110,7 +111,7 @@ export default function Register() {
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full dark:bg-[#1f2937]"
                         autoComplete="new-password"
                         onChange={handleOnChange}
                         required
@@ -122,18 +123,29 @@ export default function Register() {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route("login")}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    <span
+                        className="cursor-pointer underline text-sm hover:text-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        type="button"
+                        onClick={() => {
+                            setShowModalLogin(true);
+                            setShowModalRegister(false);
+                        }}
                     >
                         Already registered?
-                    </Link>
+                    </span>
+                    <PrimaryButton
+                        className="ml-4"
+                        type="button"
+                        onClick={() => setShowModalRegister(false)}
+                    >
+                        Back
+                    </PrimaryButton>
 
                     <PrimaryButton className="ml-4" disabled={processing}>
                         Sign Up
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthLayout>
     );
 }

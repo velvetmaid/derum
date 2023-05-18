@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArtistAlbumController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
+use App\Http\Controllers\MerchController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,11 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/', [ArtistAlbumController::class, 'index']);
+Route::get('/album-info/{id}', [ArtistAlbumController::class, 'albumInfo'])->name('album-info');
+Route::get('/merch-info/{id}', [MerchController::class, 'merchInfo'])->name('merch-info');
+Route::get('/download-album/{id}', [ArtistAlbumController::class, 'downloadAlbum']);
+Route::get('/search/{key}', [ArtistAlbumController::class, 'search']);
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -38,24 +44,29 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
-
     Route::get("/redirectAuthenticatedUsers", [RedirectAuthenticatedUsersController::class, "home"]);
 
     Route::group(['middleware' => 'checkRole:fan'], function () {
-        Route::inertia('/fanDashboard', 'FanDashboard')->name('fanDashboard');
+        Route::inertia('/fan-dashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
     });
-    Route::group(['middleware' => 'checkRole:artist'], function () {
-        Route::controller(ArtistAlbumController::class)->group(function () {
-            Route::get('/artistAddAlbum/create', 'create')->name('artistAddAlbum.create');
-            Route::post('/artistAddAlbum/store', 'store')->name('artistAddAlbum.store');
-            // Route::get('/artistAddAlbum.{...}.edit', 'edit')->name('artistAddAlbum.edit');
-            // Route::delete('/artistAddAlbum.{...}.destroy', 'destroy')->name('artistAddAlbum.destroy');
-        });
 
-        // Route::resource('/artistAddAlbum', ArtistAlbumController::class);
-        Route::inertia('/artistDashboard', 'Menus/Artist/ArtistDashboard')->name('artistDashboard');
-        // Route::inertia('/artistAddAlbum', 'Menus/Artist/AddAlbum')->name('artistAddAlbum');
+    Route::group(['middleware' => 'checkRole:artist'], function () {
+        Route::get('artist/dashboard', [ArtistAlbumController::class, 'artistDashbord'])->name('artist.dashboard');
+
+        Route::controller(ArtistAlbumController::class)->group(function () {
+            Route::get('/add-album', 'create')->name('add-album');
+            Route::post('/add-album/store', 'store')->name('add-album.store');
+            Route::get('/edit-album/{id}', 'edit')->name('edit-album');
+            Route::put('/edit-album/update/{id}', 'update')->name('update-album');
+            Route::delete('/delete-album/{id}',  'destroy')->name('delete-album');
+        });
+        Route::controller(MerchController::class)->group(function () {
+            Route::get('/add-merch', 'create')->name('add-merch');
+            Route::post('/add-merch/store', 'store')->name('add-merch.store');
+            Route::get('/edit-merch/{id}', 'edit')->name('edit-merch');
+            Route::put('/edit-merch/update/{id}', 'update')->name('update-merch');
+            Route::delete('/delete-merch/{id}', 'destroy')->name('delete-merch');
+        });
     });
 });
 require __DIR__ . '/auth.php';
