@@ -217,7 +217,7 @@ export default function EditAlbum(props) {
                                                 type="number"
                                                 name="merch_price"
                                                 value={data.merch_price}
-                                                placeholder="enter zero or more (e.g., 0, 10000"
+                                                placeholder="min Rp 500,00"
                                                 onChange={handleInputChange}
                                             />
                                         </div>
@@ -311,7 +311,7 @@ export default function EditAlbum(props) {
                             ></path>
                         </svg>
                         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Are you sure you want to delete this merch?
+                            Are you sure you want to delete this {data.merch_title} merch?
                         </h3>
                         <button
                             type="button"

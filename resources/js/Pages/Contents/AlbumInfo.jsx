@@ -25,7 +25,7 @@ export default function AlbumInfo(props) {
         <>
             <Layout>
                 <Head title={props.album.album_title} />
-                <div className="flex mx-auto md:p-12 p-6 bg-white dark:bg-blueNavy-dark rounded-xl ">
+                <div className="flex md:mx-auto md:p-12 p-6 mx-4 bg-white dark:bg-blueNavy-dark rounded-xl">
                     <div className="w-full space-y-6">
                         <div className="max-w-full flex flex-col md:flex-row md:space-x-6 md:space-y-0 space-y-6 tracking-widest font-robotocondensed">
                             <div className="w-full aspect-square">
