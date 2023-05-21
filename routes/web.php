@@ -3,7 +3,9 @@
 use App\Http\Controllers\ArtistAlbumController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 use App\Http\Controllers\MerchController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Order;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +35,9 @@ Route::get('/album-info/{id}', [ArtistAlbumController::class, 'albumInfo'])->nam
 Route::get('/merch-info/{id}', [MerchController::class, 'merchInfo'])->name('merch-info');
 Route::get('/download-album/{id}', [ArtistAlbumController::class, 'downloadAlbum']);
 Route::get('/search/{key}', [ArtistAlbumController::class, 'search']);
+
+
+Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -49,6 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'checkRole:fan'], function () {
         Route::inertia('/fan-dashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
     });
+
+    Route::group(['middleware' => 'checkRole:fan|artist'], function () {
+        Route::get('checkout-page', [OrderController::class, 'index'])->name('checkout-page');
+    });    
 
     Route::group(['middleware' => 'checkRole:artist'], function () {
         Route::get('artist/dashboard', [ArtistAlbumController::class, 'artistDashbord'])->name('artist.dashboard');
