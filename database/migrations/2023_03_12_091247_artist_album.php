@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('album_artist_name');
             $table->bigInteger('album_price')->nullable();
 
-            $table->foreign('album_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('album_user_id')->constrained('users')->onDelete('cascade');
         });
     }
 

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->bigInteger('merch_price');
             $table->boolean('merch_exists')->default(true);
 
-            $table->foreign('merch_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('merch_user_id')->constrained('users')->onDelete('cascade');
         });
     }
 
