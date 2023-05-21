@@ -4,7 +4,6 @@ import Album from "./Album";
 import Desk from "./Desk";
 
 export default function Dashboard(props) {
-    console.log(props);
     return (
         <>
             <Layout>
