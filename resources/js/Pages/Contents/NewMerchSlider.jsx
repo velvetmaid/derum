@@ -75,6 +75,7 @@ export default function NewMerchSlider({ props }) {
                                                   {
                                                       style: "currency",
                                                       currency: "IDR",
+                                                      minimumFractionDigits: 0,
                                                   }
                                               )}
                                     </p>

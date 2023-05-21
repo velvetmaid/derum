@@ -40,6 +40,7 @@ export default function PreviewAll({ posts, data, setData, setLastIndex }) {
                             : Number(data.album_price).toLocaleString("id-ID", {
                                   style: "currency",
                                   currency: "IDR",
+                                  minimumFractionDigits: 0,
                               })}
                     </span>
                 </div>

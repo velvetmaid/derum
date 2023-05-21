@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('song_lyric')->nullable();
             $table->string('song_file')->nullable();
 
-            $table->foreign('album_id')->references('id')->on('artist_album')->onDelete('cascade');
+            $table->foreignId('album_id')->constrained('artist_album')->onDelete('cascade');
         });
     }
 

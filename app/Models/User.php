@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Merch::class, 'merch_user_id');
     }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

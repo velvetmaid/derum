@@ -182,6 +182,7 @@ export default function PreviewMerch({ data }) {
                                             {
                                                 style: "currency",
                                                 currency: "IDR",
+                                                minimumFractionDigits: 0,
                                             }
                                         )}
                                 </span>

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { CloudDownloadIcon } from "@heroicons/react/outline";
 import { CreditCardIcon, ViewGridIcon } from "@heroicons/react/solid";
 import Layout from "@/Layouts/Layout";
@@ -7,10 +7,24 @@ import AudioPlayr from "./AudioInfoPlayer";
 import Modal from "@/Components/Modal";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
+import Checkout from "./Checkout";
 
 export default function AlbumInfo(props) {
+    const user = usePage().props.auth.user;
+
+    const { data, setData, post, errors, progress } = useForm({
+        order_name: (user && user.name) || "",
+        order_product_name: props.album.album_title || "",
+        order_type: "Digital",
+        order_price: props.album.album_price || "",
+        order_product_id: props.album.id,
+        order_product_image: props.album.album_art || null,
+        order_user_id: user.id,
+    });
+
     const [showModalLogin, setShowModalLogin] = useState(false);
     const [showModalRegister, setShowModalRegister] = useState(false);
+    const [showModalPay, setShowModalPay] = useState(false);
 
     const handleCloseModalLogin = () => {
         setShowModalLogin(false);
@@ -20,7 +34,10 @@ export default function AlbumInfo(props) {
         setShowModalRegister(false);
     };
 
-    const user = usePage().props.auth.user;
+    const handleCloseModalPay = () => {
+        setShowModalPay(false);
+    };
+
     return (
         <>
             <Layout>
@@ -61,6 +78,7 @@ export default function AlbumInfo(props) {
                                                       {
                                                           style: "currency",
                                                           currency: "IDR",
+                                                          minimumFractionDigits: 0,
                                                       }
                                                   )}
                                         </p>
@@ -71,7 +89,14 @@ export default function AlbumInfo(props) {
                                                 {props.album.album_user_id !=
                                                 user.id ? (
                                                     <>
-                                                        <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                        <button
+                                                            onClick={() =>
+                                                                setShowModalPay(
+                                                                    true
+                                                                )
+                                                            }
+                                                            className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center"
+                                                        >
                                                             <CreditCardIcon className="h-6 w-6" />
                                                             <span>Buy</span>
                                                         </button>
@@ -173,7 +198,14 @@ export default function AlbumInfo(props) {
                                                 {props.album.album_user_id !=
                                                 user.id ? (
                                                     <>
-                                                        <button className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center">
+                                                        <button
+                                                            onClick={() =>
+                                                                setShowModalPay(
+                                                                    true
+                                                                )
+                                                            }
+                                                            className="my-2 w-full justify-center bg-gray-900 dark:bg-gray-300 transition-all duration-300 ease-in-out border-2 border-gray-100 dark:border-gray-900 border-solid cursor-pointer select-none hover:border-gray-900 dark:hover:border-gray-100 focus:shadow-xs focus:no-underline text-gray-100 dark:text-gray-900 font-bold py-2 px-4 inline-flex items-center"
+                                                        >
                                                             <CreditCardIcon className="h-6 w-6" />
                                                             <span>Buy</span>
                                                         </button>
@@ -249,7 +281,9 @@ export default function AlbumInfo(props) {
                                 </div>
                             </div>
                             <div className="w-full">
-                            <span className="text-center uppercase text-[26px] tracking-[1px] grid grid-cols-[1fr_auto_1fr] grid-rows-[16px_0] gap-[22px] after:content-['] after:block after:border-b-2 after:border-b-[#ccc] after:border-solid before:content-['] before:block  before:border-b-2 before:border-b-[#ccc] before:border-solid font-robotocondensed">{props.user.name} merch</span>
+                                <span className="text-center uppercase text-[26px] tracking-[1px] grid grid-cols-[1fr_auto_1fr] grid-rows-[16px_0] gap-[22px] after:content-['] after:block after:border-b-2 after:border-b-[#ccc] after:border-solid before:content-['] before:block  before:border-b-2 before:border-b-[#ccc] before:border-solid font-robotocondensed">
+                                    {props.user.name} merch
+                                </span>
 
                                 <div className="flex flex-wrap gap-4">
                                     {props.merches.map((post) => (
@@ -298,6 +332,18 @@ export default function AlbumInfo(props) {
                     setShowModalRegister={setShowModalRegister}
                     showModalLogin={showModalLogin}
                     setShowModalLogin={setShowModalLogin}
+                />
+            </Modal>
+
+            <Modal show={showModalPay} onClose={handleCloseModalPay}>
+                <Checkout
+                    showModalPay={showModalPay}
+                    setShowModalPay={handleCloseModalPay}
+                    data={data}
+                    setData={setData}
+                    post={post}
+                    errors={errors}
+                    progress={progress}
                 />
             </Modal>
         </>

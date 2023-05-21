@@ -148,6 +148,7 @@ export default function AlbumInfo({ merches }) {
                                                       {
                                                           style: "currency",
                                                           currency: "IDR",
+                                                          minimumFractionDigits: 0,
                                                       }
                                                   )}
                                         </p>
