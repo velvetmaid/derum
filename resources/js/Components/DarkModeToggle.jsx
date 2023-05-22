@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/solid";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 
 export default function DarkModeToggle() {
     const [isMounted, setIsMounted] = useState(false);
@@ -25,7 +25,7 @@ export default function DarkModeToggle() {
         setTheme(t);
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const root = document.documentElement;
         if (theme === "light") {
             root.classList.remove("dark");
