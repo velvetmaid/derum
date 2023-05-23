@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('invoice_user_name');
             $table->string('invoice_product_name');
             $table->string('invoice_type_product');
-            $table->string('invoice_qty');
-            $table->string('invoice_price');
-            $table->string('invoice_total_price');
+            $table->bigInteger('invoice_qty');
+            $table->bigInteger('invoice_price');
+            $table->bigInteger('invoice_total_price');
             $table->foreignId('invoice_user_id')->constrained('users');
             $table->foreignId('invoice_product_id');
             $table->foreignId('invoice_order_id')->constrained('orders');

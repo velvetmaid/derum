@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArtistAlbum;
+use App\Models\Invoice;
+use App\Models\Merch;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -41,10 +45,10 @@ class OrderController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $order->id . Str::uuid()->toString(),
-                'gross_amount' => $order->order_price,
+                'gross_amount' => $order->order_total_price,
             ),
             'customer_details' => array(
-                'order_name' => $order->order_name,
+                'order_name' => $order->order_user_name,
             ),
         );
         $snapToken = \Midtrans\Snap::getSnapToken($params);
@@ -66,7 +70,58 @@ class OrderController extends Controller
             if ($request->transaction_status == 'capture') {
                 $order = Order::find($request->order_id);
                 $order->update(['order_status' => 'Paid']);
+                $this->createInvoice($order);
             }
         }
+    }
+
+    public function createInvoice(Request $request)
+    {
+        $order = $request->all();
+
+        $invoice = new Invoice();
+        $invoiceId = Carbon::parse($order['created_at'])->addHours(7)->format('dmY') . $order['order_product_id'] . $order['id'];
+        $invoice->id = $invoiceId;
+        $invoice->invoice_user_id = $order['order_user_id'];
+        $invoice->invoice_order_id = $order['id'];
+        $invoice->invoice_product_id = $order['order_product_id'];
+        $invoice->invoice_product_name = $order['order_product_name'];
+        $invoice->invoice_type_product = $order['order_type'];
+        $invoice->invoice_user_name = $order['order_user_name'];
+        $invoice->invoice_qty = $order['order_qty'];
+        $invoice->invoice_price = $order['order_price'];
+        $invoice->invoice_total_price = $order['order_total_price'];
+        $invoice->save();
+
+        return redirect()->route('checkout-page');
+    }
+
+    public function invoiceIndex()
+    {
+        $merches = Merch::where('merch_user_id', Auth::id())->with('user')->get();
+        $albums = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
+        $invoices = [];
+        $totalPrice = 0;
+
+        foreach ($albums as $album) {
+            $invoice = Invoice::where('invoice_product_id', $album->id)->get()->toArray();
+            if (!empty($invoice)) {
+                foreach ($invoice as &$item) {
+                    $item['created_at'] = Carbon::parse($item['created_at'])->addHours(7)->format('M j. g:i A');
+                    $item['updated_at'] = Carbon::parse($item['updated_at'])->addHours(7)->format('M j. g:i A');
+                }
+                $invoices = array_merge($invoices, $invoice);
+            }
+        }
+        foreach ($invoices as $invoice) {
+            $totalPrice += $invoice['invoice_total_price'];
+        }
+
+        return Inertia::render('Menus/Invoice', [
+            'merches' => $merches,
+            'albums' => $albums,
+            'invoices' => $invoices,
+            'totalVolumePrice' => $totalPrice
+        ]);
     }
 }

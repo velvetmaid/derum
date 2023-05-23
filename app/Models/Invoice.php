@@ -19,4 +19,6 @@ class Invoice extends Model
         'invoice_price',
         'invoice_total_price',
     ];
+    public $timestamps = true;
+
 }
