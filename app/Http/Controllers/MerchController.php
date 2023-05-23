@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Merch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
@@ -16,8 +17,14 @@ class MerchController extends Controller
     {
         $merches  = Merch::find($id);
 
+        $response = Http::withHeaders([
+            'key' => config('midtrans.rajaongkir_key')
+        ])->get('https://api.rajaongkir.com/starter/city');
+
+        $cities = $response['rajaongkir']['results'];
+
         return Inertia::render('Contents/MerchInfo', [
-            'merches' => $merches,
+            'merches' => $merches, 'cities' => $cities, 'ongkir' => '',
         ]);
     }
 
