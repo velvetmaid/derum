@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ArtistAlbum;
 use App\Models\ArtistSong;
+use App\Models\Invoice;
 use App\Models\Merch;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -22,23 +24,40 @@ class ArtistAlbumController extends Controller
     {
         $merches = Merch::all();
         $albums = ArtistAlbum::with('artist_song')->get();
-        return Inertia::render('Welcome', ['merches' => $merches, 'albums' => $albums]);
+        return Inertia::render('Welcome', [
+            'merches' => $merches,
+            'albums' => $albums
+        ]);
     }
 
     /**
      * Retrieve and display albums created by the currently authenticated artist user.
      */
-    public function artistDashbord()
+    public function artistDashboard()
     {
         $merches = Merch::where('merch_user_id', Auth::id())->with('user')->get();
         $total_songs = 0;
         $albums = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
+        $invoices = [];
 
         foreach ($albums as $album) {
             $total_songs += count($album->artist_song);
+            $invoice = Invoice::where('invoice_product_id', $album->id)->get()->toArray();
+            if (!empty($invoice)) {
+                foreach ($invoice as &$item) {
+                    $item['created_at'] = Carbon::parse($item['created_at'])->addHours(7)->toDateTimeString();
+                    $item['updated_at'] = Carbon::parse($item['updated_at'])->addHours(7)->toDateTimeString();
+                }
+                $invoices = array_merge($invoices, $invoice);
+            }
         }
 
-        return Inertia::render('Menus/Artist/Dashboard', ['merches' => $merches, 'albums' => $albums, 'songsCount' => $total_songs]);
+        return Inertia::render('Menus/Artist/Dashboard', [
+            'merches' => $merches,
+            'albums' => $albums,
+            'songsCount' => $total_songs,
+            'invoices' => $invoices
+        ]);
     }
 
     /**
@@ -267,9 +286,7 @@ class ArtistAlbumController extends Controller
             }
             $song->delete();
         }
-
         $album->delete();
-
         return redirect()->route('artist.dashboard');
     }
 
