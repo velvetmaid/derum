@@ -87,7 +87,7 @@ export default function UpdateProfileInformation({
                             Choose Destination
                         </option>
                         {cities.map((city) => (
-                            <option key={city.city_id} value={city.city_name}>
+                            <option key={city.city_id} value={city.city_id}>
                                 {city.city_name}
                             </option>
                         ))}
