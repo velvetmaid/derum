@@ -11,6 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('artist_album', function (Blueprint $table) {
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('album_artist_name');
             $table->bigInteger('album_price')->nullable();
 
-            $table->foreignId('album_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreign('album_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
