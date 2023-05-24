@@ -73,10 +73,12 @@ export default function Navbar() {
                                                 <div className="flex flex-row items-center space-x-8">
                                                     <DarkModeToggle />
                                                     <Link
-                                                        href=""
+                                                        href={route(
+                                                                "profile.edit"
+                                                            )}
                                                         className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
-                                                        Help
+                                                        Profile
                                                     </Link>
                                                     <Link
                                                         href={route("logout")}
@@ -199,10 +201,12 @@ export default function Navbar() {
                                                     </div>
                                                     <div className="flex flex-col items-center pt-10 space-y-5">
                                                         <Link
-                                                            href=""
+                                                            href={route(
+                                                                "profile.edit"
+                                                            )}
                                                             className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                         >
-                                                            Help
+                                                            Profile
                                                         </Link>
                                                         <Link
                                                             href={route(

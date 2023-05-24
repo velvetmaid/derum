@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,9 +19,16 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+
+        $response = Http::withHeaders([
+            'key' => config('midtrans.rajaongkir_key')
+        ])->get('https://api.rajaongkir.com/starter/city');
+
+        $cities = $response['rajaongkir']['results'];
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
+            'status' => session('status'), 'cities' => $cities,
         ]);
     }
 
