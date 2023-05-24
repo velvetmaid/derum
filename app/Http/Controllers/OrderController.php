@@ -124,4 +124,23 @@ class OrderController extends Controller
             'totalVolumePrice' => $totalPrice
         ]);
     }
+
+    public function ongkir(Request $request)
+    {
+
+        $responseCost = Http::withHeaders([
+            'key' => config('midtrans.rajaongkir_key')
+        ])->post(
+            'https://api.rajaongkir.com/starter/cost',
+            [
+                'origin' => $request->origin,
+                'destination' => $request->destination,
+                'weight' => $request->weight,
+                'courier' => $request->courier,
+            ]
+        );
+
+        $ongkir = $responseCost['rajaongkir']['results'];
+        return response()->json(['ongkir' => $ongkir]);
+    }
 }
