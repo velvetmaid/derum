@@ -38,6 +38,8 @@ class MerchController extends Controller
         Validator::make($request->all(), [
             'merch_title' => 'required:unique',
             'merch_category' => 'required',
+            'merch_weight' => 'required',
+            'merch_origin' => 'required',
             'merch_image' => 'required|array',
             'merch_image.*' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
             'merch_description' => 'nullable',
@@ -47,6 +49,8 @@ class MerchController extends Controller
         $merch = new Merch([
             'merch_title' => $request->merch_title,
             'merch_category' => $request->merch_category,
+            'merch_weight' => $request->merch_weight,
+            'merch_origin' => $request->merch_origin,
             'merch_description' => $request->merch_description,
             'merch_price' => $request->merch_price,
             'merch_user_id' => $request->user()->id,
@@ -102,6 +106,8 @@ class MerchController extends Controller
         Validator::make($request->all(), [
             'data.merch_title' => 'required',
             'data.merch_category' => 'required',
+            'data.merch_weight' => 'required',
+            'data.merch_origin' => 'required',
             'data.merch_image' => 'nullable|array|min:1',
             'data.merch_image.*' => 'nullable|max:2048',
             'data.merch_description' => 'nullable',
@@ -111,6 +117,8 @@ class MerchController extends Controller
         $merch = Merch::findOrFail($id);
         $merch->merch_title = $request->input('data')['merch_title'];
         $merch->merch_category = $request->input('data')['merch_category'];
+        $merch->merch_weight = $request->input('data')['merch_weight'];
+        $merch->merch_origin = $request->input('data')['merch_origin'];
         $merch->merch_description = $request->input('data')['merch_description'];
         $merch->merch_price = $request->input('data')['merch_price'];
         $merch->merch_exists = $request->input('data')['merch_exists'];

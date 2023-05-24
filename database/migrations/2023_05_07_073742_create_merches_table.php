@@ -19,11 +19,13 @@ return new class extends Migration
             $table->string('merch_title');
             $table->text('merch_image');
             $table->string('merch_category');
+            $table->string('merch_weight');
+            $table->string('merch_origin');
             $table->text('merch_description')->nullable();
             $table->bigInteger('merch_price');
             $table->boolean('merch_exists')->default(true);
 
-            $table->foreignId('merch_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreign('merch_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -17,11 +17,15 @@ export default function EditAlbum(props) {
     } = useForm({
         merch_title: props.merches.merch_title || "",
         merch_category: props.merches.merch_category || "",
+        merch_weight: props.merches.merch_weight || "",
+        merch_origin: props.auth.user.city,
         merch_image: props.merches.merch_image || null,
         merch_description: props.merches.merch_description || "",
         merch_price: props.merches.merch_price,
         merch_exists: props.merches.merch_exists,
     });
+
+    console.log(data);
 
     const [toggleValue, setToggleValue] = useState(data.merch_exists);
 
@@ -62,7 +66,9 @@ export default function EditAlbum(props) {
             !data.merch_title ||
             !data.merch_image ||
             !data.merch_category ||
-            data.merch_price < 500;
+            !data.merch_weight ||
+            !data.merch_origin;
+        data.merch_price < 500;
 
         if (hasErrors) {
             toast.error(
@@ -203,25 +209,56 @@ export default function EditAlbum(props) {
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-1 space-y-2">
-                                        <label className="text-sm font-bold tracking-wide">
-                                            Price
-                                        </label>
-                                        <div className="flex border-gray-500 border rounded-lg">
-                                            <p className="self-center pl-2">
-                                                Rp.
-                                            </p>
-                                            <input
-                                                id="merch_price"
-                                                className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
-                                                type="number"
-                                                name="merch_price"
-                                                value={data.merch_price}
-                                                placeholder="min Rp 500,00"
-                                                onChange={handleInputChange}
-                                            />
+                                    <div className="md:flex space-y-2 md:space-x-2 md:space-y-0">
+                                        <div className="grid grid-cols-1 space-y-2">
+                                            <label className="text-sm font-bold tracking-wide">
+                                                Weight
+                                            </label>
+                                            <div className="flex border-gray-500 border rounded-lg">
+                                                <p className="self-center pl-2">
+                                                    Gram
+                                                </p>
+                                                <input
+                                                    id="merch_weight"
+                                                    className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
+                                                    type="number"
+                                                    name="merch_weight"
+                                                    value={data.merch_weight}
+                                                    placeholder="1000 = 1Kg"
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 space-y-2">
+                                            <label className="text-sm font-bold tracking-wide">
+                                                Price
+                                            </label>
+                                            <div className="flex border-gray-500 border rounded-lg">
+                                                <p className="self-center pl-2">
+                                                    Rp.
+                                                </p>
+                                                <input
+                                                    id="merch_price"
+                                                    className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
+                                                    type="number"
+                                                    name="merch_price"
+                                                    value={data.merch_price}
+                                                    placeholder="enter zero or more (e.g., 0, 10000"
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <input
+                                        id="merch_origin"
+                                        className="hidden"
+                                        name="merch_origin"
+                                        value={data.merch_origin}
+                                        onChange={handleInputChange}
+                                    />
+
                                     <div className="flex justify-between">
                                         <label className="relative inline-flex items-center cursor-pointer">
                                             <input
@@ -311,7 +348,8 @@ export default function EditAlbum(props) {
                             ></path>
                         </svg>
                         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Are you sure you want to delete this {data.merch_title} merch?
+                            Are you sure you want to delete this{" "}
+                            {data.merch_title} merch?
                         </h3>
                         <button
                             type="button"

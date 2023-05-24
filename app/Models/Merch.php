@@ -15,10 +15,13 @@ class Merch extends Model
         'merch_title',
         'merch_image',
         'merch_category',
+        'merch_weight',
+        'merch_origin',
         'merch_description',
         'merch_price',
         'merch_exists'
     ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'merch_user_id');

@@ -169,24 +169,32 @@ export default function PreviewMerch({ data }) {
                                 })()}
                         </Splide>
                     </div>
-                    <div className="overflow-hidden">
+                    <div className="overflow-hidden leading-4">
                         {data.merch_title !== "" ||
                         data.merch_description !== "" ||
                         data.merch_image !== null ? (
-                            <div>
+                            <div className="dark:bg-gray-900 my-3 p-2 rounded-md">
                                 <p className="text-xl">{data.merch_title}</p>
-                                <span className="text-lg bottom-[2px]">
-                                    {data.merch_price >= 500 &&
-                                        Number(data.merch_price).toLocaleString(
-                                            "id-ID",
-                                            {
+                                <div className="flex items-center justify-between">
+                                    <span className="text-lg font-bold">
+                                        {data.merch_price >= 500 &&
+                                            Number(
+                                                data.merch_price
+                                            ).toLocaleString("id-ID", {
                                                 style: "currency",
                                                 currency: "IDR",
                                                 minimumFractionDigits: 0,
-                                            }
-                                        )}
-                                </span>
-                                <p>{data.merch_description}</p>
+                                            })}
+                                    </span>
+                                    <span>
+                                        {data.merch_weight >= 1000
+                                            ? Math.floor(
+                                                  data.merch_weight / 1000
+                                              ) + "kg"
+                                            : data.merch_weight + "g"}
+                                    </span>
+                                </div>
+                                <span className="text-gray-600 dark:text-gray-400">{data.merch_description}</span>
                             </div>
                         ) : null}
                     </div>

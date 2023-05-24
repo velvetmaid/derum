@@ -10,6 +10,8 @@ export default function AddMerch(props) {
         merch_title: "",
         merch_image: null,
         merch_category: "",
+        merch_weight: "",
+        merch_origin: props.auth.user.city,
         merch_description: "",
         merch_price: "",
         merch_user_id: props.auth.user.id,
@@ -66,8 +68,8 @@ export default function AddMerch(props) {
                                     <h2 className="mt-5 text-3xl font-bold">
                                         Upload Merch
                                     </h2>
-                                    <p className="mt-2 text-sm text-gray-400">
-                                        Lorem ipsum is placeholder text.
+                                    <p className="mt-2 text-sm dark:text-gray-400">
+                                        Get your merchandise noticed
                                     </p>
                                 </div>
                                 <form
@@ -146,31 +148,60 @@ export default function AddMerch(props) {
                                             type="text"
                                             name="merch_description"
                                             value={data.merch_description}
-                                            placeholder="Your Artits Name"
                                             onChange={handleInputChange}
                                             autoComplete="off"
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-1 space-y-2">
-                                        <label className="text-sm font-bold tracking-wide">
-                                            Price
-                                        </label>
-                                        <div className="flex border-gray-500 border rounded-lg">
-                                            <p className="self-center pl-2">
-                                                Rp.
-                                            </p>
-                                            <input
-                                                id="merch_price"
-                                                className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
-                                                type="number"
-                                                name="merch_price"
-                                                value={data.merch_price}
-                                                placeholder="enter zero or more (e.g., 0, 10000"
-                                                onChange={handleInputChange}
-                                            />
+                                    <div className="md:flex space-y-2 md:space-x-2 md:space-y-0">
+                                        <div className="grid grid-cols-1 space-y-2">
+                                            <label className="text-sm font-bold tracking-wide">
+                                                Weight
+                                            </label>
+                                            <div className="flex border-gray-500 border rounded-lg">
+                                                <p className="self-center pl-2">
+                                                    Gram
+                                                </p>
+                                                <input
+                                                    id="merch_weight"
+                                                    className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
+                                                    type="number"
+                                                    name="merch_weight"
+                                                    value={data.merch_weight}
+                                                    placeholder="1000 = 1Kg"
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 space-y-2">
+                                            <label className="text-sm font-bold tracking-wide">
+                                                Price
+                                            </label>
+                                            <div className="flex border-gray-500 border rounded-lg">
+                                                <p className="self-center pl-2">
+                                                    Rp.
+                                                </p>
+                                                <input
+                                                    id="merch_price"
+                                                    className="text-base w-full p-2 border-0 border-gray-500 dark:bg-blueNavy-dark rounded-lg focus:outline-none focus:shadow-none"
+                                                    type="number"
+                                                    name="merch_price"
+                                                    value={data.merch_price}
+                                                    placeholder="enter zero or more (e.g., 0, 10000"
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <input
+                                        id="merch_origin"
+                                        className="hidden"
+                                        name="merch_origin"
+                                        value={data.merch_origin}
+                                        onChange={handleInputChange}
+                                    />
 
                                     <div>
                                         <FormFeedback
