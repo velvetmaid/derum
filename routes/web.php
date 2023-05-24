@@ -57,10 +57,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'checkRole:fan|artist'], function () {
         Route::get('checkout-page', [OrderController::class, 'index'])->name('checkout-page');
+        Route::get('invoice', [OrderController::class, 'invoiceindex'])->name('invoice');
+        Route::post('add-invoice', [OrderController::class, 'createInvoice'])->name('invoice.store');
+        Route::get('ongkir', [OrderController::class, 'ongkir'])->name('ongkir');
     });    
 
     Route::group(['middleware' => 'checkRole:artist'], function () {
-        Route::get('artist/dashboard', [ArtistAlbumController::class, 'artistDashbord'])->name('artist.dashboard');
+        Route::get('artist/dashboard', [ArtistAlbumController::class, 'artistDashboard'])->name('artist.dashboard');
 
         Route::controller(ArtistAlbumController::class)->group(function () {
             Route::get('/add-album', 'create')->name('add-album');
