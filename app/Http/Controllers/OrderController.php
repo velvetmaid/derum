@@ -35,7 +35,24 @@ class OrderController extends Controller
     }
     public function checkout(Request $request)
     {
-        $order = Order::create($request->all());
+        $order = Order::create([
+            'order_user_id' => $request->order_user_id,
+            'order_product_id' => $request->order_product_id,
+            'order_user_name' => $request->order_user_name,
+            'order_product_name' => $request->order_product_name,
+            'order_product_image' => $request->order_product_image,
+            'order_type' => $request->order_type,
+            'order_city' => $request->order_city,
+            'order_address' => $request->order_address,
+            'order_courier' => $request->courier,
+            'order_courier_name' => $request->name,
+            'order_courier_description' => $request->description,
+            'order_courier_cost' => $request->cost,
+            'order_etd' => $request->etd,
+            'order_qty' => $request->order_qty,
+            'order_price' => $request->order_price,
+            'order_total_price' => $request->order_total_price,
+        ]);
 
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false;
@@ -77,20 +94,27 @@ class OrderController extends Controller
 
     public function createInvoice(Request $request)
     {
-        $order = $request->all();
+        $reqInv = $request->all();
 
         $invoice = new Invoice();
-        $invoiceId = Carbon::parse($order['created_at'])->addHours(7)->format('dmY') . $order['order_product_id'] . $order['id'];
+        $invoiceId = Carbon::parse($reqInv['created_at'])->addHours(7)->format('dmY') . $reqInv['order_product_id'] . $reqInv['id'];
         $invoice->id = $invoiceId;
-        $invoice->invoice_user_id = $order['order_user_id'];
-        $invoice->invoice_order_id = $order['id'];
-        $invoice->invoice_product_id = $order['order_product_id'];
-        $invoice->invoice_product_name = $order['order_product_name'];
-        $invoice->invoice_type_product = $order['order_type'];
-        $invoice->invoice_user_name = $order['order_user_name'];
-        $invoice->invoice_qty = $order['order_qty'];
-        $invoice->invoice_price = $order['order_price'];
-        $invoice->invoice_total_price = $order['order_total_price'];
+        $invoice->invoice_user_id = $reqInv['order_user_id'];
+        $invoice->invoice_order_id = $reqInv['id'];
+        $invoice->invoice_product_id = $reqInv['order_product_id'];
+        $invoice->invoice_product_name = $reqInv['order_product_name'];
+        $invoice->invoice_type_product = $reqInv['order_type'];
+        $invoice->invoice_order_city = $reqInv['order_city'];
+        $invoice->invoice_order_address = $reqInv['order_address'];
+        $invoice->invoice_user_name = $reqInv['order_user_name'];
+        $invoice->invoice_order_courier = $reqInv['order_courier'];
+        $invoice->invoice_courier_name = $reqInv['order_courier_name'];
+        $invoice->invoice_courier_cost = $reqInv['order_courier_cost'];
+        $invoice->invoice_courier_description = $reqInv['order_courier_description'];
+        $invoice->invoice_etd = $reqInv['order_etd'];
+        $invoice->invoice_qty = $reqInv['order_qty'];
+        $invoice->invoice_price = $reqInv['order_price'];
+        $invoice->invoice_total_price = $reqInv['order_total_price'];
         $invoice->save();
 
         return redirect()->route('checkout-page');
