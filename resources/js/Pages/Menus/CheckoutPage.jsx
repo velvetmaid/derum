@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 
 export default function CheckoutPage(props) {
@@ -39,8 +39,6 @@ export default function CheckoutPage(props) {
         return () => clearInterval(intervalId);
     }, [props.order]);
 
-    console.log("ccpage", props);
-
     useEffect(() => {
         const snapSrcUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
         const midtransClientKey = props.order.snap_token;
@@ -65,8 +63,8 @@ export default function CheckoutPage(props) {
             window.snap.pay(snapToken, {
                 onSuccess: function (result) {
                     alert("Payment success!");
-                    console.log(result);
-                    window.location.href = "/checkout-page";
+                    console.log("result", result);
+                    router.post("/add-invoice", orderToPay);
                 },
                 onPending: function (result) {
                     alert("Waiting for your payment!");
@@ -137,8 +135,20 @@ export default function CheckoutPage(props) {
                                     <img
                                         className="rounded-lg aspect-square w-full object-cover"
                                         src={
-                                            "/images/albums/main/" +
-                                            orderItem.order_product_image
+                                            typeof orderItem.order_product_image ===
+                                                "string" &&
+                                            orderItem.order_product_image.startsWith(
+                                                "["
+                                            ) &&
+                                            orderItem.order_product_image.endsWith(
+                                                "]"
+                                            )
+                                                ? "/images/merches/main/" +
+                                                  JSON.parse(
+                                                      orderItem.order_product_image
+                                                  )[0]
+                                                : "/images/albums/main/" +
+                                                  orderItem.order_product_image
                                         }
                                         alt={orderItem.order_product_name}
                                     />
@@ -185,7 +195,7 @@ export default function CheckoutPage(props) {
 
                                     <div className="flex items-center justify-between">
                                         <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                                            {orderItem.order_price.toLocaleString(
+                                            {orderItem.order_total_price.toLocaleString(
                                                 "id-ID",
                                                 {
                                                     style: "currency",
