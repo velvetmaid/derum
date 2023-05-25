@@ -35,6 +35,7 @@ export default function AddMerch(props) {
         const hasErrors =
             !data.merch_title ||
             !data.merch_image ||
+            !data.merch_origin ||
             !data.merch_category ||
             data.merch_price < 500;
 

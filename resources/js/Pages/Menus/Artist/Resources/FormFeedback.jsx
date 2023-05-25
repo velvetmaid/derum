@@ -17,7 +17,19 @@ export default function FormFeedback({ progress, errors }) {
                         "Please enter image. Make sure that the file size is not greater than 2048 kB and file must be an image format (jpg, jpeg, png, svg).") ||
                     (errors.album_artist_name && "Please enter artist name.") ||
                     errors.album_price ||
-                    (errors.merch_price && "Please enter price.")}
+                    (errors.merch_price && "Please enter price.") ||
+                    (errors.merch_origin && (
+                        <div>
+                            You need to complete your address and city data in
+                            your profile. <br />
+                            <a
+                                className="text-gray-600 dark:text-blue-400"
+                                href={route("profile.edit")}
+                            >
+                                Click Here
+                            </a>
+                        </div>
+                    ))}
             </span>
         </>
     );
