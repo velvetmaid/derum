@@ -19,7 +19,6 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-
         $response = Http::withHeaders([
             'key' => config('midtrans.rajaongkir_key')
         ])->get('https://api.rajaongkir.com/starter/city');

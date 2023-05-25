@@ -10,7 +10,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    public $timestamps = true;
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

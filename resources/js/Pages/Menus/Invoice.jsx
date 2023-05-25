@@ -13,7 +13,7 @@ export default function Invoice(props) {
                         <span className="bg-[#04ddb4] dark:bg-[#3e607b] text-[#0d2758] dark:text-gray-100 italic px-2">
                             {props.auth.user.name}
                         </span>
-                        ! This is your dashboard.
+                        Customer invoice.
                     </h1>
                     <div className="flex items-center justify-between">
                         <div className="flex items-stretch"></div>
@@ -44,9 +44,9 @@ export default function Invoice(props) {
                 </div>
 
                 <div className="rounded-lg max-w-5xl py-10 mx-auto md:px-10 bg-gray-100 dark:bg-blueNavy-dark space-y-6">
-                    <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
-                        <div class="flex-1 flex justify-between items-center leading-4 text-gray-900">
-                            <div class="p-2 text-center text-xl bg-gray-300 rounded flex flex-col">
+                    <div className="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
+                        <div className="flex-1 flex justify-between items-center leading-4 text-gray-900">
+                            <div className="p-2 text-center text-xl bg-gray-300 rounded flex flex-col">
                                 {props.totalVolumePrice.toLocaleString(
                                     "id-ID",
                                     {
@@ -55,11 +55,15 @@ export default function Invoice(props) {
                                         minimumFractionDigits: 0,
                                     }
                                 )}
-                                <span className="text-xs text-gray-600 font-bold mt-2 uppercase">Total Volume Transaction</span>
+                                <span className="text-xs text-gray-600 font-bold mt-2 uppercase">
+                                    Total Volume Transaction
+                                </span>
                             </div>
-                            <div class="p-2 text-center text-xl rounded-lg bg-purple-300 flex flex-col">
+                            <div className="p-2 text-center text-xl rounded-lg bg-purple-300 flex flex-col">
                                 {props.invoices.length + "X"}
-                                <span className="text-xs text-gray-600 font-bold mt-2 uppercase">Total Transaction</span>
+                                <span className="text-xs text-gray-600 font-bold mt-2 uppercase">
+                                    Total Transaction
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -95,18 +99,23 @@ export default function Invoice(props) {
                                         </div>
                                         <div className="text-sm leading-4 font-normal">
                                             <span className="text-xs leading-4 font-normal text-gray-500">
-                                                {" "}
-                                                Carrier
-                                            </span>{" "}
-                                            PAPER TRANSPORT INC.
+                                                Courier{" "}
+                                            </span>
+                                            <span className="uppercase">
+                                                {post.invoice_order_courier} -{" "}
+                                                {
+                                                    post.invoice_courier_description
+                                                }
+                                            </span>
                                         </div>
                                         <div className="text-sm leading-4 font-normal">
                                             <span className="text-xs leading-4 font-normal text-gray-500">
-                                                {" "}
                                                 Destination
                                             </span>{" "}
-                                            WestRock Jacksonville - 9469
-                                            Eastport Rd, Jacksonville, FL 32218
+                                            <span>
+                                                {post.invoice_order_city},{" "}
+                                                {post.invoice_order_address}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -114,10 +123,10 @@ export default function Invoice(props) {
                                     <div>
                                         <div className="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
                                             <div className="uppercase text-xs leading-4 font-medium">
-                                                Trailer
+                                                Estimated Time
                                             </div>
                                             <div className="text-center text-sm leading-4 font-semibold text-gray-800">
-                                                89732
+                                                {post.invoice_etd}
                                             </div>
                                         </div>
                                     </div>

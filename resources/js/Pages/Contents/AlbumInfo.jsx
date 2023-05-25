@@ -15,20 +15,29 @@ export default function AlbumInfo(props) {
 
     const { data, setData, post, errors, progress } = useForm({
         order_user_name: (user && user.name) || "",
-        order_product_name: (props.album ? props.album.album_title : props.merches.merch_title) || "",
+        order_product_name:
+            (props.album
+                ? props.album.album_title
+                : props.merches.merch_title) || "",
         order_type: props.album ? "Digital" : "Physical",
         order_qty: 1,
-        order_price: (props.album ? props.album.album_price : props.merches.merch_price) || "",
+        order_price:
+            (props.album
+                ? props.album.album_price
+                : props.merches.merch_price) || "",
         order_total_price: 0,
-        order_product_id: (props.album ? props.album.id : props.merches.id) || null,
-        order_product_image: (props.album ? props.album.album_art : props.merches.merch_image) || null,
+        order_product_id:
+            (props.album ? props.album.id : props.merches.id) || null,
+        order_product_image:
+            (props.album ? props.album.album_art : props.merches.merch_image) ||
+            null,
         order_user_id: (user && user.id) || null,
     });
-    
+
     if (data.order_qty && data.order_price) {
         data.order_total_price = data.order_qty * data.order_price;
     }
-    
+
     const [showModalLogin, setShowModalLogin] = useState(false);
     const [showModalRegister, setShowModalRegister] = useState(false);
     const [showModalPay, setShowModalPay] = useState(false);
