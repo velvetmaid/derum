@@ -11,12 +11,11 @@ export default function AddMerch(props) {
         merch_image: null,
         merch_category: "",
         merch_weight: "",
-        merch_origin: props.auth.user.city,
+        merch_origin: props.auth.user.city || "",
         merch_description: "",
         merch_price: "",
         merch_user_id: props.auth.user.id,
     });
-    console.log(data);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
