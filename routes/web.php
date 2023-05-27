@@ -32,9 +32,11 @@ Route::get('/', function () {
 
 Route::get('/', [ArtistAlbumController::class, 'index']);
 Route::get('/album-info/{id}', [ArtistAlbumController::class, 'albumInfo'])->name('album-info');
+Route::get('/merch', [MerchController::class, 'merchIndex'])->name('merch');
 Route::get('/merch-info/{id}', [MerchController::class, 'merchInfo'])->name('merch-info');
 Route::get('/download-album/{id}', [ArtistAlbumController::class, 'downloadAlbum']);
 Route::get('/search/{key}', [ArtistAlbumController::class, 'search']);
+Route::get('/search/merch/{key}', [MerchController::class, 'search']);
 
 
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
