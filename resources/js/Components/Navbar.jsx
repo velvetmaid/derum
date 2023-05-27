@@ -69,13 +69,21 @@ export default function Navbar() {
                                                             Dashboard
                                                         </Link>
                                                     )}
+                                                    <Link
+                                                        href={route(
+                                                            "merch"
+                                                        )}
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                    >
+                                                        Merch
+                                                    </Link>
                                                 </div>
                                                 <div className="flex flex-row items-center space-x-8">
                                                     <DarkModeToggle />
                                                     <Link
                                                         href={route(
-                                                                "profile.edit"
-                                                            )}
+                                                            "profile.edit"
+                                                        )}
                                                         className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Profile
@@ -198,6 +206,14 @@ export default function Navbar() {
                                                                 Dahboard
                                                             </Link>
                                                         )}
+                                                        <Link
+                                                            href={route(
+                                                                "merch"
+                                                            )}
+                                                            className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                        >
+                                                            Merch
+                                                        </Link>
                                                     </div>
                                                     <div className="flex flex-col items-center pt-10 space-y-5">
                                                         <Link

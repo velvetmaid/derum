@@ -8,9 +8,9 @@ export default function Desk(props) {
             <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
                 Welcome
                 <span className="bg-[#04ddb4] dark:bg-[#3e607b] text-[#0d2758] dark:text-gray-100 italic px-2">
-                    {props.auth.user.name}
-                </span>
-                ! This is your dashboard.
+                    {props.auth.user.name} !
+                </span>{" "}
+                This is your dashboard.
             </h1>
             <div className="flex items-center justify-between">
                 <div className="flex items-stretch"></div>
@@ -19,7 +19,7 @@ export default function Desk(props) {
                         href={route("invoice")}
                         className="inline-flex items-center justify-center h-9 px-3 rounded-xl border hover:border-gray-400 hover:text-gray-500 transition"
                     >
-                       <DocumentTextIcon className="w-6 h-6"/>
+                        <DocumentTextIcon className="w-6 h-6" />
                     </Link>
                     <Link
                         href={route("checkout-page")}

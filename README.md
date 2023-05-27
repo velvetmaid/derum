@@ -9,7 +9,7 @@
 - [x] Log Out
 - [x] Search
 - [x] Pagination
-- [ ] Artist Page
+- [x] Artist Page
     - [x] Dashboard
     - [x] Store Album
     - [x] Store Song
@@ -20,16 +20,16 @@
     - [x] Edit Album
     - [x] Edit Song
     - [x] Edit Merch
-    - [ ] Destroy Album
-    - [ ] Destroy Song
-    - [ ] Destroy Merch
-    - [ ] Alert, Progress, etc for resources
+    - [x] Destroy Album
+    - [x] Destroy Song
+    - [x] Destroy Merch
 - [ ] Fan Page
     - [ ] Dashboard
     - [ ] Chart
     - [ ] Playlist
-    - [ ] Nested Feature
-- [ ] Radio
+- [x] Midtrans
+- [x] Raja Ongkir
+- [ ] Nested Feature
 - [ ] ...
 
 #
