@@ -12,7 +12,21 @@ use Intervention\Image\Facades\Image;
 
 class MerchController extends Controller
 {
+    public function merchIndex()
+    {
+        $merches = Merch::all();
+        return Inertia::render('Merch', ['merches' => $merches]);
+    }
 
+    public function search($key)
+    {
+        return Merch::where(function ($query) use ($key) {
+            $query->where('merch_title', 'like', "%$key%")
+                ->orWhere('merch_category', 'like', "%$key%")
+                ->orWhere('merch_price', 'like', "%$key%");
+        })->get();
+    }
+    
     public function merchInfo($id)
     {
         $merches  = Merch::find($id);
