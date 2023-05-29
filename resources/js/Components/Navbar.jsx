@@ -4,7 +4,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import DarkModeToggle from "@/Components/DarkModeToggle";
 import Modal from "./Modal";
 import Login from "@/Pages/Auth/Login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Register from "@/Pages/Auth/Register";
 
 export default function Navbar() {
@@ -20,6 +20,13 @@ export default function Navbar() {
     };
 
     const user = usePage().props.auth.user;
+
+    useEffect(() => {
+        if (user !== null) {
+            setShowModalLogin(false);
+        }
+    }, [user]);
+
     return (
         <>
             <div className="relative max-w-7xl mx-auto p-6 z-50">
@@ -50,7 +57,13 @@ export default function Navbar() {
                                                     >
                                                         Home
                                                     </Link>
-                                                    {user.role == "artist" ? (
+                                                    <Link
+                                                        href={route("merch")}
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                    >
+                                                        Merch
+                                                    </Link>
+                                                    {user.role == "artist" && (
                                                         <Link
                                                             href={route(
                                                                 "artist.dashboard"
@@ -59,24 +72,7 @@ export default function Navbar() {
                                                         >
                                                             Dashboard
                                                         </Link>
-                                                    ) : (
-                                                        <Link
-                                                            href={route(
-                                                                "fanDashboard"
-                                                            )}
-                                                            className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-                                                        >
-                                                            Dashboard
-                                                        </Link>
                                                     )}
-                                                    <Link
-                                                        href={route(
-                                                            "merch"
-                                                        )}
-                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-                                                    >
-                                                        Merch
-                                                    </Link>
                                                 </div>
                                                 <div className="flex flex-row items-center space-x-8">
                                                     <DarkModeToggle />
@@ -119,6 +115,12 @@ export default function Navbar() {
                                                         className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
                                                     >
                                                         Home
+                                                    </Link>
+                                                    <Link
+                                                        href={route("merch")}
+                                                        className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                    >
+                                                        Merch
                                                     </Link>
                                                 </div>
                                                 <div className="flex flex-row items-center space-x-8">
@@ -186,26 +188,6 @@ export default function Navbar() {
                                                         >
                                                             Home
                                                         </Link>
-                                                        {user.role ==
-                                                        "artist" ? (
-                                                            <Link
-                                                                href={route(
-                                                                    "artist.dashboard"
-                                                                )}
-                                                                className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-                                                            >
-                                                                Dahboard
-                                                            </Link>
-                                                        ) : (
-                                                            <Link
-                                                                href={route(
-                                                                    "fanDashboard"
-                                                                )}
-                                                                className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-                                                            >
-                                                                Dahboard
-                                                            </Link>
-                                                        )}
                                                         <Link
                                                             href={route(
                                                                 "merch"
@@ -214,6 +196,17 @@ export default function Navbar() {
                                                         >
                                                             Merch
                                                         </Link>
+                                                        {user.role ==
+                                                            "artist" && (
+                                                            <Link
+                                                                href={route(
+                                                                    "artist.dashboard"
+                                                                )}
+                                                                className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                            >
+                                                                Dahboard
+                                                            </Link>
+                                                        )}
                                                     </div>
                                                     <div className="flex flex-col items-center pt-10 space-y-5">
                                                         <Link
