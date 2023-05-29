@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Head, Link, router } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
-import { DocumentTextIcon } from "@heroicons/react/solid";
+import { DocumentTextIcon, TrashIcon } from "@heroicons/react/solid";
+import { toast } from "react-toastify";
 
 export default function CheckoutPage(props) {
     const [expirationTimes, setExpirationTimes] = useState([]);
@@ -84,6 +85,16 @@ export default function CheckoutPage(props) {
         }
     };
 
+    const handleConfirmDelete = async ({ orderItem }) => {
+        if (orderItem && orderItem.id) {
+            await router.delete(`delete-order/${orderItem.id}`);
+            toast.success("You have successfully deleted the merch", {
+                position: toast.POSITION.TOP_LEFT,
+                className: "w-5/6 md:w-full dark:bg-gray-800",
+            });
+        }
+    };
+
     return (
         <>
             <Layout>
@@ -110,11 +121,11 @@ export default function CheckoutPage(props) {
                                 href={
                                     props.auth.user.role === "artist"
                                         ? route("artist.dashboard")
-                                        : route("fanDashboard")
+                                        : route("home")
                                 }
                                 className="inline-flex items-center justify-center h-9 px-5 rounded-xl bg-gray-900 text-gray-300 dark:border-white border hover:text-white text-sm font-semibold transition"
                             >
-                                Dashboard
+                                Back
                             </Link>
                         </div>
                     </div>
@@ -122,37 +133,45 @@ export default function CheckoutPage(props) {
                     <div className="flex flex-wrap gap-8 justify-center py-8">
                         {props.order.map((orderItem, index) => (
                             <div
-                                className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                                className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                                 key={orderItem.id}
                             >
-                                <a href="#">
-                                    <img
-                                        className="rounded-lg aspect-square w-full object-cover"
-                                        src={
-                                            typeof orderItem.order_product_image ===
-                                                "string" &&
-                                            orderItem.order_product_image.startsWith(
-                                                "["
-                                            ) &&
-                                            orderItem.order_product_image.endsWith(
-                                                "]"
-                                            )
-                                                ? "/images/merches/main/" +
-                                                  JSON.parse(
-                                                      orderItem.order_product_image
-                                                  )[0]
-                                                : "/images/albums/main/" +
-                                                  orderItem.order_product_image
+                                {orderItem.order_status !== "Paid" && (
+                                    <button
+                                        className="rounded-lg absolute right-2 top-2 duration-200"
+                                        onClick={() =>
+                                            handleConfirmDelete({ orderItem })
                                         }
-                                        alt={orderItem.order_product_name}
-                                    />
-                                </a>
+                                    >
+                                        <TrashIcon className="w-10 text-gray-500 hover:text-white duration-200" />
+                                    </button>
+                                )}
+
+                                <img
+                                    className="rounded-lg aspect-square w-full object-cover"
+                                    src={
+                                        typeof orderItem.order_product_image ===
+                                            "string" &&
+                                        orderItem.order_product_image.startsWith(
+                                            "["
+                                        ) &&
+                                        orderItem.order_product_image.endsWith(
+                                            "]"
+                                        )
+                                            ? "/images/merches/main/" +
+                                              JSON.parse(
+                                                  orderItem.order_product_image
+                                              )[0]
+                                            : "/images/albums/main/" +
+                                              orderItem.order_product_image
+                                    }
+                                    alt={orderItem.order_product_name}
+                                />
+
                                 <div className="p-5">
-                                    <a href="#">
-                                        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                            {orderItem.order_product_name}
-                                        </h5>
-                                    </a>
+                                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                        {orderItem.order_product_name}
+                                    </h5>
                                     <div className="flex items-center">
                                         {orderItem.order_status === "Unpaid" ? (
                                             <span className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-3 py-1 rounded-lg dark:bg-indigo-900 dark:text-indigo-300">
@@ -211,9 +230,12 @@ export default function CheckoutPage(props) {
                                             </button>
                                         ) : orderItem.order_status ===
                                           "Expired" ? (
-                                            <button className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 hover:bg-red-300 hover:dark:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-200">
+                                            <Link
+                                                href={route("home")}
+                                                className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 hover:bg-red-300 hover:dark:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-200"
+                                            >
                                                 Back
-                                            </button>
+                                            </Link>
                                         ) : (
                                             <button className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 hover:bg-green-300 hover:dark:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-200">
                                                 Paid

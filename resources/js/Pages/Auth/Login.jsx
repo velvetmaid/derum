@@ -46,8 +46,8 @@ export default function Login({
                     {status}
                 </div>
             )}
-
-            <form onSubmit={submit}>
+            <h1 className="text-center text-3xl">Sign In</h1>
+            <form className="px-20" onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
 
@@ -94,12 +94,12 @@ export default function Login({
 
                 <div className="flex items-center justify-end mt-4">
                     {/* {canResetPassword && ( */}
-                    <Link
+                    {/* <Link
                         href={route("password.request")}
                         className="cursor-pointer underline text-sm hover:text-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Forgot your password?
-                    </Link>
+                    </Link> */}
                     {/* )} */}
                     <PrimaryButton
                         className="ml-4"
@@ -109,7 +109,7 @@ export default function Login({
                         Back
                     </PrimaryButton>
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Log in
+                        Submit
                     </PrimaryButton>
                 </div>
             </form>

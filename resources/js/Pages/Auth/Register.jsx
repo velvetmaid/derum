@@ -38,8 +38,9 @@ export default function Register({ setShowModalLogin, setShowModalRegister }) {
 
     return (
         <AuthLayout>
-            <form onSubmit={submit}>
-            <div className="mt-4">
+            <form className="px-20" onSubmit={submit}>
+                <h1 className="text-center text-3xl">Sign Up</h1>
+                <div className="mt-4">
                     <InputLabel htmlFor="name" value="Name" />
                     <TextInput
                         id="name"

@@ -155,4 +155,12 @@ class OrderController extends Controller
         $ongkir = $responseCost['rajaongkir']['results'];
         return response()->json(['ongkir' => $ongkir]);
     }
+
+    public function destroyOrder($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $order->delete();
+        return redirect()->back();
+    }
 }

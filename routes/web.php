@@ -5,7 +5,6 @@ use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 use App\Http\Controllers\MerchController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Order;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,7 +29,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/', [ArtistAlbumController::class, 'index']);
+Route::get('/', [ArtistAlbumController::class, 'index'])->name('home');
 Route::get('/album-info/{id}', [ArtistAlbumController::class, 'albumInfo'])->name('album-info');
 Route::get('/merch', [MerchController::class, 'merchIndex'])->name('merch');
 Route::get('/merch-info/{id}', [MerchController::class, 'merchInfo'])->name('merch-info');
@@ -40,9 +39,9 @@ Route::get('/search/merch/{key}', [MerchController::class, 'search']);
 
 
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -53,15 +52,16 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get("/redirectAuthenticatedUsers", [RedirectAuthenticatedUsersController::class, "home"]);
 
-    Route::group(['middleware' => 'checkRole:fan'], function () {
-        Route::inertia('/fan-dashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
-    });
+    // Route::group(['middleware' => 'checkRole:fan'], function () {
+    //     Route::inertia('/fan-dashboard', 'Menus/Fan/FanDashboard')->name('fanDashboard');
+    // });
 
     Route::group(['middleware' => 'checkRole:fan|artist'], function () {
         Route::get('checkout-page', [OrderController::class, 'index'])->name('checkout-page');
         Route::get('invoice', [OrderController::class, 'invoiceindex'])->name('invoice');
         Route::post('add-invoice', [OrderController::class, 'createInvoice'])->name('invoice.store');
         Route::get('ongkir', [OrderController::class, 'ongkir'])->name('ongkir');
+        Route::delete('/delete-order/{id}', [OrderController::class, 'destroyOrder'])->name('order.delete');
     });    
 
     Route::group(['middleware' => 'checkRole:artist'], function () {
