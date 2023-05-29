@@ -122,24 +122,13 @@ class OrderController extends Controller
 
     public function invoiceIndex()
     {
-        $merches = Merch::where('merch_user_id', Auth::id())->with('user')->get();
+        $merches = Merch::where('merch_user_id', Auth::id())->get();
         $albums = ArtistAlbum::where('album_user_id', Auth::id())->with('artist_song')->get();
-        $invoices = [];
-        $totalPrice = 0;
+        $productIds = $albums->pluck('id')->concat($merches->pluck('id'));
 
-        foreach ($albums as $album) {
-            $invoice = Invoice::where('invoice_product_id', $album->id)->get()->toArray();
-            if (!empty($invoice)) {
-                foreach ($invoice as &$item) {
-                    $item['created_at'] = Carbon::parse($item['created_at'])->addHours(7)->format('M j. g:i A');
-                    $item['updated_at'] = Carbon::parse($item['updated_at'])->addHours(7)->format('M j. g:i A');
-                }
-                $invoices = array_merge($invoices, $invoice);
-            }
-        }
-        foreach ($invoices as $invoice) {
-            $totalPrice += $invoice['invoice_total_price'];
-        }
+        $invoices = Invoice::whereIn('invoice_product_id', $productIds)->get();
+
+        $totalPrice = $invoices->sum('invoice_total_price');
 
         return Inertia::render('Menus/Invoice', [
             'merches' => $merches,
@@ -151,7 +140,6 @@ class OrderController extends Controller
 
     public function ongkir(Request $request)
     {
-
         $responseCost = Http::withHeaders([
             'key' => config('midtrans.rajaongkir_key')
         ])->post(
