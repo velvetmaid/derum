@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Conner\Likeable\Likeable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Merch extends Model
 {
-    use HasFactory;
+    use HasFactory, Likeable;
+
     public $timestamps = false;
+    
     protected $fillable = [
         'merch_user_id',
         'merch_title',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Merch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +27,20 @@ class MerchController extends Controller
                 ->orWhere('merch_price', 'like', "%$key%");
         })->get();
     }
-    
+
     public function merchInfo($id)
     {
         $merches  = Merch::find($id);
+
+        $likeCount = Like::where('likeable_id', $merches->id)
+            ->where('likeable_type', Merch::class)
+            ->count();
+
+        $userLiked = Like::where('likeable_id', $merches->id)
+            ->where('likeable_type', Merch::class)
+            ->where('user_id', Auth::id())
+            ->exists();
+
 
         $response = Http::withHeaders([
             'key' => config('midtrans.rajaongkir_key')
@@ -38,7 +49,7 @@ class MerchController extends Controller
         $cities = $response['rajaongkir']['results'];
 
         return Inertia::render('Contents/MerchInfo', [
-            'merches' => $merches, 'cities' => $cities, 'ongkir' => '',
+            'merches' => $merches, 'likeCount' => $likeCount, 'userLiked' => $userLiked, 'cities' => $cities, 'ongkir' => '',
         ]);
     }
 

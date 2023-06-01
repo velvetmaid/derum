@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
-import { CloudDownloadIcon } from "@heroicons/react/outline";
+import { CloudDownloadIcon, HeartIcon } from "@heroicons/react/outline";
+import { HeartIcon as HeartIconFill } from "@heroicons/react/solid";
 import { CreditCardIcon, ViewGridIcon } from "@heroicons/react/solid";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Layout from "@/Layouts/Layout";
@@ -141,6 +142,14 @@ export default function MerchInfo(props) {
         }
     }, []);
 
+    const handleLike = () => {
+        router.post(`likeMerch/${props.merches.id}`);
+    };
+
+    const handleUnLike = () => {
+        router.post(`unlikeMerch/${props.merches.id}`);
+    };
+
     return (
         <>
             <Layout>
@@ -264,6 +273,48 @@ export default function MerchInfo(props) {
                                     <div className="w-full text-center my-1">
                                         {user ? (
                                             <>
+                                                <div className="flex items-center">
+                                                    {props.merches
+                                                        .merch_user_id !=
+                                                    user.id ? (
+                                                        <>
+                                                            {props.userLiked ===
+                                                            false ? (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleLike()
+                                                                    }
+                                                                >
+                                                                    <HeartIcon className="ml-2 m-1 h-8 w-8 text-gray-500 hover:text-red-500 duration-100" />
+                                                                </button>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleUnLike()
+                                                                    }
+                                                                >
+                                                                    <HeartIconFill className="ml-2 m-1 h-8 w-8 text-red-500 hover:text-red-700 duration-100" />
+                                                                </button>
+                                                            )}
+                                                            <span>
+                                                                {
+                                                                    props.likeCount
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <button>
+                                                                <HeartIconFill className="ml-2 m-1 h-8 w-8" />
+                                                            </button>
+                                                            <span>
+                                                                {
+                                                                    props.likeCount
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </div>
                                                 {!user.city || !user.address ? (
                                                     <>
                                                         <a
