@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArtistAlbumController;
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MerchController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -62,7 +63,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('add-invoice', [OrderController::class, 'createInvoice'])->name('invoice.store');
         Route::get('ongkir', [OrderController::class, 'ongkir'])->name('ongkir');
         Route::delete('/delete-order/{id}', [OrderController::class, 'destroyOrder'])->name('order.delete');
-    });    
+        Route::post('album-info/likeAlbum/{id}', [LikeController::class, 'likeAlbum'])->name('likeAlbum');
+        Route::post('album-info/unlikeAlbum/{id}', [LikeController::class, 'unlikeAlbum'])->name('unlikeAlbum');
+        Route::post('merch-info/likeMerch/{id}', [LikeController::class, 'likeMerch'])->name('likeMerch');
+        Route::post('merch-info/unlikeMerch/{id}', [LikeController::class, 'unlikeMerch'])->name('unlikeMerch');
+    });
 
     Route::group(['middleware' => 'checkRole:artist'], function () {
         Route::get('artist/dashboard', [ArtistAlbumController::class, 'artistDashboard'])->name('artist.dashboard');
