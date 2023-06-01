@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ArtistAlbum;
 use App\Models\ArtistSong;
 use App\Models\Invoice;
+use App\Models\Like;
 use App\Models\Merch;
 use App\Models\User;
 use Carbon\Carbon;
@@ -65,7 +66,17 @@ class ArtistAlbumController extends Controller
      */
     public function albumInfo($id)
     {
-        $album  = ArtistAlbum::with('artist_song')->find($id);
+        $album = ArtistAlbum::with('artist_song')->find($id);
+
+        $likeCount = Like::where('likeable_id', $album->id)
+            ->where('likeable_type', ArtistAlbum::class)
+            ->count();
+
+        $userLiked = Like::where('likeable_id', $album->id)
+            ->where('likeable_type', ArtistAlbum::class)
+            ->where('user_id', Auth::id())
+            ->exists();
+
         $merches = Merch::where('merch_user_id', $album->album_user_id)->get();
         $artistuser = User::find($album->album_user_id);
 
@@ -73,6 +84,8 @@ class ArtistAlbumController extends Controller
             'album' => $album,
             'merches' => $merches,
             'user' => $artistuser,
+            'likeCount' => $likeCount,
+            'userLiked' => $userLiked,
         ]);
     }
 

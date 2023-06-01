@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { CloudDownloadIcon } from "@heroicons/react/outline";
+import { useState } from "react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
+import { CloudDownloadIcon, HeartIcon } from "@heroicons/react/outline";
+import { HeartIcon as HeartIconFill } from "@heroicons/react/solid";
 import { CreditCardIcon, ViewGridIcon } from "@heroicons/react/solid";
 import Layout from "@/Layouts/Layout";
 import AudioPlayr from "./AudioInfoPlayer";
@@ -54,6 +55,14 @@ export default function AlbumInfo(props) {
         setShowModalPay(false);
     };
 
+    const handleLike = () => {
+        router.post(`likeAlbum/${props.album.id}`);
+    };
+
+    const handleUnLike = () => {
+        router.post(`unlikeAlbum/${props.album.id}`);
+    };
+
     return (
         <>
             <Layout>
@@ -102,6 +111,49 @@ export default function AlbumInfo(props) {
                                     <div className="w-full text-center my-1">
                                         {user ? (
                                             <>
+                                                <div className="flex items-center">
+                                                    {props.album
+                                                        .album_user_id !=
+                                                    user.id ? (
+                                                        <>
+                                                            {props.userLiked ===
+                                                            false ? (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleLike()
+                                                                    }
+                                                                >
+                                                                    <HeartIcon className="ml-2 m-1 h-8 w-8 text-gray-500 hover:text-red-500 duration-100" />
+                                                                </button>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleUnLike()
+                                                                    }
+                                                                >
+                                                                    <HeartIconFill className="ml-2 m-1 h-8 w-8 text-red-500 hover:text-red-700 duration-100" />
+                                                                </button>
+                                                            )}
+                                                            <span>
+                                                                {
+                                                                    props.likeCount
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <button>
+                                                                <HeartIconFill className="ml-2 m-1 h-8 w-8" />
+                                                            </button>
+                                                            <span>
+                                                                {
+                                                                    props.likeCount
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </div>
+
                                                 {props.album.album_user_id !=
                                                 user.id ? (
                                                     <>
