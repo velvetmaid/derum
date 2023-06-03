@@ -321,9 +321,11 @@ class ArtistAlbumController extends Controller
             $albumArtPath = public_path('images/albums/main/') . $album->album_art;
             $zip->addFile($albumArtPath, $album->album_art);
 
+            $songIndex = 1;
             foreach ($songs as $song) {
                 $songPath = public_path('musics/') . $song->song_file;
-                $zip->addFile($songPath, $song->song_title . '.mp3');
+                $zip->addFile($songPath, $songIndex . ' - ' . $song->song_title . '.mp3');
+                $songIndex++;
             }
             $zip->close();
         }
