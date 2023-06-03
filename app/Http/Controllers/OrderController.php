@@ -22,6 +22,7 @@ class OrderController extends Controller
             ->whereNotIn('order_status', ['Paid', 'Expired'])
             ->update(['order_status' => 'Expired']);
     }
+
     public function index(Request $request)
     {
         $snapToken = $request->get('snapToken');
@@ -33,6 +34,7 @@ class OrderController extends Controller
             'order' => $posts, 'snapToken' => $snapToken
         ]);
     }
+
     public function checkout(Request $request)
     {
         $order = Order::create([
@@ -61,7 +63,7 @@ class OrderController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $order->id . Str::uuid()->toString(),
+                'order_id' => $order->id,
                 'gross_amount' => $order->order_total_price,
             ),
             'customer_details' => array(
