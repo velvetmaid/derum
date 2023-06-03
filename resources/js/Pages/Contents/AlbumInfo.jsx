@@ -168,6 +168,20 @@ export default function AlbumInfo(props) {
                                                             <CreditCardIcon className="h-6 w-6" />
                                                             <span>Buy</span>
                                                         </button>
+                                                        
+                                                        {props.purchased ==
+                                                        true ? (
+                                                            <span className="text-sm">
+                                                                Album acquired!{" "}
+                                                                <a
+                                                                    className="underline"
+                                                                    href={`/download-album/${props.album.id}`}
+                                                                >
+                                                                    Download Now
+                                                                </a>
+                                                            </span>
+                                                        ) : null}
+
                                                         {props.album
                                                             .album_price ==
                                                             null ||
@@ -263,6 +277,49 @@ export default function AlbumInfo(props) {
                                     <div className="w-full text-center my-1">
                                         {user ? (
                                             <>
+                                                <div className="flex items-center">
+                                                    {props.album
+                                                        .album_user_id !=
+                                                    user.id ? (
+                                                        <>
+                                                            {props.userLiked ===
+                                                            false ? (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleLike()
+                                                                    }
+                                                                >
+                                                                    <HeartIcon className="ml-2 m-1 h-8 w-8 text-gray-500 hover:text-red-500 duration-100" />
+                                                                </button>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleUnLike()
+                                                                    }
+                                                                >
+                                                                    <HeartIconFill className="ml-2 m-1 h-8 w-8 text-red-500 hover:text-red-700 duration-100" />
+                                                                </button>
+                                                            )}
+                                                            <span>
+                                                                {
+                                                                    props.likeCount
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <button>
+                                                                <HeartIconFill className="ml-2 m-1 h-8 w-8" />
+                                                            </button>
+                                                            <span>
+                                                                {
+                                                                    props.likeCount
+                                                                }
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </div>
+
                                                 {props.album.album_user_id !=
                                                 user.id ? (
                                                     <>
@@ -277,6 +334,20 @@ export default function AlbumInfo(props) {
                                                             <CreditCardIcon className="h-6 w-6" />
                                                             <span>Buy</span>
                                                         </button>
+
+                                                        {props.purchased ==
+                                                        true ? (
+                                                            <span className="text-sm">
+                                                                Album acquired!{" "}
+                                                                <a
+                                                                    className="underline"
+                                                                    href={`/download-album/${props.album.id}`}
+                                                                >
+                                                                    Download Now
+                                                                </a>
+                                                            </span>
+                                                        ) : null}
+
                                                         {props.album
                                                             .album_price ==
                                                             null ||

@@ -77,6 +77,10 @@ class ArtistAlbumController extends Controller
             ->where('user_id', Auth::id())
             ->exists();
 
+        $purchased = Invoice::where('invoice_product_id', $album->id)
+            ->where('invoice_user_id', Auth::id())
+            ->exists();
+
         $merches = Merch::where('merch_user_id', $album->album_user_id)->get();
         $artistuser = User::find($album->album_user_id);
 
@@ -86,6 +90,7 @@ class ArtistAlbumController extends Controller
             'user' => $artistuser,
             'likeCount' => $likeCount,
             'userLiked' => $userLiked,
+            'purchased' => $purchased,
         ]);
     }
 
