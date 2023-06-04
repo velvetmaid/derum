@@ -46,7 +46,6 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
     const filteredSongs = data.songs.filter(
         (song) =>
             song.song_title.trim() !== "" ||
-            song.song_lyric.trim() !== "" ||
             song.song_file !== null
     );
 
@@ -133,7 +132,7 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
                                                 })
                                             }
                                         />
-                                        <label className="text-sm font-bold tracking-wide">
+                                        {/* <label className="text-sm font-bold tracking-wide">
                                             Lyric
                                         </label>
                                         <textarea
@@ -147,7 +146,7 @@ export default function PreviewMusic({ data, setData, setLastIndex }) {
                                                     song_lyric: e.target.value,
                                                 })
                                             }
-                                        />
+                                        /> */}
                                         <label className="text-sm font-bold tracking-wide">
                                             Attach the song file
                                         </label>

@@ -41,7 +41,6 @@ class MerchController extends Controller
             ->where('user_id', Auth::id())
             ->exists();
 
-
         $response = Http::withHeaders([
             'key' => config('midtrans.rajaongkir_key')
         ])->get('https://api.rajaongkir.com/starter/city');

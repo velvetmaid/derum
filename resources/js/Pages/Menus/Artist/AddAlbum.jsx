@@ -28,7 +28,6 @@ export default function AddAlbum(props) {
                 ...prevData.songs,
                 {
                     song_title: "",
-                    song_lyric: "",
                     song_file: null,
                 },
             ],
@@ -278,7 +277,7 @@ export default function AddAlbum(props) {
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="grid grid-cols-1 space-y-2">
+                                                    {/* <div className="grid grid-cols-1 space-y-2">
                                                         <label className="text-sm font-bold tracking-wide">
                                                             Song Lyric
                                                         </label>
@@ -321,7 +320,7 @@ export default function AddAlbum(props) {
                                                                 )
                                                             }
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                     <div className="grid grid-cols-1 space-y-2">
                                                         <label className="text-sm font-bold tracking-wide">
                                                             Attach the song file

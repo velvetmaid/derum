@@ -128,7 +128,6 @@ class ArtistAlbumController extends Controller
             'album_price' => 'nullable',
             'songs' => 'required|array|min:1',
             'songs.*.song_title' => 'required',
-            'songs.*.song_lyric' => 'nullable',
             'songs.*.song_file' => 'nullable|mimes:mp3,wav,aac,flac,ogg,wma|max:1048576',
         ])->validate();
 
@@ -157,7 +156,6 @@ class ArtistAlbumController extends Controller
         foreach ($request->input('songs') as $index => $songData) {
             $song = new ArtistSong([
                 'song_title' => $songData['song_title'],
-                'song_lyric' => $songData['song_lyric'],
                 'album_id' => $album->id,
             ]);
 
@@ -201,7 +199,6 @@ class ArtistAlbumController extends Controller
             'data.album_price' => 'nullable',
             'data.songs' => 'required|array|min:1',
             'data.songs.*.song_title' => 'required',
-            'data.songs.*.song_lyric' => 'nullable',
             'data.songs.*.song_file' => 'nullable|max:1048576',
         ])->validate();
 
@@ -241,12 +238,10 @@ class ArtistAlbumController extends Controller
             if (isset($songData['id'])) {
                 $song = ArtistSong::findOrFail($songData['id']);
                 $song->song_title = $songData['song_title'];
-                $song->song_lyric = $songData['song_lyric'];
                 $existingSongIds = array_diff($existingSongIds, [$songData['id']]);
             } else {
                 $song = new ArtistSong([
                     'song_title' => $songData['song_title'],
-                    'song_lyric' => $songData['song_lyric'],
                     'album_id' => $album->id,
                 ]);
             }

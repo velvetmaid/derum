@@ -14,7 +14,6 @@ class ArtistSong extends Model
     protected $fillable = [
         'album_id',
         'song_title',
-        'song_lyric',
         'song_file',
     ];
     public function artist_album(): BelongsTo

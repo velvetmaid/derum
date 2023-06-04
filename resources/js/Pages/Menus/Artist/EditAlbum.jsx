@@ -30,7 +30,6 @@ export default function EditAlbum(props) {
                 id: song.id,
                 album_id: song.album_id,
                 song_title: song.song_title || "",
-                song_lyric: song.song_lyric || "",
                 song_file: song.song_file || null,
             };
         }),
@@ -329,7 +328,7 @@ export default function EditAlbum(props) {
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="grid grid-cols-1 space-y-2">
+                                                    {/* <div className="grid grid-cols-1 space-y-2">
                                                         <label className="text-sm font-bold tracking-wide">
                                                             Song Lyric
                                                         </label>
@@ -372,7 +371,7 @@ export default function EditAlbum(props) {
                                                                 )
                                                             }
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                     <div className="grid grid-cols-1 space-y-2">
                                                         <label className="text-sm font-bold tracking-wide">
                                                             Attach the song file
