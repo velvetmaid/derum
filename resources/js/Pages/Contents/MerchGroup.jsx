@@ -57,7 +57,7 @@ export default function MerchGroup(props) {
                                           })}
                                       >
                                           <PrimaryButton className="mt-4">
-                                              Buy Now
+                                              See More
                                           </PrimaryButton>
                                       </Link>
                                   </div>

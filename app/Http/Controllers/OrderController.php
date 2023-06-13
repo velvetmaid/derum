@@ -23,15 +23,13 @@ class OrderController extends Controller
             ->update(['order_status' => 'Expired']);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $snapToken = $request->get('snapToken');
-
-        $posts = Order::where('order_user_id', Auth::user()->id)->get();
+        $orders = Order::with('invoice')->where('order_user_id', Auth::user()->id)->get();
 
         $this->expireUnpaidOrders();
         return Inertia::render('Menus/CheckoutPage',  [
-            'order' => $posts, 'snapToken' => $snapToken
+            'order' => $orders,
         ]);
     }
 
@@ -61,9 +59,11 @@ class OrderController extends Controller
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
 
+        $newId = $order->id;
+
         $params = array(
             'transaction_details' => array(
-                'order_id' => $order->id,
+                'order_id' => $newId,
                 'gross_amount' => $order->order_total_price,
             ),
             'customer_details' => array(
@@ -73,6 +73,7 @@ class OrderController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         $order->snap_token = $snapToken;
+        $order->id = $newId;
         $order->save();
 
         $this->expireUnpaidOrders();
@@ -99,8 +100,6 @@ class OrderController extends Controller
         $reqInv = $request->all();
 
         $invoice = new Invoice();
-        $invoiceId = Carbon::parse($reqInv['created_at'])->addHours(7)->format('dmY') . $reqInv['order_product_id'] . $reqInv['id'];
-        $invoice->id = $invoiceId;
         $invoice->invoice_user_id = $reqInv['order_user_id'];
         $invoice->invoice_order_id = $reqInv['id'];
         $invoice->invoice_product_id = $reqInv['order_product_id'];

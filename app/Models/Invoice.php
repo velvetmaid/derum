@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model
 {
@@ -20,4 +21,9 @@ class Invoice extends Model
         'invoice_total_price',
     ];
     public $timestamps = true;
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class, 'invoice_order_id');
+    }
 }

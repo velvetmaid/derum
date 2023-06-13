@@ -1,6 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Link, usePage } from "@inertiajs/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, ShoppingCartIcon, XIcon } from "@heroicons/react/outline";
 import DarkModeToggle from "@/Components/DarkModeToggle";
 import Modal from "./Modal";
 import Login from "@/Pages/Auth/Login";
@@ -24,6 +24,7 @@ export default function Navbar() {
     useEffect(() => {
         if (user !== null) {
             setShowModalLogin(false);
+            setShowModalRegister(false);
         }
     }, [user]);
 
@@ -63,6 +64,7 @@ export default function Navbar() {
                                                     >
                                                         Merch
                                                     </Link>
+
                                                     {user.role == "artist" && (
                                                         <Link
                                                             href={route(
@@ -76,6 +78,16 @@ export default function Navbar() {
                                                 </div>
                                                 <div className="flex flex-row items-center space-x-8">
                                                     <DarkModeToggle />
+                                                    {user !== null && (
+                                                        <Link
+                                                            href={route(
+                                                                "checkout-page"
+                                                            )}
+                                                            className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                        >
+                                                            <ShoppingCartIcon className="h-6 w-6 text-gray-500" />
+                                                        </Link>
+                                                    )}
                                                     <Link
                                                         href={route(
                                                             "profile.edit"
@@ -227,7 +239,19 @@ export default function Navbar() {
                                                         >
                                                             Log Out
                                                         </Link>
-                                                        <DarkModeToggle />
+                                                        <div className="flex items-center space-x-6">
+                                                            <DarkModeToggle />
+                                                            {user !== null && (
+                                                                <Link
+                                                                    href={route(
+                                                                        "checkout-page"
+                                                                    )}
+                                                                    className="font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+                                                                >
+                                                                    <ShoppingCartIcon className="h-6 w-6 text-gray-500" />
+                                                                </Link>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </>
                                             ) : (

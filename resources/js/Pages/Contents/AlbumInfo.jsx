@@ -168,7 +168,7 @@ export default function AlbumInfo(props) {
                                                             <CreditCardIcon className="h-6 w-6" />
                                                             <span>Buy</span>
                                                         </button>
-                                                        
+
                                                         {props.purchased ==
                                                         true ? (
                                                             <span className="text-sm">
@@ -420,10 +420,11 @@ export default function AlbumInfo(props) {
                                 </div>
                             </div>
                             <div className="w-full">
-                                <span className="text-center uppercase text-[26px] tracking-[1px] grid grid-cols-[1fr_auto_1fr] grid-rows-[16px_0] gap-[22px] after:content-['] after:block after:border-b-2 after:border-b-[#ccc] after:border-solid before:content-['] before:block  before:border-b-2 before:border-b-[#ccc] before:border-solid font-robotocondensed">
-                                    {props.user.name} merch
-                                </span>
-
+                                {props.merches.length >= 1 && (
+                                    <span className="text-center uppercase text-[26px] tracking-[1px] grid grid-cols-[1fr_auto_1fr] grid-rows-[16px_0] gap-[22px] after:content-['] after:block after:border-b-2 after:border-b-[#ccc] after:border-solid before:content-['] before:block  before:border-b-2 before:border-b-[#ccc] before:border-solid font-robotocondensed">
+                                        {props.user.name} merch
+                                    </span>
+                                )}
                                 <div className="flex flex-wrap gap-4">
                                     {props.merches.map((post) => (
                                         <div

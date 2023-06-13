@@ -3,9 +3,27 @@ import { Head, Link, router } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 import { DocumentTextIcon, TrashIcon } from "@heroicons/react/solid";
 import { toast } from "react-toastify";
+import Modal from "@/Components/Modal";
+import moment from "moment-timezone";
 
 export default function CheckoutPage(props) {
+    console.log(props);
+    moment.tz.add("Asia/Jakarta|WIB +07|-7u -70|0101|1nIl0 1zu0");
+
     const [expirationTimes, setExpirationTimes] = useState([]);
+
+    const [showModalInvoice, setShowModalInvoice] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+
+    const handleClickInvoice = (orderItem) => {
+        setSelectedOrder(orderItem);
+        setShowModalInvoice(true);
+    };
+
+    const handleCloseModalInvoice = () => {
+        setSelectedOrder(null);
+        setShowModalInvoice(false);
+    };
 
     useEffect(() => {
         const calculateExpirationTime = (createdAt) => {
@@ -101,7 +119,7 @@ export default function CheckoutPage(props) {
                 <Head title={props.auth.user.name + " Checkout Page"} />
                 <div className="rounded-3xl mb-5 px-6">
                     <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold mb-8">
-                        This is{" "}
+                        This is
                         <span className="bg-[#04ddb4] dark:bg-[#3e607b] text-[#0d2758] dark:text-gray-100 italic px-2">
                             your checkout
                         </span>
@@ -169,6 +187,91 @@ export default function CheckoutPage(props) {
                                 />
 
                                 <div className="p-5">
+                                    {selectedOrder && (
+                                        <Modal
+                                            show={showModalInvoice}
+                                            onClose={handleCloseModalInvoice}
+                                            key={selectedOrder.invoice.id}
+                                        >
+                                            <p class="bg-gray-400 w-fit px-4 py-1 text-sm font-bold text-white rounded-tl-lg rounded-br-xl">
+                                                {
+                                                    selectedOrder.invoice
+                                                        .invoice_product_name
+                                                }
+                                            </p>
+
+                                            <div class="grid grid-cols-5 p-5 gap-y-2">
+                                                <div class="col-span-5 md:col-span-4 ml-4">
+                                                    <p class="text-sky-500 font-bold text-xs">
+                                                        {
+                                                            selectedOrder
+                                                                .invoice
+                                                                .invoice_user_name
+                                                        }
+                                                    </p>
+
+                                                    <p class="text-gray-600 font-bold">
+                                                        {selectedOrder.invoice
+                                                            .invoice_type_product ==
+                                                        "Digital"
+                                                            ? "Digital"
+                                                            : selectedOrder
+                                                                  .invoice
+                                                                  .invoice_order_city + ",  " +
+                                                              selectedOrder
+                                                                  .invoice
+                                                                  .invoice_order_address}{" "}
+                                                    </p>
+
+                                                    {selectedOrder.invoice
+                                                        .created_at && (
+                                                        <p className="text-gray-400">
+                                                            {moment(
+                                                                selectedOrder
+                                                                    .invoice
+                                                                    .created_at
+                                                            )
+                                                                .tz(
+                                                                    "Asia/Jakarta"
+                                                                )
+                                                                .format(
+                                                                    "DD MMM, YYYY hh:mmA"
+                                                                )}
+                                                        </p>
+                                                    )}
+
+                                                    <p class="text-gray-400 uppercase">
+                                                        {selectedOrder.invoice
+                                                            .invoice_type_product ==
+                                                        "Digital"
+                                                            ? null
+                                                            : selectedOrder
+                                                                  .invoice
+                                                                  .invoice_order_courier + ", " +
+                                                              selectedOrder
+                                                                  .invoice
+                                                                  .invoice_courier_description + ", " +
+                                                              selectedOrder
+                                                                  .invoice
+                                                                  .invoice_etd + "(Days)"}
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex col-start-2 ml-4 md:col-start-auto md:ml-0 md:justify-end">
+                                                    <p class="rounded-lg text-gray-500 font-bold bg-sky-100 py-1 px-3 text-sm w-fit h-fit">
+                                                        {selectedOrder.invoice.invoice_total_price.toLocaleString(
+                                                            "id-ID",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "IDR",
+                                                                minimumFractionDigits: 0,
+                                                            }
+                                                        )}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Modal>
+                                    )}
                                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                                         {orderItem.order_product_name}
                                     </h5>
@@ -198,12 +301,12 @@ export default function CheckoutPage(props) {
                                                         : "Ain't No More"}
                                                 </p>
                                             )}
-                                        {orderItem.order_status === "Paid" && (
+                                        {/* {orderItem.order_status === "Paid" && (
                                             <p className="text-sm text-gray-500">
-                                                Order will be deleted in{" "}
+                                                Order will be deleted in
                                                 {expirationTimes[index]}
                                             </p>
-                                        )}
+                                        )} */}
                                     </div>
 
                                     <div className="flex items-center justify-between">
@@ -237,8 +340,15 @@ export default function CheckoutPage(props) {
                                                 Back
                                             </Link>
                                         ) : (
-                                            <button className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 hover:bg-green-300 hover:dark:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-200">
-                                                Paid
+                                            <button
+                                                onClick={() =>
+                                                    handleClickInvoice(
+                                                        orderItem
+                                                    )
+                                                }
+                                                className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 hover:bg-green-300 hover:dark:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-200"
+                                            >
+                                                Info
                                             </button>
                                         )}
                                     </div>
