@@ -303,6 +303,8 @@ export default function Navbar() {
                 <Login
                     showModalLogin={showModalLogin}
                     setShowModalLogin={setShowModalLogin}
+                    showModalRegister={showModalRegister}
+                    setShowModalRegister={setShowModalRegister}
                 />
             </Modal>
 

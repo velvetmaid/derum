@@ -6,7 +6,7 @@ import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import "@/../css/main.css";
 
-export default function Login({ status, canResetPassword, setShowModalLogin }) {
+export default function Login({ status, canResetPassword, setShowModalLogin, setShowModalRegister }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -89,12 +89,22 @@ export default function Login({ status, canResetPassword, setShowModalLogin }) {
 
                     <div className="flex items-center justify-end mt-4">
                         {/* {canResetPassword && ( */}
-                        <Link
+                        {/* <Link
                             href={route("password.request")}
                             className="cursor-pointer underline text-sm hover:text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Forgot your password?
-                        </Link>
+                        </Link> */}
+                        <span
+                            className="cursor-pointer underline text-sm hover:text-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            type="button"
+                            onClick={() => {
+                                setShowModalLogin(false);
+                                setShowModalRegister(true);
+                            }}
+                        >
+                            Already a member? <span className="font-black">Sign Up</span>
+                        </span>
                         {/* )} */}
                         <PrimaryButton
                             className="ml-4"

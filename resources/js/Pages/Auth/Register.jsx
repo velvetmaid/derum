@@ -140,7 +140,7 @@ export default function Register({ setShowModalLogin, setShowModalRegister }) {
                             setShowModalRegister(false);
                         }}
                     >
-                        Already registered?
+                        Already registered? <span className="font-black">Sign In</span>
                     </span>
                     <PrimaryButton
                         className="ml-4"
@@ -151,7 +151,7 @@ export default function Register({ setShowModalLogin, setShowModalRegister }) {
                     </PrimaryButton>
 
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Sign Up
+                        Submit
                     </PrimaryButton>
                 </div>
             </form>
